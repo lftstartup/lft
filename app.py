@@ -72,13 +72,34 @@ def register_student():
 			return render_template("register_student.html", msg = "password must contain at least 1 letter")
 
 		#checking if the password contains at least 8 characters
-		if len(password) < minimum_characters:
+		if len(password) <= minimum_characters:
 			return render_template("register_student.html", msg = "password must contain at least 8 characters")
 
 		#checking if the password contains more than 18 characters
-		if len(password) > maximum_characters:
+		if len(password) >= maximum_characters:
 			return render_template("register_student.html", msg = "password is too long, maximum amount of characters allowed is 18")
 >>>>>>> 02d48d4a80e3115238bbdfd6866ad3419228b1b9
+
+
+		#checking if email has a @
+		is_at = False
+		for i in range(len(email)):
+			if email[i] == "@":
+				is_at = True
+
+		if is_at == False:
+			return render_template("register_student.html", msg = "an email adress must contain an '@' sign")
+
+		#checking if the ending is .com
+		is_com = True
+		if len(email) >= 6:
+			if email[-4:0] != ".com":
+				is_com = False
+		else:
+			return render_template("register_student.html", msg = "email is too short")
+
+		if is_com == False:
+			return render_template("register_student.html", msg = "email adress is not valid")
 
 
 		create_student(username, password, email)
@@ -146,6 +167,25 @@ def register_teacher():
 			if credit_code[i].isalpha():
 				return render_template("register_teacher.html", msg = "code can only contain numbers")
 
+		#checking if email has a @
+		is_at = False
+		for i in range(len(email)):
+			if email[i] == "@":
+				is_at = True
+
+		if is_at == False:
+			return render_template("register_student.html", msg = "an email adress must contain an '@' sign")
+
+		#checking if the ending is .com
+		is_com = True
+		if len(email) >= 6:
+			if email[-4:0] != ".com":
+				is_com = False
+		else:
+			return render_template("register_student.html", msg = "email is too short")
+
+		if is_com == False:
+			return render_template("register_student.html", msg = "email adress is not valid")
 
 		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email)
 		session['username'] = username
