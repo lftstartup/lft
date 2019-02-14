@@ -34,6 +34,7 @@ def register_student():
 			if student.username == username:
 				return render_template("register_student.html", msg = "username is taken")
 
+<<<<<<< HEAD
 		# #checking if the password contains a number
 		# for i in range(len(password)):
 		# 	if password[i].isalpha() == False:
@@ -55,11 +56,34 @@ def register_student():
 		# #checking if the password contains more than 18 characters
 		# if len(password) > maximum_characters:
 		# 	return render_template("register_student.html", msg = "password is too long, maximum amount of characters allowed is 18")
+=======
+		#checking if the password contains a number
+		for i in range(len(password)):
+			if password[i].isalpha() == False:
+				is_numbers = True
+		if is_numbers == False:
+			return render_template("register_student.html", msg = "password must contain at least 1 number")
+
+		#checking if the password contains a letter
+		for i in range(len(password)):
+			if password[i].isalpha() == True:
+				is_letters = True
+		if is_letters == False:
+			return render_template("register_student.html", msg = "password must contain at least 1 letter")
+
+		#checking if the password contains at least 8 characters
+		if len(password) < minimum_characters:
+			return render_template("register_student.html", msg = "password must contain at least 8 characters")
+
+		#checking if the password contains more than 18 characters
+		if len(password) > maximum_characters:
+			return render_template("register_student.html", msg = "password is too long, maximum amount of characters allowed is 18")
+>>>>>>> 02d48d4a80e3115238bbdfd6866ad3419228b1b9
 
 
 		create_student(username, password, email)
-		session['username'] = username
-		render_template("home.html", username = session['username'])
+		login_session['username'] = username
+		render_template("home.html", username = login_session['username'])
 		return redirect(url_for('home'))
 
 @app.route('/register_teacher', methods = ['GET', 'POST'])
@@ -133,6 +157,42 @@ def register_teacher():
 @app.route('/home')
 def home():
 	return render_template("home.html")
+
+
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+	if request.method == 'GET':
+		return render_template("login.html")
+	else:
+		user = request.form['user']
+		if user == "Teacher":
+			username = request.form['username']
+			password = request.form['password']
+
+			teachers = query_teachers()
+			#if the username is in the database
+			is_username = False
+			is_password = False
+			for teacher in teachers:
+				if teacher.username == username:
+					teacher_new = query_teacher_username(username)
+					if teacher_new.password == password:
+						#confirmed
+						is_password = True
+						login_session['username'] = username
+						render_template("home.html", username = username)
+						return redirect(url_for('home'))
+
+
+					else:
+						is_password = False
+					is_username = True
+			if is_username == False:
+				return render_template("login.html", msg = "the username is not exited in our database :(")
+			if is_password == False:
+				return render_template("login.html", msg = "the password does not match the username!")
+
+			return render_template("login.html")
 
 if __name__ == '__main__':
     app.run(debug=True)
