@@ -43,7 +43,7 @@ def register_student():
 
 		#checking if the password contains a letter
 		for i in range(len(password)):
-			if password[i].isalpha == True:
+			if password[i].isalpha() == True:
 				is_letters = True
 		if is_letters == False:
 			return render_template("register_student.html", msg = "password must contain at least 1 letter")
@@ -58,8 +58,8 @@ def register_student():
 
 
 		create_student(username, password, email)
-		session['username'] = username
-		render_template("home.html", username = session['username'])
+		login_session['username'] = username
+		render_template("home.html", username = login_session['username'])
 		return redirect(url_for('home'))
 
 @app.route('/register_teacher', methods = ['GET', 'POST'])
