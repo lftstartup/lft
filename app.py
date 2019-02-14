@@ -34,27 +34,27 @@ def register_student():
 			if student.username == username:
 				return render_template("register_student.html", msg = "username is taken")
 
-		#checking if the password contains a number
-		for i in range(len(password)):
-			if password[i].isalpha() == False:
-				is_numbers = True
-		if is_numbers == False:
-			return render_template("register_student.html", msg = "password must contain at least 1 number")
+		# #checking if the password contains a number
+		# for i in range(len(password)):
+		# 	if password[i].isalpha() == False:
+		# 		is_numbers = True
+		# if is_numbers == False:
+		# 	return render_template("register_student.html", msg = "password must contain at least 1 number")
 
-		#checking if the password contains a letter
-		for i in range(len(password)):
-			if password[i].isalpha == True:
-				is_letters = True
-		if is_letters == False:
-			return render_template("register_student.html", msg = "password must contain at least 1 letter")
+		# #checking if the password contains a letter
+		# for i in range(len(password)):
+		# 	if password[i].isalpha == True:
+		# 		is_letters = True
+		# if is_letters == False:
+		# 	return render_template("register_student.html", msg = "password must contain at least 1 letter")
 
-		#checking if the password contains at least 8 characters
-		if len(password) < minimum_characters:
-			return render_template("register_student.html", msg = "password must contain at least 8 characters")
+		# #checking if the password contains at least 8 characters
+		# if len(password) < minimum_characters:
+		# 	return render_template("register_student.html", msg = "password must contain at least 8 characters")
 
-		#checking if the password contains more than 18 characters
-		if len(password) > maximum_characters:
-			return render_template("register_student.html", msg = "password is too long, maximum amount of characters allowed is 18")
+		# #checking if the password contains more than 18 characters
+		# if len(password) > maximum_characters:
+		# 	return render_template("register_student.html", msg = "password is too long, maximum amount of characters allowed is 18")
 
 
 		create_student(username, password, email)

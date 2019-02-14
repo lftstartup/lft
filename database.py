@@ -42,3 +42,5 @@ def query_teachers():
 def query_students():
 	students = session.query(Students).all()
 	return students
+
+print(query_students())
