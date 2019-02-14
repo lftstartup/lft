@@ -134,6 +134,42 @@ def register_teacher():
 def home():
 	return render_template("home.html")
 
+
+@app.route('/login', methods = ['GET', 'POST'])
+def login():
+	if request.method == 'GET':
+		return render_template("login.html")
+	else:
+		user = request.form['user']
+		if user == "Teacher":
+			username = request.form['username']
+			password = request.form['password']
+
+			teachers = query_teachers()
+			#if the username is in the database
+			is_username = False
+			is_password = False
+			for teacher in teachers:
+				if teacher.username == username:
+					teacher_new = query_teacher_username(username)
+					if teacher_new.password == password:
+						#confirmed
+						is_password = True
+						login_session['username'] = username
+						render_template("home.html", username = username)
+						return redirect(url_for('home'))
+
+
+					else:
+						is_password = False
+					is_username = True
+			if is_username == False:
+				return render_template("login.html", msg = "the username is not exited in our database :(")
+			if is_password == False:
+				return render_template("login.html", msg = "the password does not match the username!")
+
+			return render_template("login.html")
+
 if __name__ == '__main__':
     app.run(debug=True)
 
