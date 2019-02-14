@@ -122,8 +122,11 @@ def register_teacher():
 			if credit_code[i].isalpha():
 				return render_template("register_teacher.html", msg = "code can only contain numbers")
 
-		
 
+		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email)
+		session['username'] = username
+		render_template("home.html", username = session['username'])
+		return redirect(url_for('home'))
 
 
 
