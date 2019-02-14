@@ -43,8 +43,4 @@ def query_students():
 	students = session.query(Students).all()
 	return students
 
-<<<<<<< HEAD
-print(query_students())
-=======
-
->>>>>>> 02d48d4a80e3115238bbdfd6866ad3419228b1b9
+print(query_teachers())
