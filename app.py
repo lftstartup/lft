@@ -50,7 +50,7 @@ def register_student():
 			return render_template("register_student.html", msg = "password must contain at least 1 letter")
 
 		#checking if the password contains at least 8 characters
-		if len(password) <= minimum_characters:
+		if len(password) < minimum_characters:
 			return render_template("register_student.html", msg = "password must contain at least 8 characters")
 
 		#checking if the password contains more than 18 characters
@@ -75,13 +75,13 @@ def register_student():
 		else:
 			return render_template("register_student.html", msg = "email is too short")
 
-		if is_com == False:
-			return render_template("register_student.html", msg = "email adress is not valid")
+		
 
 
 		create_student(username, password, email)
 		login_session['username'] = username
-		render_template("home.html", username = login_session['username'])
+		login_session['usertype'] = "student"
+		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
 		return redirect(url_for('home'))
 
 @app.route('/register_teacher', methods = ['GET', 'POST'])
@@ -165,23 +165,36 @@ def register_teacher():
 
 		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email)
 		login_session['username'] = username
-		render_template("home.html", username = login_session['username'])
+		login_session['usertype'] = "teacher"
+		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
 		return redirect(url_for('home'))
 
 
 
 @app.route('/home')
 def home():
-	return render_template("home.html")
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+
+			return render_template("home.html", username = username, usertype = usertype)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	if request.method == 'GET':
+		if 'username' in login_session:
+			if 'usertype' in login_session:
+				return redirect(url_for('logout'))
 		return render_template("login.html")
 	else:
 		user = request.form['user']
-		if user == "Teacher":
+		if user == "teacher":
 			username = request.form['username']
 			password = request.form['password']
 
@@ -196,7 +209,8 @@ def login():
 						#confirmed
 						is_password = True
 						login_session['username'] = username
-						render_template("home.html", username = username)
+						login_session['usertype'] = "teacher"
+						render_template("home.html", username = username, usertype = login_session['usertype'])
 						return redirect(url_for('home'))
 
 
@@ -208,7 +222,36 @@ def login():
 			if is_password == False:
 				return render_template("login.html", msg = "the password does not match the username!")
 
-			return render_template("login.html")
+		else:
+			username = request.form['username']
+			password = request.form['password']
+
+			students = query_students()
+
+			is_username = False
+			is_password = False
+
+			for student in students:
+				if student.username == username:
+					is_username = True
+
+					#check password
+					if student.password == password:
+						is_password = True
+						login_session['username'] = username
+						render_template("home.html", username = username)
+						return redirect(url_for('home'))
+			if is_username == False:
+				return render_template("login.html", msg = "the username that was inserted does not exist in our database")
+			if is_password == False:
+				return render_template("login.html", msg = "the password is incorrect!")
+
+
+@app.route('/logout')
+def logout():
+    login_session.pop('username', None)
+    login_session.pop('usertype', None)
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)

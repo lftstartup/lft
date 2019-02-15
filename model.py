@@ -22,8 +22,8 @@ class Teachers(Base):
 
 
 	def __repr__(self):
-		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\ncredit card details:\ncredit number: " + self.credit_num + "\ncredit date: " + self.credit_date + "\ncredit code: " + self.credit_code
-		return message
+		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\ncredit card details:\ncredit number: " + self.credit_num + "\ncredit date: " + self.credit_date + "\ncredit code: " + self.credit_code + "\n"
+		return "\nteacher id: " + str(self.id) +message
 
 #students
 class Students(Base):
@@ -36,7 +36,7 @@ class Students(Base):
 
 
 	def __repr__(self):
-		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email
-		return message
+		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\n" 
+		return "\nstudent id: " + str(self.id) + message
 
 

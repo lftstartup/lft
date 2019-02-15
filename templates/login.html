@@ -16,18 +16,21 @@
                     <br>
                     <input type="password" name="password" placeholder="Password" >
                     <br>
-                    <input type="email" name="email" placeholder="your email here">
+                    
+
+                    <input type="radio" name="user" value="student"> student <br>
+                    <input type="radio" name="user" value="teacher"> teacher<br>
                     <br>
                     <span>{{msg}}</span>
                     <input type="submit" value="login" >
                 </form>
 
-                <form action="/action_page.php" method="get">
-                    <input type="checkbox" name="teacher" value="student"> student <br>
-                    <input type="checkbox" name="student" value="teacher" checked> teacher<br>
-                    <input type="submit" value="Submit">
-                </form>
                     
+                <span>you don't have an account?
+                <br>
+                click here to sign up as a <a href = "{{url_for('register_student')}}">student</a>,
+                <br>
+                and here to sign up as a <a href = "{{url_for('register_teacher')}}">teacher</a></span>
                 
           
 
