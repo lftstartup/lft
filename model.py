@@ -19,6 +19,7 @@ class Teachers(Base):
 	credit_date = Column(String)
 	credit_code = Column(String)
 	email = Column(String)
+	language = Column(String)
 
 
 	def __repr__(self):
@@ -40,3 +41,19 @@ class Students(Base):
 		return "\nstudent id: " + str(self.id) + message
 
 
+class Quizes(Base):
+	__tablename__ = "quizes"
+	id = Column(Integer, primary_key = True)
+	owner = Column(String)
+	language = Column(String)
+	subject = Column(String)
+	firstquestion = Column(String)
+	firstanswer = Column(String)
+	secondquestion = Column(String)
+	secondanswer = Column(String)
+	thirdquestion = Column(String)
+	thirdanswer = Column(String)
+
+	def __repr__(self):
+		message = "\n\nowner: " + self.owner + "\nlanguage: " + self.language + "\nsubject: " + self.subject + "\nfirst question: " + self.firstquestion + "\nanswer to the first question: " + self.firstanswer + "\nsecond question: " + self.secondquestion + "\nanswer to the second question: " + self.secondanswer + "\nthird question: " + self.thirdquestion + "\nanswer to the third question: " + self.thirdanswer + "\n"
+		return message

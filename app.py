@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session as
 from werkzeug.utils import secure_filename
 import os 
 from database import create_student, create_teacher, query_teacher_username, query_student_username, query_teachers, query_students
-
-
+from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
+from database import query_teacher_id
 
 app = Flask(__name__)
 
@@ -130,7 +130,13 @@ def register_teacher():
 		credit_num = request.form['credit_num']
 		credit_date = request.form['credit_date']
 		credit_code = request.form['credit_code']
+		language = request.form['language']
 
+		#checking if the language is hebrew or arabic
+		if language.upper() != "hebrew".upper() and language.upper() != "arabic".upper():
+			return render_template("register_teacher.html", msg = "language has to be either 'hebrew' or 'arabic'")
+
+		language = language.lower()
 		#checking if the num length is valid
 		if len(credit_num) != num_length:
 			return render_template("register_teacher.html", msg = "length of the card number is invalid")
@@ -163,7 +169,7 @@ def register_teacher():
 
 		
 
-		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email)
+		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email, language)
 		login_session['username'] = username
 		login_session['usertype'] = "teacher"
 		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
@@ -177,8 +183,10 @@ def home():
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
-
-			return render_template("home.html", username = username, usertype = usertype)
+			if usertype == "teacher":
+				return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
+			else:
+				return render_template("home.html", username = username, usertype = usertype, student = "student")				
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -246,6 +254,60 @@ def login():
 			if is_password == False:
 				return render_template("login.html", msg = "the password is incorrect!")
 
+@app.route('/create_quiz', methods = ['GET', 'POST'])
+def create_quiz():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype == "teacher":
+				if request.method == 'GET':
+					return render_template("create_quiz.html", username = username, usertype = usertype)
+				else:
+					owner = username
+					language = request.form['language']
+					subject = request.form['subject']
+					question1 = request.form['firstquestion']
+					answer1 = request.form['firstanswer']
+					question2 = request.form['secondquestion']
+					answer2 = request.form['secondanswer']
+					question3 = request.form['thirdquestion']
+					answer3 = request.form['thirdanswer']
+					language = language.lower()
+					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3)
+					return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
+			else:
+				return render_template("home.html", username = username, usertype = usertype)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+
+@app.route('/all_teachers')
+def all_teachers():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			arabic_teachers = query_arab_teachers()
+			hebrew_teachers = query_hebrew_teachers()
+			return render_template("all_teachers.html", username = username, usertype = usertype, arabic_teachers = arabic_teachers, hebrew_teachers = hebrew_teachers)
+
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+
+
+@app.route('/profile/<int:ids>')
+def profile(ids):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			teacher = query_teacher_id(ids)
+			quizes = get_quizes_by_owner(teacher.username)
+			return render_template("profile.html", ids = ids, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
 
 @app.route('/logout')
 def logout():

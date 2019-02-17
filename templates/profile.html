@@ -1,0 +1,56 @@
+<html>
+<head>
+
+
+
+
+
+
+
+</head>
+
+
+<body>
+
+
+
+
+
+<h1>{{teacher.firstname}} {{teacher.lastname}}'s profile</h1>
+
+<br>
+<h2>his quizes topics</h2>
+
+{%for quiz in quizes%}
+
+
+	<br>
+	<span>language: {{quiz.language}}</span>
+	<br>
+	<span>topic: {{quiz.subject}}</span>
+	<br>
+
+
+
+{%endfor%}
+
+
+
+
+
+
+<a href = "{{url_for('home')}}">back home</a>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
