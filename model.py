@@ -57,3 +57,17 @@ class Quizes(Base):
 	def __repr__(self):
 		message = "\n\nowner: " + self.owner + "\nlanguage: " + self.language + "\nsubject: " + self.subject + "\nfirst question: " + self.firstquestion + "\nanswer to the first question: " + self.firstanswer + "\nsecond question: " + self.secondquestion + "\nanswer to the second question: " + self.secondanswer + "\nthird question: " + self.thirdquestion + "\nanswer to the third question: " + self.thirdanswer + "\n"
 		return message
+
+
+
+class Posts(Base):
+	__tablename__ = "posts"
+	id = Column(Integer, primary_key = True)
+	teacher = Column(String)
+	title = Column(String)
+	content = Column(String)
+	video = Column(String)
+
+	def __repr__(self):
+		message = "\n\nteacher: " + self.teacher + "\ntitle: " + self.title + "\ncontent: " + self.content + "\nlink for a video: " + self.video
+		return message

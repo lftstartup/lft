@@ -1,13 +1,54 @@
-from flask import Flask, render_template, request, redirect, url_for, session as login_session
+from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session as login_session
 from werkzeug.utils import secure_filename
 import os 
 from database import create_student, create_teacher, query_teacher_username, query_student_username, query_teachers, query_students
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
-from database import query_teacher_id
+from database import query_teacher_id, create_post, query_posts, query_posts_teacher
+
+UPLOAD_FOLDER = 'static/'
+ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv'])
+
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'asdf'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+	return '.' in filename and \
+		   filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+
+
+@app.route('/feed', methods = ['GET', 'POST'])
+def feed():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if request.method == 'POST':
+				file = request.files['file']
+				title = request.form['title']
+				content = request.form['content']
+
+				if file and allowed_file(file.filename):
+				 	filename = secure_filename(file.filename)
+					file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+			  		create_post(username, title, content, url_for('uploaded_file', filename = filename))
+			posts = query_posts()
+			return render_template("feed.html", username = username, usertype = usertype, teacher = "teacher", student = "student", posts = posts)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+
+	return send_from_directory(app.config['UPLOAD_FOLDER'],
+							   filename)
+
 
 #landing page
 @app.route('/')
@@ -309,14 +350,24 @@ def profile(ids):
 			quizes = get_quizes_by_owner(teacher.username)
 			return render_template("profile.html", ids = ids, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
 
+@app.route('/profile_name/<string:name>')
+def profile_name(name):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			teacher = query_teacher_username(name)
+			quizes = get_quizes_by_owner(teacher.username)
+			return render_template("profile.html", teacher = teacher, quizes = quizes, username = username, usertype = usertype)
+
 @app.route('/logout')
 def logout():
-    login_session.pop('username', None)
-    login_session.pop('usertype', None)
-    return redirect(url_for('login'))
+	login_session.pop('username', None)
+	login_session.pop('usertype', None)
+	return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+	app.run(debug=True)
 
 
 

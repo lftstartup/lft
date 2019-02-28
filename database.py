@@ -84,5 +84,24 @@ def get_quizes_by_owner(owner):
 	quizes = session.query(Quizes).filter_by(owner = owner).all()
 	return quizes
 
+#create a post
+def create_post(teacher, title, content, video):
+	post = Posts(teacher = teacher, title = title, content = content, video = video)
+	session.add(post)
+	session.commit()
+
+#query posts
+def query_posts():
+	posts = session.query(Posts).all()
+	return posts
+
+#query post by teacher
+def query_posts_teacher(teacher):
+	posts = session.query(Posts).filter_by(teacher = teacher).all()
+	return posts
+
+
 print(query_teachers())
 print(get_quizes())
+
+print(query_posts())
