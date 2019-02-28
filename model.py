@@ -71,3 +71,22 @@ class Posts(Base):
 	def __repr__(self):
 		message = "\n\nteacher: " + self.teacher + "\ntitle: " + self.title + "\ncontent: " + self.content + "\nlink for a video: " + self.video
 		return message
+
+
+class Courses(Base):
+	__tablename__ = "Courses"
+	id = Column(Integer, primary_key = True)
+	teacher = Column(String)
+	title = Column(String)
+	language = Column(String)
+	topic = Column(String)
+	video_amount = Column(Integer)
+	video1 = Column(String)
+	video2 = Column(String, nullable = True)
+	video3 = Column(String, nullable = True)
+	video4 = Column(String, nullable = True)
+	video5 = Column(String, nullable = True)
+
+	def __repr__(self):
+		message = "\n\nid: " + self.id + "\nteacher's username: " + self.teacher + "\ntitle: " + self.title + "\nlanguage: " + self.language + "\ntopic: " + self.topic + "\nfirst lecture: " + self.video1 + "\nsecond lecture: " + self.video2 + "\nthird lecture: " + self.video3 + "\nfourth lecture: " + self.video4 + "\nfifth lecture: " + self.video5
+		return message

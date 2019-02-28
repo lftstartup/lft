@@ -21,6 +21,26 @@
 <br>
 
 <h2>email: {{teacher.email}}</h2>
+<h2>posts</h2>
+<hr>
+{%for post in posts%}
+<br>
+<span>{{post.title}}</span>
+<br>
+<span>{{post.content}}</span>
+<br>
+<video width="400" controls>
+  <source src="{{post.video}}" type="video/mp4">
+</video>
+
+
+
+
+
+
+{%endfor%}
+
+
 <h2>courses topics:</h2>
 <hr>
 {%for quiz in quizes%}

@@ -100,6 +100,23 @@ def query_posts_teacher(teacher):
 	posts = session.query(Posts).filter_by(teacher = teacher).all()
 	return posts
 
+#create a new lecture
+def create_course(teacher, title, language, topic, videos):
+	if len(videos) == 1:
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video_amount = 1)
+	if len(videos) == 2:
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], video_amount = 2)
+	if len(videos) == 3:
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], video3 = videos[2], video_amount = 3)
+	if len(videos) == 4:
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], video3 = videos[2], video4 = videos[3], video_amount = 4)
+	else:
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], video3 = videos[2], video4 = videos[3], video5 = videos[4], video_amount = 5)
+	session.add(course)
+	session.commit()
+
+
+
 
 print(query_teachers())
 print(get_quizes())

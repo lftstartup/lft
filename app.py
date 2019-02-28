@@ -43,6 +43,35 @@ def feed():
 	else:
 		return redirect(url_for('login'))
 
+
+@app.route('/upload_course', methods = ['GET', 'POST'])
+def upload_course():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+
+			if request.method == 'POST':
+				language = request.form['language']
+				title = request.form['title']
+				topic = request.form['topic']
+				video1 = request.files['file1']
+				video2 = request.files['file2']
+				video3 = request.files['file3']
+				video4 = request.files['file4']
+				video5 = request.files['file5']
+				videos = [video1]
+				if video2.filename != '':
+					videos.append(video2)
+				if video3.filename != '':
+					videos.append(video3)
+				if video4.filename != '':
+					videos.append(video4)
+				if video5.filename != '':
+					videos.append(video5)
+				create_course(username, title, language, topic, videos)
+				
+
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
 
@@ -347,8 +376,10 @@ def profile(ids):
 			username = login_session['username']
 			usertype = login_session['usertype']
 			teacher = query_teacher_id(ids)
+			posts = query_posts_teacher(teacher.username)
+
 			quizes = get_quizes_by_owner(teacher.username)
-			return render_template("profile.html", ids = ids, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
+			return render_template("profile.html", ids = ids, posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
 
 @app.route('/profile_name/<string:name>')
 def profile_name(name):
@@ -357,8 +388,11 @@ def profile_name(name):
 			username = login_session['username']
 			usertype = login_session['usertype']
 			teacher = query_teacher_username(name)
+			posts = query_posts_teacher(name)
+
+
 			quizes = get_quizes_by_owner(teacher.username)
-			return render_template("profile.html", teacher = teacher, quizes = quizes, username = username, usertype = usertype)
+			return render_template("profile.html", teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
 
 @app.route('/logout')
 def logout():
