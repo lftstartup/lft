@@ -1,0 +1,71 @@
+<html>
+
+<head>
+
+
+
+<title>feed</title>
+
+
+
+</head>
+<body>
+
+
+{%if usertype == teacher%}
+<h1>advertize yourself!</h1>
+
+<form action = '/feed' method = "post" enctype="multipart/form-data">
+<span>title</span>
+<br>
+<input type = "text" name = "title" placeholder="your title here...">
+<br>
+<span>content</span>
+<br>
+<input type = "text" name = "content" placeholder="your content here...">
+<br>
+<span>upload a video</span>
+<br>
+<input type="file" name="file">
+<br>
+<input type = "submit" value = "post!">
+
+
+
+
+
+
+
+</form>
+
+
+{%endif%}
+{%if usertype == student%}
+<h1>find a suitable teacher</h1>
+{%for post in posts%}
+<br>
+<a href = "{{url_for('profile_name', name = post.teacher)}}">{{post.teacher}}</a>
+<br>
+<span>{{post.title}}</span>
+<br>
+<span>{{post.content}}</span>
+<br>
+<video width="400" controls>
+  <source src="{{post.video}}" type="video/mp4">
+</video>
+
+
+
+
+
+
+{%endfor%}
+
+
+
+
+
+{%endif%}
+
+</body>
+</html>

@@ -19,11 +19,12 @@ class Teachers(Base):
 	credit_date = Column(String)
 	credit_code = Column(String)
 	email = Column(String)
+	language = Column(String)
 
 
 	def __repr__(self):
-		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\ncredit card details:\ncredit number: " + self.credit_num + "\ncredit date: " + self.credit_date + "\ncredit code: " + self.credit_code
-		return message
+		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\ncredit card details:\ncredit number: " + self.credit_num + "\ncredit date: " + self.credit_date + "\ncredit code: " + self.credit_code + "\n"
+		return "\nteacher id: " + str(self.id) +message
 
 #students
 class Students(Base):
@@ -36,7 +37,37 @@ class Students(Base):
 
 
 	def __repr__(self):
-		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email
+		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\n" 
+		return "\nstudent id: " + str(self.id) + message
+
+
+class Quizes(Base):
+	__tablename__ = "quizes"
+	id = Column(Integer, primary_key = True)
+	owner = Column(String)
+	language = Column(String)
+	subject = Column(String)
+	firstquestion = Column(String)
+	firstanswer = Column(String)
+	secondquestion = Column(String)
+	secondanswer = Column(String)
+	thirdquestion = Column(String)
+	thirdanswer = Column(String)
+
+	def __repr__(self):
+		message = "\n\nowner: " + self.owner + "\nlanguage: " + self.language + "\nsubject: " + self.subject + "\nfirst question: " + self.firstquestion + "\nanswer to the first question: " + self.firstanswer + "\nsecond question: " + self.secondquestion + "\nanswer to the second question: " + self.secondanswer + "\nthird question: " + self.thirdquestion + "\nanswer to the third question: " + self.thirdanswer + "\n"
 		return message
 
 
+
+class Posts(Base):
+	__tablename__ = "posts"
+	id = Column(Integer, primary_key = True)
+	teacher = Column(String)
+	title = Column(String)
+	content = Column(String)
+	video = Column(String)
+
+	def __repr__(self):
+		message = "\n\nteacher: " + self.teacher + "\ntitle: " + self.title + "\ncontent: " + self.content + "\nlink for a video: " + self.video
+		return message
