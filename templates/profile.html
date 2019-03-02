@@ -82,7 +82,18 @@
 <hr>
 {%for course in acourses%}
 <h3><a href = "{{url_for('courses', ids = course.id)}}"><b>title: {{course.title}}</b></a></h3>
-
+<h2>ask a question</h2>
+    <span>be noted that the response will be sent to the email you signed up with.</span>
+    <br>
+    <form action = '/support' method = "post">
+      <span>ask a question</span>
+      <input type = "text" name = "question" placeholder="your question here...">
+      <br>
+      <span>teacher's mail</span>
+      <br>
+      <input type = "text" name = "email" value = "{{teacher.email}}">
+      <br>
+      <input type = "submit" value = "send">
 
 
 
@@ -100,7 +111,15 @@
 
 
 
+    
 
+
+
+
+
+
+
+<br>
 
 <a href = "{{url_for('home')}}">back home</a>
 
