@@ -20,6 +20,8 @@ class Teachers(Base):
 	credit_code = Column(String)
 	email = Column(String)
 	language = Column(String)
+	courses = Column(Integer)
+	buyers = Column(Integer)
 
 
 	def __repr__(self):
@@ -34,6 +36,7 @@ class Students(Base):
 	username = Column(String)
 	password = Column(String)
 	email = Column(String)
+	courses = Column(String)
 
 
 	def __repr__(self):
@@ -86,7 +89,11 @@ class Courses(Base):
 	video3 = Column(String, nullable = True)
 	video4 = Column(String, nullable = True)
 	video5 = Column(String, nullable = True)
+	trailer = Column(String)
+	purchased = Column(String)
+	buyers = Column(Integer)
+
 
 	def __repr__(self):
-		message = "\n\nid: " + self.id + "\nteacher's username: " + self.teacher + "\ntitle: " + self.title + "\nlanguage: " + self.language + "\ntopic: " + self.topic + "\nfirst lecture: " + self.video1 + "\nsecond lecture: " + self.video2 + "\nthird lecture: " + self.video3 + "\nfourth lecture: " + self.video4 + "\nfifth lecture: " + self.video5
+		message = "\n\nid: " + str(self.id) + "\nteacher's username: " + self.teacher + "\ntitle: " + self.title + "\nlanguage: " + self.language + "\ntopic: " + self.topic + "\nfirst lecture: " + self.video1 + "\nsecond lecture: " + self.video2 + "\nthird lecture: " + self.video3 + "\nfourth lecture: " + self.video4 + "\nfifth lecture: " + self.video5
 		return message

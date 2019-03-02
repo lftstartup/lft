@@ -1,0 +1,69 @@
+<html>
+<head>
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+
+<span>owner {{course.teacher}}</span>
+<br>
+<span>title: {{course.title}}</span>
+<br>
+<span>language: {{course.language}}</span>
+<br>
+<span>topic: {{course.topic}}</span>
+<br>
+<span>purchases: {{course.buyers}}</span>
+<h3>first lecture</h3>
+<video width="400" controls>
+  <source src="{{course.video1}}" type="video/mp4">
+</video>
+<br>
+<h3>second lecture</h3>
+<video width="400" controls>
+  <source src="{{course.video2}}" type="video/mp4">
+</video>
+<br>
+<h3>third lecture</h3>
+<video width="400" controls>
+  <source src="{{course.video3}}" type="video/mp4">
+</video>
+<br>
+<h3>fourth lecture</h3>
+<video width="400" controls>
+  <source src="{{course.video4}}" type="video/mp4">
+</video>
+<br>
+<h3>fifth lecture</h3>
+<video width="400" controls>
+  <source src="{{course.video5}}" type="video/mp4">
+</video>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<a href = "{{url_for('profile', ids = owner.id)}}">back to {{owner.firstname}} {{owner.lastname}}'s profile</a>
+</body>
+
+</html>

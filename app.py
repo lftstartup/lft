@@ -3,24 +3,16 @@ from werkzeug.utils import secure_filename
 import os 
 from database import create_student, create_teacher, query_teacher_username, query_student_username, query_teachers, query_students
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
-from database import query_teacher_id, create_post, query_posts, query_posts_teacher
-
+from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
+from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv'])
-
-
 app = Flask(__name__)
-
 app.config['SECRET_KEY'] = 'asdf'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-
 def allowed_file(filename):
 	return '.' in filename and \
 		   filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
-
-
-
 @app.route('/feed', methods = ['GET', 'POST'])
 def feed():
 	if 'username' in login_session:
@@ -31,7 +23,6 @@ def feed():
 				file = request.files['file']
 				title = request.form['title']
 				content = request.form['content']
-
 				if file and allowed_file(file.filename):
 				 	filename = secure_filename(file.filename)
 					file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -42,48 +33,67 @@ def feed():
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
-
-
 @app.route('/upload_course', methods = ['GET', 'POST'])
 def upload_course():
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
-
 			if request.method == 'POST':
 				language = request.form['language']
 				title = request.form['title']
 				topic = request.form['topic']
+				trailer = request.files['trailer']
 				video1 = request.files['file1']
 				video2 = request.files['file2']
 				video3 = request.files['file3']
 				video4 = request.files['file4']
 				video5 = request.files['file5']
-				videos = [video1]
-				if video2.filename != '':
-					videos.append(video2)
-				if video3.filename != '':
-					videos.append(video3)
-				if video4.filename != '':
-					videos.append(video4)
-				if video5.filename != '':
-					videos.append(video5)
-				create_course(username, title, language, topic, videos)
-				
-
+				if trailer and allowed_file(trailer.filename):
+					filename = secure_filename(trailer.filename)
+					trailer.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+					trailer = url_for('uploaded_file', filename = filename)
+				else:
+					return render_template("upload_course.html")
+				if video1 and allowed_file(video1.filename):
+				 	filename = secure_filename(video1.filename)
+					video1.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+					videos = [url_for('uploaded_file', filename = filename)]
+				if not video2.filename:
+					if video2 and allowed_file(video2.filename):
+					 	filename = secure_filename(video2.filename)
+						video2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+						videos.append(url_for('uploaded_file', filename = filename))
+				if not video3.filename:
+					if video3 and allowed_file(video3.filename):
+					 	filename = secure_filename(video3.filename)
+						video3.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+						videos.append(url_for('uploaded_file', filename = filename))
+				if not video4.filename:
+					if video4 and allowed_file(video4.filename):
+					 	filename = secure_filename(video4.filename)
+						video4.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+						videos.append(url_for('uploaded_file', filename = filename))
+				if not video5.filename:
+					if video5 and allowed_file(video5.filename):
+					 	filename = secure_filename(video5.filename)
+						video5.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+						videos.append(url_for('uploaded_file', filename = filename))
+				create_course(username, title, language, topic, videos, trailer)
+				update_teacher_courses(username)
+			return render_template("upload_course.html")
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
-
 	return send_from_directory(app.config['UPLOAD_FOLDER'],
 							   filename)
-
-
 #landing page
 @app.route('/')
 def landing_page():
 	return render_template("landing_page.html")
-
 #student register page
 @app.route('/register_student', methods = ['GET', 'POST'])
 def register_student():
@@ -97,46 +107,36 @@ def register_student():
 		username = request.form['username']
 		password = request.form['password']
 		email = request.form['email']
-
 		#checking if the username is available
 		students = query_students()
 		for student in students:
 			if student.username == username:
 				return render_template("register_student.html", msg = "username is taken")
-
-
 		#checking if the password contains a number
 		for i in range(len(password)):
 			if password[i].isalpha() == False:
 				is_numbers = True
 		if is_numbers == False:
 			return render_template("register_student.html", msg = "password must contain at least 1 number")
-
 		#checking if the password contains a letter
 		for i in range(len(password)):
 			if password[i].isalpha() == True:
 				is_letters = True
 		if is_letters == False:
 			return render_template("register_student.html", msg = "password must contain at least 1 letter")
-
 		#checking if the password contains at least 8 characters
 		if len(password) < minimum_characters:
 			return render_template("register_student.html", msg = "password must contain at least 8 characters")
-
 		#checking if the password contains more than 18 characters
 		if len(password) >= maximum_characters:
 			return render_template("register_student.html", msg = "password is too long, maximum amount of characters allowed is 18")
-
-
 		#checking if email has a @
 		is_at = False
 		for i in range(len(email)):
 			if email[i] == "@":
 				is_at = True
-
 		if is_at == False:
 			return render_template("register_student.html", msg = "an email adress must contain an '@' sign")
-
 		#checking if the ending is .com
 		is_com = True
 		if len(email) >= 6:
@@ -144,16 +144,12 @@ def register_student():
 				is_com = False
 		else:
 			return render_template("register_student.html", msg = "email is too short")
-
 		
-
-
 		create_student(username, password, email)
 		login_session['username'] = username
 		login_session['usertype'] = "student"
 		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
 		return redirect(url_for('home'))
-
 @app.route('/register_teacher', methods = ['GET', 'POST'])
 def register_teacher():
 	maximum_characters = 18
@@ -167,31 +163,26 @@ def register_teacher():
 		username = request.form['username']
 		password = request.form['password']
 		email = request.form['email']
-
 		#checking if the username is available
 		teachers = query_teachers()
 		for teacher in teachers:
 			if teacher.username == username:
 				return render_template("register_teacher.html", msg = "username is taken")
-
 		#checking if the password contains a number
 		for i in range(len(password)):
 			if password[i].isalpha() == False:
 				is_numbers = True
 		if is_numbers == False:
 			return render_template("register_teacher.html", msg = "password must contain at least 1 number")
-
 		#checking if the password contains a letter
 		for i in range(len(password)):
 			if password[i].isalpha() == True:
 				is_letters = True
 		if is_letters == False:
 			return render_template("register_teacher.html", msg = "password must contain at least 1 letter")
-
 		#checking if the password contains at least 8 characters
 		if len(password) < minimum_characters:
 			return render_template("register_teacher.html", msg = "password must contain at least 8 characters")
-
 		#checking if the password contains more than 18 characters
 		if len(password) > maximum_characters:
 			return render_template("register_teacher.html", msg = "password is too long, maximum amount of characters allowed is 18")
@@ -201,34 +192,27 @@ def register_teacher():
 		credit_date = request.form['credit_date']
 		credit_code = request.form['credit_code']
 		language = request.form['language']
-
 		#checking if the language is hebrew or arabic
 		if language.upper() != "hebrew".upper() and language.upper() != "arabic".upper():
 			return render_template("register_teacher.html", msg = "language has to be either 'hebrew' or 'arabic'")
-
 		language = language.lower()
 		#checking if the num length is valid
 		if len(credit_num) != num_length:
 			return render_template("register_teacher.html", msg = "length of the card number is invalid")
-
 		#checking if the code length is valid
 		if len(credit_code) != 3:
 			return render_template("register_teacher.html", msg = "code only has 3 numbers")
-
 		#checking if there is a letter
 		for i in range(3):
 			if credit_code[i].isalpha():
 				return render_template("register_teacher.html", msg = "code can only contain numbers")
-
 		#checking if email has a @
 		is_at = False
 		for i in range(len(email)):
 			if email[i] == "@":
 				is_at = True
-
 		if is_at == False:
 			return render_template("register_student.html", msg = "an email adress must contain an '@' sign")
-
 		#checking if the ending is .com
 		is_com = True
 		if len(email) >= 6:
@@ -236,17 +220,12 @@ def register_teacher():
 				is_com = False
 		else:
 			return render_template("register_teacher.html", msg = "email is too short")
-
 		
-
 		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email, language)
 		login_session['username'] = username
 		login_session['usertype'] = "teacher"
 		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
 		return redirect(url_for('home'))
-
-
-
 @app.route('/home')
 def home():
 	if 'username' in login_session:
@@ -261,8 +240,6 @@ def home():
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
-
-
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	if request.method == 'GET':
@@ -275,7 +252,6 @@ def login():
 		if user == "teacher":
 			username = request.form['username']
 			password = request.form['password']
-
 			teachers = query_teachers()
 			#if the username is in the database
 			is_username = False
@@ -290,8 +266,6 @@ def login():
 						login_session['usertype'] = "teacher"
 						render_template("home.html", username = username, usertype = login_session['usertype'])
 						return redirect(url_for('home'))
-
-
 					else:
 						is_password = False
 					is_username = True
@@ -299,31 +273,18 @@ def login():
 				return render_template("login.html", msg = "the username is not exited in our database :(")
 			if is_password == False:
 				return render_template("login.html", msg = "the password does not match the username!")
-
-		else:
+		if user == 'student':
 			username = request.form['username']
 			password = request.form['password']
-
-			students = query_students()
-
-			is_username = False
-			is_password = False
-
-			for student in students:
-				if student.username == username:
-					is_username = True
-
-					#check password
-					if student.password == password:
-						is_password = True
-						login_session['username'] = username
-						render_template("home.html", username = username)
-						return redirect(url_for('home'))
-			if is_username == False:
-				return render_template("login.html", msg = "the username that was inserted does not exist in our database")
-			if is_password == False:
-				return render_template("login.html", msg = "the password is incorrect!")
-
+			student = query_student_username(username)
+			
+				
+			if student.password == password:
+				login_session['username'] = username
+				login_session['usertype'] = 'student'
+				return redirect(url_for('home'))
+			else:
+				return render_template("login.html", msg = "password is incorrect")
 @app.route('/create_quiz', methods = ['GET', 'POST'])
 def create_quiz():
 	if 'username' in login_session:
@@ -352,7 +313,6 @@ def create_quiz():
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
-
 @app.route('/all_teachers')
 def all_teachers():
 	if 'username' in login_session:
@@ -362,13 +322,10 @@ def all_teachers():
 			arabic_teachers = query_arab_teachers()
 			hebrew_teachers = query_hebrew_teachers()
 			return render_template("all_teachers.html", username = username, usertype = usertype, arabic_teachers = arabic_teachers, hebrew_teachers = hebrew_teachers)
-
 		else:
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
-
-
 @app.route('/profile/<int:ids>')
 def profile(ids):
 	if 'username' in login_session:
@@ -377,10 +334,20 @@ def profile(ids):
 			usertype = login_session['usertype']
 			teacher = query_teacher_id(ids)
 			posts = query_posts_teacher(teacher.username)
-
+			courses = query_courses_teacher(teacher.username)
+			available_courses = []
+			for course in courses:
+				names = course.purchased.split(',')
+				for name in names:
+					if name == username:
+						available_courses.append(course)
 			quizes = get_quizes_by_owner(teacher.username)
-			return render_template("profile.html", ids = ids, posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
-
+			
+			return render_template("profile.html", ids = ids, acourses = available_courses, courses = courses[::-1], posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 @app.route('/profile_name/<string:name>')
 def profile_name(name):
 	if 'username' in login_session:
@@ -389,21 +356,65 @@ def profile_name(name):
 			usertype = login_session['usertype']
 			teacher = query_teacher_username(name)
 			posts = query_posts_teacher(name)
-
-
+			courses = query_courses_teacher(name)
+			available_courses = []
+			for course in courses:
+				names = course.purchased.split(',')
+				for name in names:
+					if name == username:
+						available_courses.append(course)
 			quizes = get_quizes_by_owner(teacher.username)
-			return render_template("profile.html", teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
-
+			return render_template("profile.html", acourses = available_courses, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/purchased/<int:ids>')
+def purchased(ids):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			course = query_course_id(ids)
+			names = course.purchased.split(',')
+			exsists = False
+			for name in names:
+				if name == username:
+					exsists = True
+			if exsists == False:
+				update_buyers(ids, len(names))
+				update_teacher_buyers(course.teacher)
+				course.purchased += ","+username
+			return redirect(url_for('home'))
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/courses/<int:ids>')
+def courses(ids):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			course = query_course_id(ids)
+			names = course.purchased.split(',')
+			owner = query_teacher_username(course.teacher)
+			exsists = False
+			for name in names:
+				if name == username:
+					exsists = True
+			if exsists == False:
+				return redirect(url_for('home'))
+			else:
+				return render_template('watch_course.html', course = course, owner = owner)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 @app.route('/logout')
 def logout():
 	login_session.pop('username', None)
 	login_session.pop('usertype', None)
 	return redirect(url_for('login'))
-
 if __name__ == '__main__':
 	app.run(debug=True)
-
-
-
-
-

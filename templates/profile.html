@@ -18,8 +18,8 @@
 
 <h1>{{teacher.firstname}} {{teacher.lastname}}'s profile</h1>
 
-<br>
-
+<h2>amount of courses: {{teacher.courses}}</h2>
+<h2>amount of buyers: {{teacher.buyers}}</h2>
 <h2>email: {{teacher.email}}</h2>
 <h2>posts</h2>
 <hr>
@@ -39,22 +39,63 @@
 
 
 {%endfor%}
-
-
-<h2>courses topics:</h2>
+<h2>courses:</h2>
 <hr>
-{%for quiz in quizes%}
+{%for course in courses%}
+
+{%if course not in acourses%}
+<br>
+<h3><b>title: {{course.title}}</b></h3>
+<span>language: {{course.language}}</span>
+<br>
+<span>topic: {{course.topic}}</span>
+<br>
+<span>purchases: {{course.buyers}}</span>
+<br>
+<span>trailer:</span>
+<br>
+<video width="400" controls>
+  <source src="{{course.trailer}}" type="video/mp4">
+</video>
+<br>
+<a href = "{{url_for('purchased', ids = course.id)}}">buy this course</a>
 
 
-	<span>language: {{quiz.language}}</span>
-	<br>
-	<span>topic: {{quiz.subject}}</span>
-	<br>
+
+
+{%endif%}
+{%if course in acourses%}
+
+
+<br>
+<h3><b>title: {{course.title}}</b></h3>
+<span>language: {{course.language}}</span>
+<br>
+<span>topic: {{course.topic}}</span>
+
+
+
+
+{%endif%}
+{%endfor%}
+<h2>bought courses:</h2>
+<hr>
+{%for course in acourses%}
+<h3><a href = "{{url_for('courses', ids = course.id)}}"><b>title: {{course.title}}</b></a></h3>
+
+
+
+
+	
+
 
 
 
 {%endfor%}
-<br>
+
+
+
+
 
 
 
