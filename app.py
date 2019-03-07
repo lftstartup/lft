@@ -5,11 +5,8 @@ from database import create_student, create_teacher, query_teacher_username, que
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
-
+from database import query_teacher_email, query_student_email
 from flask_mail import Mail, Message
-
-
-
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv'])
 app = Flask(__name__)
@@ -22,9 +19,7 @@ app.config.update(dict(
     MAIL_USERNAME = 'recycledtrash.meet@gmail.com',
     MAIL_PASSWORD = 'xzaq1234',
 ))
-
 mail = Mail(app)
-
 app.config['SECRET_KEY'] = 'asdf'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
@@ -127,7 +122,6 @@ def register_student():
 		#checking if the username and email are available
 		teachers = query_teachers()
 		students = query_students()
-
 		for teacher in teachers:
 			if teacher.email == email:
 				return render_template("register_student.html", msg = "email is taken")
@@ -169,10 +163,14 @@ def register_student():
 				is_com = False
 		else:
 			return render_template("register_student.html", msg = "email is too short")
-		
 		create_student(username, password, email)
 		login_session['username'] = username
 		login_session['usertype'] = "student"
+		msg = Message("thank you for signing up to LFT!",
+            	sender='recycledtrash.meet@gmail.com',
+            	recipients=[email])
+		msg.body = "hello " + username + ", your signup has been successful.\n best of luck learning a new language,\nLFT team."
+		mail.send(msg)
 		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
 		return redirect(url_for('home'))
 @app.route('/register_teacher', methods = ['GET', 'POST'])
@@ -187,19 +185,16 @@ def register_teacher():
 	else:
 		username = request.form['username']
 		password = request.form['password']
-		email = request.form['email']
+		email = request	.form['email']
 		#checking if the username is available
 		teachers = query_teachers()
 		students = query_students()
-
 		for teacher in teachers:
 			if teacher.email == email:
 				return render_template("register_teacher.html", msg = "email is taken")
 		for student in students:
 			if student.email == email:
 				return render_template("register_teacher.html", msg = "email is taken")
-
-
 		for teacher in teachers:
 			if teacher.username == username:
 				return render_template("register_teacher.html", msg = "username is taken")
@@ -255,10 +250,14 @@ def register_teacher():
 				is_com = False
 		else:
 			return render_template("register_teacher.html", msg = "email is too short")
-		
 		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email, language)
 		login_session['username'] = username
 		login_session['usertype'] = "teacher"
+		msg = Message("thank you for signing up to LFT!",
+            	sender='recycledtrash.meet@gmail.com',
+            	recipients=[email])
+		msg.body = "hello " + username + ", your signup has been successful.\n best of luck advertising yourself,\nLFT team."
+		mail.send(msg)
 		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
 		return redirect(url_for('home'))
 @app.route('/home')
@@ -312,8 +311,6 @@ def login():
 			username = request.form['username']
 			password = request.form['password']
 			student = query_student_username(username)
-			
-				
 			if student.password == password:
 				login_session['username'] = username
 				login_session['usertype'] = 'student'
@@ -412,9 +409,6 @@ def profile_name(name):
 					if name == username:
 						message = True
 						break
-
-
-
 			return render_template("profile.html", availabe = message, true = True, false = False, acourses = available_courses, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
 		else:
 			return redirect(url_for('login'))
@@ -435,7 +429,21 @@ def purchased(ids):
 			if exsists == False:
 				update_buyers(ids, len(names))
 				update_teacher_buyers(course.teacher)
+				teacher = query_teacher_username(course.teacher)
+				email = teacher.email
+				student = query_student_username(username)
+				sender_email = student.email
 				course.purchased += ","+username
+				msg = Message(username + " just bought your course " + course.title,
+            	sender='recycledtrash.meet@gmail.com',
+            	recipients=[email])
+				msg.body = "hello teacher,\n" + username + " has bought a course, email to respond: " + sender_email
+				mail.send(msg)
+				msg = Message(username + ", you just bought the course " + course.title,
+            	sender='recycledtrash.meet@gmail.com',
+            	recipients=[sender_email])
+				msg.body = "hello " + username + ", you bought the course "+course.title+", by " + teacher.firstname + " " + teacher.lastname + ".\nemail to contact: " + email
+				mail.send(msg)
 			return redirect(url_for('home'))
 		else:
 			return redirect(url_for('login'))
@@ -473,19 +481,65 @@ def support():
 			email = request.form['email']
 			user = query_student_username(username)
 			sender_email = user.email
-
 			msg = Message("Your Student needs help!",
             	sender='recycledtrash.meet@gmail.com',
             	recipients=[email])
 			msg.body = "hello teacher,\n" + username + " has sent you a question:\n" + question + "\nemail to respond: " + sender_email
 			mail.send(msg)
 			return redirect(url_for('home'))
-
 	else:
 		return redirect(url_for('login'))
-
-
-
+@app.route('/contact_us', methods = ['GET', 'POST'])
+def contact_us():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if request.method == 'POST':
+				if usertype == "student":
+					student = query_student_username(username)
+					email = student.email
+				else:
+					teacher = query_teacher_username(username)
+					email = teacher.email
+				title = request.form['title']
+				body = request.form['body']
+				msg = Message(username + " has reached out",
+	            	sender='recycledtrash.meet@gmail.com',
+	            	recipients=['recycledtrash.meet@gmail.com'])
+				msg.body = username + " has reached out.\n"+ title +"\n" + body + "\n" + email
+				mail.send(msg)
+			return render_template("contact_us.html")
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/forgot_password', methods = ['GET', 'POST'])
+def forgot_password():
+	if request.method == 'GET':
+		return render_template("forgot_password.html", msg = "insert your email")
+	else:
+		email = request.form['email']
+		students = query_students()
+		teachers = query_teachers()
+		exsists = False
+		for student in students:
+			if student.email == email:
+				user = query_teacher_email(email)
+				exsists = True
+		for teacher in teachers:
+			if teacher.email == email:
+				user = query_teacher_email(email)
+				exsists = True
+		if exsists == True:
+			msg = Message("your password recovery",
+	        	sender='recycledtrash.meet@gmail.com',
+	        	recipients=[email])
+			msg.body = user.username + ", your password is: "+ user.password
+			mail.send(msg)
+			return render_template("forgot_password.html", msg = "successfully sent an email")
+		else:
+			return render_template("forgot_password.html", msg = "email does not exsist!")
 @app.route('/logout')
 def logout():
 	login_session.pop('username', None)

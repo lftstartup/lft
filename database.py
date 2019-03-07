@@ -49,6 +49,10 @@ def create_quizes(owner, language, subject, question1, question2, question3, ans
 	quiz = Quizes(owner = owner, language = language, subject = subject, firstquestion = question1, firstanswer = answer1, secondquestion = question2, secondanswer = answer2, thirdquestion = question3, thirdanswer = answer3)
 	session.add(quiz)
 	session.commit()
+#get quiz by id
+def get_quiz_id(ids):
+	quiz = session.query(Quizes).filter_by(id = ids).first()
+	return quiz
 #get all quizes
 def get_quizes():
 	quizes = session.query(Quizes).all()
@@ -123,6 +127,13 @@ def update_teacher_courses(username):
 	teacher = query_teacher_username(username)
 	teacher.courses += 1
 	session.commit()
+#query teacher by email
+def query_teacher_email(email):
+	teacher = session.query(Teachers).filter_by(email = email).first()
+	return teacher
+#query student by email
+def query_student_email(email):
+	student = session.query(Students).filter_by(email = email).first()
 print(query_teachers())
 print(get_quizes())
 print(query_posts())

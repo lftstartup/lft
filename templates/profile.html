@@ -1,23 +1,8 @@
 <html>
 <head>
-
-
-
-
-
-
-
 </head>
-
-
 <body>
-
-
-
-
-
 <h1>{{teacher.firstname}} {{teacher.lastname}}'s profile</h1>
-
 <h2>amount of courses: {{teacher.courses}}</h2>
 <h2>amount of buyers: {{teacher.buyers}}</h2>
 <h2>email: {{teacher.email}}</h2>
@@ -32,17 +17,10 @@
 <video width="400" controls>
   <source src="{{post.video}}" type="video/mp4">
 </video>
-
-
-
-
-
-
 {%endfor%}
 <h2>courses:</h2>
 <hr>
 {%for course in courses%}
-
 {%if course not in acourses%}
 <br>
 <h3><b>title: {{course.title}}</b></h3>
@@ -59,23 +37,13 @@
 </video>
 <br>
 <a href = "{{url_for('purchased', ids = course.id)}}">buy this course</a>
-
-
-
-
 {%endif%}
 {%if course in acourses%}
-
-
 <br>
 <h3><b>title: {{course.title}}</b></h3>
 <span>language: {{course.language}}</span>
 <br>
 <span>topic: {{course.topic}}</span>
-
-
-
-
 {%endif%}
 {%endfor%}
 <h2>bought courses:</h2>
@@ -94,45 +62,10 @@
       <input type = "text" name = "email" value = "{{teacher.email}}">
       <br>
       <input type = "submit" value = "send">
-
-
-
 	
-
-
-
-
 {%endfor%}
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
 <br>
 
 <a href = "{{url_for('home')}}">back home</a>
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

@@ -1,64 +1,20 @@
 <html>
-
 <head>
-
-
 </head>
-
-
 <body>
 <h1>hebrew teachers</h1>
 <p>
 {%for hebrew in hebrew_teachers%}
-
-
-
-
 	<span><a href = "{{url_for('profile', ids = hebrew.id)}}">{{hebrew.firstname}} {{hebrew.lastname}}</a></span>
-
-
-
 {%endfor%}
 </p>
 <br>
 <h1>arabic teachers</h1>
 <p>
 {%for arab in arabic_teachers%}
-
-
-
-
 	<span><a href = "{{url_for('profile', ids = arab.id)}}">{{arab.firstname}} {{arab.lastname}}</a></span>
-
-
-
-
 {%endfor%}
 </p>
-
-
-
-
-
 <a href = "{{url_for('home')}}">back home</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

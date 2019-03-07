@@ -1,20 +1,10 @@
 <html>
-
 <head>
-
-
-
 <title>feed</title>
-
-
-
 </head>
 <body>
-
-
 {%if usertype == teacher%}
 <h1>advertize yourself!</h1>
-
 <form action = '/feed' method = "post" enctype="multipart/form-data">
 <span>title</span>
 <br>
@@ -29,16 +19,7 @@
 <input type="file" name="file">
 <br>
 <input type = "submit" value = "post!">
-
-
-
-
-
-
-
 </form>
-
-
 {%endif%}
 {%if usertype == student%}
 <h1>find a suitable teacher</h1>
@@ -53,21 +34,9 @@
 <video width="400" controls>
   <source src="{{post.video}}" type="video/mp4">
 </video>
-
-
-
-
-
-
 {%endfor%}
-
-
-
-
-
 {%endif%}
 <br>
 <a href = "{{url_for('home')}}">back home</a>
-
 </body>
 </html>

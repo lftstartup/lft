@@ -1,50 +1,14 @@
 <html>
 <head>
-
-
-
 </head>
-
-
 <body>
-
 <h1>hello {{username}}!</h1><h2> you are a {{usertype}}</h2>
 {%if usertype == teacher%}
-
-
-
-
 <a href = "{{url_for('create_quiz')}}">create a quiz</a>
-
-
-
-
 {%endif%}
 {%if usertype == student%}
-
-
-
-
 <a href = "{{url_for('all_teachers')}}">find your teacher</a>
-
-
-
-
 {%endif%}
 <a href = "{{url_for('logout')}}">log out</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>
