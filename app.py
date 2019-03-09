@@ -540,6 +540,33 @@ def forgot_password():
 			return render_template("forgot_password.html", msg = "successfully sent an email")
 		else:
 			return render_template("forgot_password.html", msg = "email does not exsist!")
+@app.route('/my_profile')
+def my_profile():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			teacher = 'teacher'
+			student = 'student'
+			if usertype == 'student':
+				user = query_student_username(username)
+				courses = query_courses()
+				acourses = []
+				for course in courses:
+					names = course.purchased.split(',')
+					for name in names:
+						if name == username:
+							acourses.append(course)
+				return render_template('my_profile.html', courses = acourses, user = user, usertype = usertype, student = student, teacher = teacher)
+			else:
+				user = query_teacher_username(username)
+				courses = query_courses_teacher(username)
+				posts = query_posts_teacher(username)
+				return render_template('my_profile.html', posts = posts, courses = courses, user = user, usertype = usertype, student = student, teacher = teacher)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 @app.route('/logout')
 def logout():
 	login_session.pop('username', None)

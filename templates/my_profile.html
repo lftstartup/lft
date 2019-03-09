@@ -1,0 +1,65 @@
+<html>
+<head>
+
+</head>
+<body>
+
+
+{%if usertype == teacher%}
+
+	<h1>{{user.firstname}} {{user.lastname}}'s profile</h1>
+	<h2>amount of courses: {{user.courses}}</h2>
+	<h2>amount of buyers: {{user.buyers}}</h2>
+	<h2>posts</h2>
+	<hr>
+	{%for post in posts%}
+		<br>
+		<span>{{post.title}}</span>
+		<br>
+		<span>{{post.content}}</span>
+		<br>
+		<video width="400" controls>
+		  <source src="{{post.video}}" type="video/mp4">
+		</video>
+	{%endfor%}
+	<h2>my courses</h2>
+	<hr>
+	{%for course in courses%}
+
+
+		<br>
+		<h3><b>title: {{course.title}}</b></h3>
+		<span>language: {{course.language}}</span>
+		<br>
+		<span>topic: {{course.topic}}</span>
+		<br>
+		<span>purchases: {{course.buyers}}</span>
+		<br>
+		<span>trailer:</span>
+		<br>
+		<video width="400" controls>
+		  <source src="{{course.trailer}}" type="video/mp4">
+		</video>
+
+
+	{%endfor%}
+
+{%endif%}
+{%if usertype == student%}
+
+
+	<h1>{{user.username}}'s profile</h1>
+	<h2>courses I bought</h2>
+	<hr>
+	{%for course in courses%}
+
+		<h3><a href = "{{url_for('courses', ids = course.id)}}"><b>title: {{course.title}}</b></a></h3>
+
+	{%endfor%}
+
+{%endif%}
+<br>
+<a href = "{{url_for('home')}}">back home!</a>
+
+</body>
+</html>
