@@ -5,7 +5,7 @@ from database import create_student, create_teacher, query_teacher_username, que
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
-from database import query_teacher_email, query_student_email
+from database import query_teacher_email, query_student_email, query_courses_level
 from flask_mail import Mail, Message
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv'])
@@ -55,12 +55,21 @@ def upload_course():
 				language = request.form['language']
 				title = request.form['title']
 				topic = request.form['topic']
+				level = request.form['level']
 				trailer = request.files['trailer']
 				video1 = request.files['file1']
 				video2 = request.files['file2']
 				video3 = request.files['file3']
 				video4 = request.files['file4']
 				video5 = request.files['file5']
+				for char in level:
+					if char.isalpha == True:
+						return render_template("upload_course.html", msg = "level has to be a number between 1-5")
+				if level < 1 or level > 5:
+					return render_template("upload_course.html", msg = "level has to be a number between 1-5")
+				if language.upper() != "ARABIC" and language.upper() != "HEBREW":
+					return render_template("upload_course.html", msg = "language has to be either hebrew or arabic")
+				language = language.lower()
 				if trailer and allowed_file(trailer.filename):
 					filename = secure_filename(trailer.filename)
 					trailer.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -218,24 +227,13 @@ def register_teacher():
 			return render_template("register_teacher.html", msg = "password is too long, maximum amount of characters allowed is 18")
 		firstname = request.form['firstname']
 		lastname = request.form['lastname']
-		credit_num = request.form['credit_num']
-		credit_date = request.form['credit_date']
-		credit_code = request.form['credit_code']
+		
 		language = request.form['language']
 		#checking if the language is hebrew or arabic
 		if language.upper() != "hebrew".upper() and language.upper() != "arabic".upper():
 			return render_template("register_teacher.html", msg = "language has to be either 'hebrew' or 'arabic'")
 		language = language.lower()
-		#checking if the num length is valid
-		if len(credit_num) != num_length:
-			return render_template("register_teacher.html", msg = "length of the card number is invalid")
-		#checking if the code length is valid
-		if len(credit_code) != 3:
-			return render_template("register_teacher.html", msg = "code only has 3 numbers")
-		#checking if there is a letter
-		for i in range(3):
-			if credit_code[i].isalpha():
-				return render_template("register_teacher.html", msg = "code can only contain numbers")
+		
 		#checking if email has a @
 		is_at = False
 		for i in range(len(email)):
@@ -250,7 +248,7 @@ def register_teacher():
 				is_com = False
 		else:
 			return render_template("register_teacher.html", msg = "email is too short")
-		create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email, language)
+		create_teacher(firstname, lastname, username, password, email, language)
 		login_session['username'] = username
 		login_session['usertype'] = "teacher"
 		msg = Message("thank you for signing up to LFT!",
@@ -290,19 +288,22 @@ def login():
 			#if the username is in the database
 			is_username = False
 			is_password = False
-			for teacher in teachers:
-				if teacher.username == username:
-					teacher_new = query_teacher_username(username)
-					if teacher_new.password == password:
-						#confirmed
-						is_password = True
-						login_session['username'] = username
-						login_session['usertype'] = "teacher"
-						render_template("home.html", username = username, usertype = login_session['usertype'])
-						return redirect(url_for('home'))
-					else:
-						is_password = False
-					is_username = True
+			if len(teachers) > 0:
+				for teacher in teachers:
+					if teacher.username == username:
+						teacher_new = query_teacher_username(username)
+						if teacher_new.password == password:
+							#confirmed
+							is_password = True
+							login_session['username'] = username
+							login_session['usertype'] = "teacher"
+							render_template("home.html", username = username, usertype = login_session['usertype'])
+							return redirect(url_for('home'))
+						else:
+							is_password = False
+						is_username = True
+			else:
+				return render_template('login.html', msg = "there are no users in our database")
 			if is_username == False:
 				return render_template("login.html", msg = "the username is not exited in our database :(")
 			if is_password == False:
@@ -310,6 +311,9 @@ def login():
 		if user == 'student':
 			username = request.form['username']
 			password = request.form['password']
+			students = query_students()
+			if len(students) == 0:
+				return render_template('login.html', msg = "there are no users in our database")
 			student = query_student_username(username)
 			if student.password == password:
 				login_session['username'] = username
@@ -434,6 +438,8 @@ def purchased(ids):
 				student = query_student_username(username)
 				sender_email = student.email
 				course.purchased += ","+username
+				if course.level > int(student.level):
+					student.level = course.level
 				msg = Message(username + " just bought your course " + course.title,
             	sender='recycledtrash.meet@gmail.com',
             	recipients=[email])
@@ -557,7 +563,19 @@ def my_profile():
 					for name in names:
 						if name == username:
 							acourses.append(course)
-				return render_template('my_profile.html', courses = acourses, user = user, usertype = usertype, student = student, teacher = teacher)
+				leveled_courses = query_courses_level(int(user.level))
+				leveled_teachers = []
+				if len(leveled_courses) > 0:
+					for course in leveled_courses:
+						teach = query_teacher_username(course.owner)
+						leveled_teachers.append(teach)
+				upleveled_courses = query_courses_level(int(user.level) + 1)
+				upleveled_teachers = []
+				if len(upleveled_courses) > 0:
+					for course in upleveled_courses:
+						teach = query_teacher_username(course.owner)
+						upleveled_teachers.append(teach)
+				return render_template('my_profile.html', leveled_teachers = leveled_teachers, upleveled_teachers = upleveled_teachers, courses = acourses, user = user, usertype = usertype, student = student, teacher = teacher)
 			else:
 				user = query_teacher_username(username)
 				courses = query_courses_teacher(username)

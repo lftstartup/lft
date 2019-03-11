@@ -5,10 +5,14 @@
 <h1>hello {{username}}!</h1><h2> you are a {{usertype}}</h2>
 {%if usertype == teacher%}
 <a href = "{{url_for('create_quiz')}}">create a quiz</a>
+<a href = "{{url_for('upload_course')}}">upload a course</a>
+<a href = "{{url_for('feed')}}">advertize yourself</a>
 {%endif%}
 {%if usertype == student%}
 <a href = "{{url_for('all_teachers')}}">find your teacher</a>
+<a href = "{{url_for('feed')}}">feed</a>
 {%endif%}
+<a href = "{{url_for('my_profile')}}">my profile</a>
 <a href = "{{url_for('logout')}}">log out</a>
 </body>
 </html>

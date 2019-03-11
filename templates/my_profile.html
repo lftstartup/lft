@@ -56,6 +56,13 @@
 		<h3><a href = "{{url_for('courses', ids = course.id)}}"><b>title: {{course.title}}</b></a></h3>
 
 	{%endfor%}
+	<h1>teachers who has courses in my level:</h1>
+	<hr>
+	{%for teacher in leveled_teachers%}
+	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.last name}}</a></span>
+	<br>
+	{%endfor%}
+
 
 {%endif%}
 <br>

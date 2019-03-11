@@ -7,13 +7,13 @@ Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 #create a teacher
-def create_teacher(firstname, lastname, username, password, credit_num, credit_date, credit_code, email, language):
-	teacher = Teachers(firstname = firstname, lastname = lastname, username = username, password = password, credit_num = credit_num, credit_date = credit_date, credit_code = credit_code, email = email, language = language, courses = 0, buyers = 0)
+def create_teacher(firstname, lastname, username, password, email, language):
+	teacher = Teachers(firstname = firstname, lastname = lastname, username = username, password = password, email = email, language = language, courses = 0, buyers = 0)
 	session.add(teacher)
 	session.commit()
 #create a student
 def create_student(username, password, email):
-	student = Students(username = username, password = password, email = email, courses = "")
+	student = Students(username = username, password = password, email = email, courses = "", level = "1")
 	session.add(student)
 	session.commit()
 #getting a teacher by username
@@ -83,17 +83,17 @@ def query_posts_teacher(teacher):
 	posts = session.query(Posts).filter_by(teacher = teacher).all()
 	return posts
 #create a new lecture
-def create_course(teacher, title, language, topic, videos, trailer):
+def create_course(teacher, title, language, topic, videos, trailer, level):
 	if len(videos) == 1:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0],video_amount = 1, buyers = 0, purchased = "", trailer = trailer)
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0],video_amount = 1, buyers = 0, purchased = "", trailer = trailer, level = level)
 	elif len(videos) == 2:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video_amount = 2, purchased = "", trailer = trailer)
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video_amount = 2, purchased = "", trailer = trailer, level = level)
 	elif len(videos) == 3:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2],video_amount = 3, purchased = "", trailer = trailer)
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2],video_amount = 3, purchased = "", trailer = trailer, level = level)
 	elif len(videos) == 4:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2], video4 = videos[3], video_amount = 4, purchased = "", trailer = trailer)
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2], video4 = videos[3], video_amount = 4, purchased = "", trailer = trailer, level = level)
 	else:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[-4],  buyers = 0, video3 = videos[-3], video4 = videos[-2], video5 = videos[-1], video_amount = 5, purchased = "", trailer = trailer)
+		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[-4],  buyers = 0, video3 = videos[-3], video4 = videos[-2], video5 = videos[-1], video_amount = 5, purchased = "", trailer = trailer, level = level)
 	session.add(course)
 	session.commit()
 #get all courses
@@ -134,6 +134,10 @@ def query_teacher_email(email):
 #query student by email
 def query_student_email(email):
 	student = session.query(Students).filter_by(email = email).first()
+#query courses by level
+def query_courses_level(level):
+	courses = session.query(Courses).filter_by(level = level).all()
+	return courses
 print(query_teachers())
 print(get_quizes())
 print(query_posts())

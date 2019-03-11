@@ -11,16 +11,12 @@ class Teachers(Base):
 	lastname = Column(String)
 	username = Column(String)
 	password = Column(String)
-	credit_num = Column(String)
-	credit_date = Column(String)
-	credit_code = Column(String)
 	email = Column(String)
 	language = Column(String)
 	courses = Column(Integer)
 	buyers = Column(Integer)
 	def __repr__(self):
-		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\ncredit card details:\ncredit number: " + self.credit_num + "\ncredit date: " + self.credit_date + "\ncredit code: " + self.credit_code + "\n"
-		return "\nteacher id: " + str(self.id) +message
+		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email
 #students
 class Students(Base):
 	__tablename__ = 'students'
@@ -29,6 +25,7 @@ class Students(Base):
 	password = Column(String)
 	email = Column(String)
 	courses = Column(String)
+	level = Column(Integer)
 	def __repr__(self):
 		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\n" 
 		return "\nstudent id: " + str(self.id) + message
@@ -73,6 +70,7 @@ class Courses(Base):
 	trailer = Column(String)
 	purchased = Column(String)
 	buyers = Column(Integer)
+	level = Column(Integer)
 	def __repr__(self):
 		message = "\n\nid: " + str(self.id) + "\nteacher's username: " + self.teacher + "\ntitle: " + self.title + "\nlanguage: " + self.language + "\ntopic: " + self.topic + "\nfirst lecture: " + self.video1 + "\nsecond lecture: " + self.video2 + "\nthird lecture: " + self.video3 + "\nfourth lecture: " + self.video4 + "\nfifth lecture: " + self.video5
 		return message
