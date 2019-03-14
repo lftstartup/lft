@@ -8,7 +8,7 @@ from database import query_course_id, get_amount_buyers_id, update_buyers, updat
 from database import query_teacher_email, query_student_email, query_courses_level
 from flask_mail import Mail, Message
 UPLOAD_FOLDER = 'static/'
-ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv'])
+ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv', 'AVI', 'Avi'])
 app = Flask(__name__)
 app.config.update(dict(
     DEBUG = True,
@@ -80,22 +80,22 @@ def upload_course():
 				 	filename = secure_filename(video1.filename)
 					video1.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 					videos = [url_for('uploaded_file', filename = filename)]
-				if not video2.filename:
+				if video2.filename:
 					if video2 and allowed_file(video2.filename):
 					 	filename = secure_filename(video2.filename)
 						video2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
-				if not video3.filename:
+				if video3.filename:
 					if video3 and allowed_file(video3.filename):
 					 	filename = secure_filename(video3.filename)
 						video3.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
-				if not video4.filename:
+				if video4.filename:
 					if video4 and allowed_file(video4.filename):
 					 	filename = secure_filename(video4.filename)
 						video4.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
-				if not video5.filename:
+				if video5.filename:
 					if video5 and allowed_file(video5.filename):
 					 	filename = secure_filename(video5.filename)
 						video5.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
