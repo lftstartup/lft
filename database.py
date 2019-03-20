@@ -138,6 +138,3 @@ def query_student_email(email):
 def query_courses_level(level):
 	courses = session.query(Courses).filter_by(level = level).all()
 	return courses
-print(query_teachers())
-print(get_quizes())
-print(query_posts())

@@ -63,10 +63,10 @@ def upload_course():
 				video4 = request.files['file4']
 				video5 = request.files['file5']
 				for char in level:
-					if char.isalpha == True:
+					if char.isalpha() == True:
 						return render_template("upload_course.html", msg = "level has to be a number between 1-5")
-				if level < 1 or level > 5:
-					return render_template("upload_course.html", msg = "level has to be a number between 1-5")
+				# if level < 1 or level > 5:
+				# 	return render_template("upload_course.html", msg = "level has to be a number between 1-5")
 				if language.upper() != "ARABIC" and language.upper() != "HEBREW":
 					return render_template("upload_course.html", msg = "language has to be either hebrew or arabic")
 				language = language.lower()
@@ -100,7 +100,7 @@ def upload_course():
 						filename = secure_filename(video5.filename)
 						video5.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
-				create_course(username, title, language, topic, videos, trailer)
+				create_course(username, title, language, topic, videos, trailer, level)
 				update_teacher_courses(username)
 			return render_template("upload_course.html")
 		else:
@@ -567,13 +567,13 @@ def my_profile():
 				leveled_teachers = []
 				if len(leveled_courses) > 0:
 					for course in leveled_courses:
-						teach = query_teacher_username(course.owner)
+						teach = query_teacher_username(course.teacher)
 						leveled_teachers.append(teach)
 				upleveled_courses = query_courses_level(int(user.level) + 1)
 				upleveled_teachers = []
 				if len(upleveled_courses) > 0:
 					for course in upleveled_courses:
-						teach = query_teacher_username(course.owner)
+						teach = query_teacher_username(course.teacher)
 						upleveled_teachers.append(teach)
 				return render_template('my_profile.html', leveled_teachers = leveled_teachers, upleveled_teachers = upleveled_teachers, courses = acourses, user = user, usertype = usertype, student = student, teacher = teacher)
 			else:
