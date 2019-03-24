@@ -5,7 +5,7 @@ from database import create_student, create_teacher, query_teacher_username, que
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
-from database import query_teacher_email, query_student_email, query_courses_level
+from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers
 from flask_mail import Mail, Message
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv', 'AVI', 'Avi'])
@@ -385,7 +385,7 @@ def profile(ids):
 					if name == username:
 						message = True
 						break
-			return render_template("profile.html",availabe = message, true = True, ids = ids, acourses = available_courses, courses = courses[::-1], posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
+			return render_template("profile.html",availabe = message, true = True, ids = ids, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -413,7 +413,7 @@ def profile_name(name):
 					if name == username:
 						message = True
 						break
-			return render_template("profile.html", availabe = message, true = True, false = False, acourses = available_courses, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
+			return render_template("profile.html", availabe = message, true = True, false = False, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -532,20 +532,24 @@ def forgot_password():
 		for student in students:
 			if student.email == email:
 				user = query_teacher_email(email)
-				exsists = True
+				msg = Message("your password recovery",
+		        	sender='recycledtrash.meet@gmail.com',
+		        	recipients=[email])
+				msg.body = user.username + ", your password is: "+ user.password
+				mail.send(msg)
+				return render_template("forgot_password.html", msg = "successfully sent an email")
 		for teacher in teachers:
 			if teacher.email == email:
 				user = query_teacher_email(email)
-				exsists = True
-		if exsists == True:
-			msg = Message("your password recovery",
-	        	sender='recycledtrash.meet@gmail.com',
-	        	recipients=[email])
-			msg.body = user.username + ", your password is: "+ user.password
-			mail.send(msg)
-			return render_template("forgot_password.html", msg = "successfully sent an email")
-		else:
-			return render_template("forgot_password.html", msg = "email does not exsist!")
+				msg = Message("your password recovery",
+		        	sender='recycledtrash.meet@gmail.com',
+		        	recipients=[email])
+				msg.body = user.username + ", your password is: "+ user.password
+				mail.send(msg)
+				return render_template("forgot_password.html", msg = "successfully sent an email")
+
+			
+		return render_template("forgot_password.html", msg = "email does not exsist!")
 @app.route('/my_profile')
 def my_profile():
 	if 'username' in login_session:
@@ -585,6 +589,31 @@ def my_profile():
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
+@app.route('/advertisers')
+def advertisers():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			if login_session['usertype'] == "student":
+				username = login_session['username']
+				advertisers = query_advertisers()
+				return render_template('advertisers.html', username = username, advertisers = advertisers)
+			else:
+				return redirect(url_for('home'))
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/become_advertiser', methods = ['GET', 'POST'])
+def become_advertiser():
+	if request.method == 'GET':
+		return render_template('become_advertiser.html')
+	else:
+		company_name = request.form['company_name']
+		info = request.form['info']
+		link = request.form['link']
+		add_advertiser(company_name, info, link)
+		redirect(url_for('login'))
+		return render_template('login.html')
 @app.route('/logout')
 def logout():
 	login_session.pop('username', None)

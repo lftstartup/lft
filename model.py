@@ -74,3 +74,11 @@ class Courses(Base):
 	def __repr__(self):
 		message = "\n\nid: " + str(self.id) + "\nteacher's username: " + self.teacher + "\ntitle: " + self.title + "\nlanguage: " + self.language + "\ntopic: " + self.topic + "\nfirst lecture: " + self.video1 + "\nsecond lecture: " + self.video2 + "\nthird lecture: " + self.video3 + "\nfourth lecture: " + self.video4 + "\nfifth lecture: " + self.video5
 		return message
+class Advertisers(Base):
+	__tablename__ = 'advertisers'
+	id = Column(Integer, primary_key = True)
+	company_name = Column(String)
+	info = Column(String)
+	link = Column(String)
+	def __repr__(self):
+		message = "\ncompany name: " + self.company_name + "\ninfo: " + self.info + "\nlink: " + self.link

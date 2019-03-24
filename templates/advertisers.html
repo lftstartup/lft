@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>advertisers</title>
+</head>
+<body>
+{%for ad in advertisers%}
+
+
+
+	<span>{{ad.company_name}}:</span>
+	<br>
+	<span>{{ad.info}}</span>
+	<br>
+	<span>link to website: <a href ="{{ad.link}}">{{ad.link}}</a></span>
+	<br>
+	<br>
+
+
+
+{%endfor%}
+</body>
+</html>

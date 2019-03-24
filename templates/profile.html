@@ -18,8 +18,10 @@
   <source src="{{post.video}}" type="video/mp4">
 </video>
 {%endfor%}
+{%if clen > zero%}
 <h2>courses:</h2>
 <hr>
+{%endif%}
 {%for course in courses%}
 {%if course not in acourses%}
 <br>
@@ -46,8 +48,10 @@
 <span>topic: {{course.topic}}</span>
 {%endif%}
 {%endfor%}
+{%if alen > zero%}
 <h2>bought courses:</h2>
 <hr>
+{%endif%}
 {%for course in acourses%}
 <h3><a href = "{{url_for('courses', ids = course.id)}}"><b>title: {{course.title}}</b></a></h3>
 <h2>ask a question</h2>
@@ -65,7 +69,8 @@
 	
 {%endfor%}
 <br>
-
+<br>
+<br>
 <a href = "{{url_for('home')}}">back home</a>
 </body>
 </html>
