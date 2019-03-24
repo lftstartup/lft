@@ -2,6 +2,25 @@
 <head>
 <title>feed</title>
 </head>
+<style>
+  body{
+    background-image: url(static/marah.jpg);
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1; 
+    /*filter: blur(3px);*/
+    margin:0;
+    padding:0;
+    text-align: center;
+    font-family: sans-serif;
+}
+</style>
+
+
+
 <body>
 {%if usertype == teacher%}
 <h1>advertize yourself!</h1>
@@ -21,6 +40,8 @@
 <input type = "submit" value = "post!">
 </form>
 {%endif%}
+
+<!-- ----------------------------------------------- -->
 {%if usertype == student%}
 <h1>find a suitable teacher</h1>
 {%for post in posts%}

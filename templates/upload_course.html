@@ -1,51 +1,192 @@
 <html>
 <head>
 </head>
+<style >
+	 body{
+    background-image: url(static/marah.jpg);
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1; 
+    margin:0;
+    padding:0;
+    text-align: center;
+    font-family: sans-serif;
+}
+#title{
+		color: #16a085
+	;
+	position: relative;
+    top: 30px;
+    text-shadow:2px 2px  #4e5b59;
+    font-family: sans-serif;
+    font-size: 45px;
+}
+
+.happy{
+	color:#16a085;
+}
+
+.form-style-5{
+    left: 20%;
+    right:20%;
+    top: 20%;
+    margin-left: -25%;
+    position: absolute;
+    margin-top: -25%;
+    max-width: 500px;
+    padding: 20px 20px;
+    background: #f4f7f8;
+    margin: 10px auto;
+    padding: 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    font-family: Georgia, "Times New Roman", Times, serif;
+}
+.form-style-5 fieldset{
+    border: none;
+}
+.form-style-5 legend {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+.form-style-5 label {
+    display: block;
+    margin-bottom: 8px;
+}
+.form-style-5 input[type="text"],
+.form-style-5 input[type="password"],
+
+.form-style-5 textarea,
+.form-style-5 select {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    margin: 0;
+    outline: 0;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box; 
+    background-color: #e8eeef;
+    color:#8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 30px;
+}
+.form-style-5 input[type="text"]:focus,
+.form-style-5 input[type="password"]:focus,
+.form-style-5 textarea:focus,
+.form-style-5 select:focus{
+    background: #d2d9dd;
+}
+.form-style-5 select{
+    -webkit-appearance: menulist-button;
+    height:35px;
+}
+.form-style-5 .number {
+    background: #1abc9c;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+    border-radius: 15px 15px 15px 0px;
+}
+
+.form-style-5 input[type="submit"],
+.form-style-5 input[type="button"]
+{
+    position: relative;
+    display: block;
+    padding: 19px 39px 18px 39px;
+    color: #FFF;
+    margin: 0 auto;
+    background: #1abc9c;
+    font-size: 18px;
+    text-align: center;
+    font-style: normal;
+    width: 100%;
+    border: 1px solid #16a085;
+    border-width: 1px 1px 3px;
+    margin-bottom: 10px;
+}
+.form-style-5 input[type="submit"]:hover,
+.form-style-5 input[type="button"]:hover
+{
+    background: #109177;
+}
+</style>
+
+
+
+
+
+
 <body>
-<form action = '/upload_course' method = "post" enctype="multipart/form-data">
-<span>title</span>
-<br>
-<input type = "text" name = "title" placeholder="your title here...">
-<br>
-<span>language</span>
-<br>
-<input type = "text" name = "language" placeholder="your content here...">
-<br>
-<span>topic</span>
-<br>	
-<input type = "text" name = "topic" placeholder="your content here...">
-<br>
-<span>course level</span>
-<br>	
-<input type = "text" name = "level" placeholder="level(from 1 - 5)">
-<br>
-<span>upload a trailer</span>
-<br>
-<input type = "file" name = "trailer">
-<br>
-<span>upload a lecture</span>
-<br>
-<input type="file" name="file1">
-<br>
-<span>upload a second lecture</span>
-<br>
-<input type="file" name="file2">
-<br>
-<span>upload a third lecture</span>
-<br>
-<input type="file" name="file3">
-<br>
-<span>upload a fourth lecture</span>
-<br>
-<input type="file" name="file4">
-<br>
-<span>upload a fifth lecture</span>
-<br>
-<input type="file" name="file5">
-<br>
-<input type = "submit" value = "post!">
-</form>
-<br>
-<span>{{msg}}</span>
+	<h1 id="title"> The course </h1>
+	<br>
+	<br>
+
+	 <div class="form-style-5">
+
+		<form class="titlee" action = '/upload_course' method = "post" enctype="multipart/form-data">
+			<fieldset>
+				<legend><span class="number">1</span> User Info</legend>
+		<span>title</span>
+		<br><br>
+		<input type = "text" name = "title" placeholder="your title here...">
+		<br><br>
+		<span>language</span>
+		<br><br>
+		<input type = "text" name = "language" placeholder="your content here...">
+		<br><br>
+		<span>topic</span>
+		<br>	<br>
+		<input type = "text" name = "topic" placeholder="your content here...">
+		<br><br>
+		<span>course level</span>
+		<br>	<br>
+		<input type = "text" name = "level" placeholder="level(from 1 - 5)">
+		<br><br>
+		<span>upload a trailer</span>
+		<br><br>
+		<input class="happy" type = "file" name = "trailer">
+		<br><br>
+		<span>upload a lecture</span>
+		<br><br>
+		<input class="happy" type="file" name="file1">
+		<br><br>
+		<span>upload a second lecture</span>
+		<br><br>
+		<input class="happy" type="file" name="file2">
+		<br><br>
+		<span>upload a third lecture</span>
+		<br><br>
+		<input class="happy" type="file" name="file3">
+		<br><br>
+		<span>upload a fourth lecture</span>
+		<br><br>
+		<input class="happy" type="file" name="file4">
+		<br><br>
+		<span>upload a fifth lecture</span>
+		<br><br>
+		<input class="happy" type="file" name="file5">
+		<br><br>
+	</fieldset>
+		<input class="happy" type = "submit" value = "post!">
+		</form>
+	</div>
+		<br><br>
+		<span>{{msg}}</span>
 </body>
 </html>
