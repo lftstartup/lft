@@ -138,3 +138,12 @@ def query_student_email(email):
 def query_courses_level(level):
 	courses = session.query(Courses).filter_by(level = level).all()
 	return courses
+#add an advertiser
+def add_advertiser(company_name, info, link):
+	advertiser = Advertisers(company_name = company_name, info = info, link = link)
+	session.add(advertiser)
+	session.commit()
+#get advertisers
+def query_advertisers():
+	adverts = session.query(Advertisers).all()
+	return adverts
