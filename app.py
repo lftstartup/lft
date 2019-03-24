@@ -11,13 +11,13 @@ UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv', 'AVI', 'Avi'])
 app = Flask(__name__)
 app.config.update(dict(
-    DEBUG = True,
-    MAIL_SERVER = 'smtp.gmail.com',
-    MAIL_PORT = 587,
-    MAIL_USE_TLS = True,
-    MAIL_USE_SSL = False,
-    MAIL_USERNAME = 'recycledtrash.meet@gmail.com',
-    MAIL_PASSWORD = 'xzaq1234',
+	DEBUG = True,
+	MAIL_SERVER = 'smtp.gmail.com',
+	MAIL_PORT = 587,
+	MAIL_USE_TLS = True,
+	MAIL_USE_SSL = False,
+	MAIL_USERNAME = 'recycledtrash.meet@gmail.com',
+	MAIL_PASSWORD = 'xzaq1234',
 ))
 mail = Mail(app)
 app.config['SECRET_KEY'] = 'asdf'
@@ -36,9 +36,9 @@ def feed():
 				title = request.form['title']
 				content = request.form['content']
 				if file and allowed_file(file.filename):
-				 	filename = secure_filename(file.filename)
+					filename = secure_filename(file.filename)
 					file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			  		create_post(username, title, content, url_for('uploaded_file', filename = filename))
+					create_post(username, title, content, url_for('uploaded_file', filename = filename))
 			posts = query_posts()
 			return render_template("feed.html", username = username, usertype = usertype, teacher = "teacher", student = "student", posts = posts)
 		else:
@@ -77,27 +77,27 @@ def upload_course():
 				else:
 					return render_template("upload_course.html")
 				if video1 and allowed_file(video1.filename):
-				 	filename = secure_filename(video1.filename)
+					filename = secure_filename(video1.filename)
 					video1.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 					videos = [url_for('uploaded_file', filename = filename)]
 				if video2.filename:
 					if video2 and allowed_file(video2.filename):
-					 	filename = secure_filename(video2.filename)
+						filename = secure_filename(video2.filename)
 						video2.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
 				if video3.filename:
 					if video3 and allowed_file(video3.filename):
-					 	filename = secure_filename(video3.filename)
+						filename = secure_filename(video3.filename)
 						video3.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
 				if video4.filename:
 					if video4 and allowed_file(video4.filename):
-					 	filename = secure_filename(video4.filename)
+						filename = secure_filename(video4.filename)
 						video4.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
 				if video5.filename:
 					if video5 and allowed_file(video5.filename):
-					 	filename = secure_filename(video5.filename)
+						filename = secure_filename(video5.filename)
 						video5.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 						videos.append(url_for('uploaded_file', filename = filename))
 				create_course(username, title, language, topic, videos, trailer, level)
@@ -176,8 +176,8 @@ def register_student():
 		login_session['username'] = username
 		login_session['usertype'] = "student"
 		msg = Message("thank you for signing up to LFT!",
-            	sender='recycledtrash.meet@gmail.com',
-            	recipients=[email])
+				sender='recycledtrash.meet@gmail.com',
+				recipients=[email])
 		msg.body = "hello " + username + ", your signup has been successful.\n best of luck learning a new language,\nLFT team."
 		mail.send(msg)
 		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
@@ -252,8 +252,8 @@ def register_teacher():
 		login_session['username'] = username
 		login_session['usertype'] = "teacher"
 		msg = Message("thank you for signing up to LFT!",
-            	sender='recycledtrash.meet@gmail.com',
-            	recipients=[email])
+				sender='recycledtrash.meet@gmail.com',
+				recipients=[email])
 		msg.body = "hello " + username + ", your signup has been successful.\n best of luck advertising yourself,\nLFT team."
 		mail.send(msg)
 		render_template("home.html", username = login_session['username'], usertype = login_session['usertype'])
@@ -441,13 +441,13 @@ def purchased(ids):
 				if course.level > int(student.level):
 					student.level = course.level
 				msg = Message(username + " just bought your course " + course.title,
-            	sender='recycledtrash.meet@gmail.com',
-            	recipients=[email])
+				sender='recycledtrash.meet@gmail.com',
+				recipients=[email])
 				msg.body = "hello teacher,\n" + username + " has bought a course, email to respond: " + sender_email
 				mail.send(msg)
 				msg = Message(username + ", you just bought the course " + course.title,
-            	sender='recycledtrash.meet@gmail.com',
-            	recipients=[sender_email])
+				sender='recycledtrash.meet@gmail.com',
+				recipients=[sender_email])
 				msg.body = "hello " + username + ", you bought the course "+course.title+", by " + teacher.firstname + " " + teacher.lastname + ".\nemail to contact: " + email
 				mail.send(msg)
 			return redirect(url_for('home'))
@@ -488,8 +488,8 @@ def support():
 			user = query_student_username(username)
 			sender_email = user.email
 			msg = Message("Your Student needs help!",
-            	sender='recycledtrash.meet@gmail.com',
-            	recipients=[email])
+				sender='recycledtrash.meet@gmail.com',
+				recipients=[email])
 			msg.body = "hello teacher,\n" + username + " has sent you a question:\n" + question + "\nemail to respond: " + sender_email
 			mail.send(msg)
 			return redirect(url_for('home'))
@@ -511,8 +511,8 @@ def contact_us():
 				title = request.form['title']
 				body = request.form['body']
 				msg = Message(username + " has reached out",
-	            	sender='recycledtrash.meet@gmail.com',
-	            	recipients=['recycledtrash.meet@gmail.com'])
+					sender='recycledtrash.meet@gmail.com',
+					recipients=['recycledtrash.meet@gmail.com'])
 				msg.body = username + " has reached out.\n"+ title +"\n" + body + "\n" + email
 				mail.send(msg)
 			return render_template("contact_us.html")
@@ -550,6 +550,7 @@ def forgot_password():
 
 			
 		return render_template("forgot_password.html", msg = "email does not exsist!")
+
 @app.route('/my_profile')
 def my_profile():
 	if 'username' in login_session:
