@@ -3,11 +3,47 @@
 <head>
         <title>LFT</title>   
     </head>
-    <body>
+    
         <style type="text/css">
+
+    
+body{
+    background-image: url(static/marah.jpg);
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1; 
+    /*filter: blur(3px);*/
+    margin:0;
+    padding:0;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+#id{
+    font-size: 18px;
+    font-family: sans-serif;
+    color:#fff;
+    text-shadow: 2px 2px #4f4a47;
+    font-weight: 900;
+}
+
+.link{
+    text-decoration: none;
+    color: #16a085;
+    text-shadow: 2px 2px #4f4a47;
+}
 .form-style-5{
+    left: 20%;
+    right:20%;
+    top: 10%;
+    margin-left: -25%;
+    position: absolute;
+    margin-top: -25%;
     max-width: 500px;
-    padding: 10px 20px;
+    padding: 20px 20px;
     background: #f4f7f8;
     margin: 10px auto;
     padding: 20px;
@@ -103,7 +139,7 @@
 
 
 
-
+<body >
 
 
         <div class="form-style-5">
@@ -129,14 +165,18 @@
                 </form>
         </div>
 
-                <br>
-                <span><a href = "{{url_for('forgot_password')}}">forgot password</a></span>
+               
+        
+            <div id="id" style="position: fixed; bottom: 7%; width:100%; text-align: center">
+    
+    
+                <span ><a class="link" href = "{{url_for('forgot_password')}}">forgot password</a></span>
                 <span>you don't have an account?
                 <br>
-                click here to sign up as a <a href = "{{url_for('register_student')}}">student</a>,
+                click here to sign up as a <a class="link" href = "{{url_for('register_student')}}">student</a>
                 <br>
-                and here to sign up as a <a href = "{{url_for('register_teacher')}}">teacher</a></span>
-                
+                and here to sign up as a <a class="link" href = "{{url_for('register_teacher')}}">teacher</a></span>
+            </div>
           
     </body>
 </html>
