@@ -1,17 +1,55 @@
 <html>
 <head>
-
 </head>
+<style>
+ body{
+    background-image: url(static/marah.jpg);
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1; 
+    /*filter: blur(3px);*/
+    margin:0;
+    padding:0;
+/*    text-align: center;*/
+    font-family: sans-serif;
+}
+#name{
+	text-align: center;
+	color: #16a085;
+    position: relative;
+    top: 30px;
+    text-shadow:2px 2px  #4e5b59;
+    font-family: sans-serif;
+    font-size: 45px;
+}
+.components{
+	color: #16a085;
+}
+hr.horiz{
+  border-top: 1px dotted #fff;
+}
+#home{
+	text-decoration: none;
+	font-weight: 600
+
+}
+</style>
 <body>
+	
 
 
 {%if usertype == teacher%}
 
-	<h1>{{user.firstname}} {{user.lastname}}'s profile</h1>
-	<h2>amount of courses: {{user.courses}}</h2>
-	<h2>amount of buyers: {{user.buyers}}</h2>
-	<h2>posts</h2>
-	<hr>
+	<h1 id="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
+	<h2 class="components" style="position: fixed; bottom: 7%;left:3%;  width:100%;">amount of courses: {{user.courses}}</h2>
+	<h2 class="components" style="position: fixed; bottom: 1%;left:3%; width:100%;">amount of buyers: {{user.buyers}}</h2>
+	<br><br><br><Br>
+	<h2 class="components" style="position: fixed; left:3%;  width:100%;">Posts:</h2>
+	<br><br><br><Br>
+	<hr class="horiz">
 	{%for post in posts%}
 		<br>
 		<span>{{post.title}}</span>
@@ -22,8 +60,10 @@
 		  <source src="{{post.video}}" type="video/mp4">
 		</video>
 	{%endfor%}
-	<h2>my courses</h2>
-	<hr>
+	<br>
+	<h2 class="components" style="position: fixed; left:3%;  width:100%;">My courses:</h2>
+	<br><Br><br><br><br>
+	<hr class="horiz">
 	{%for course in courses%}
 
 
@@ -44,6 +84,7 @@
 
 	{%endfor%}
 
+<!-- --------------------------------------------- -->
 {%endif%}
 {%if usertype == student%}
 
@@ -75,7 +116,7 @@
 
 {%endif%}
 <br>
-<a href = "{{url_for('home')}}">back home!</a>
+<a id="home" style="position: fixed;bottom:2%;  left:50%;  width:100%;color:red;" href = "{{url_for('home')}}">back home!</a>
 
 </body>
 </html>
