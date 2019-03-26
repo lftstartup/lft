@@ -3,7 +3,7 @@
 <title>feed</title>
 </head>
 <style>
-/*  body{
+  body{
     background-image: url(static/marah.jpg);
     min-height: 500px;
     background-attachment: fixed;
@@ -11,12 +11,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     z-index: -1; 
-    /*filter: blur(3px);*/
-/*    margin:0;
+   margin:0;
     padding:0;
     text-align: center;
-    font-family: sans-serif;*/
-}*/
+    font-family: sans-serif;
+}
 .form-style-5{
     left: 20%;
     right:20%;
@@ -131,6 +130,14 @@
     color:#16a085;
     text-decoration: none;
 }
+#titree{
+        color: #16a085;
+    position: relative;
+    top: 30px;
+    text-shadow:2px 2px  #4e5b59;
+    font-family: sans-serif;
+    font-size: 45px;
+}
 </style>
 
 
@@ -164,7 +171,7 @@
 
 <!-- ----------------------------------------------- -->
 {%if usertype == student%}
-<h1>find a suitable teacher</h1>
+<h1 id="titree">find a suitable teacher</h1>
 {%for post in posts%}
 <br>
 <a href = "{{url_for('profile_name', name = post.teacher)}}">{{post.teacher}}</a>

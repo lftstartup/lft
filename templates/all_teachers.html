@@ -1,22 +1,66 @@
 <html>
 <head>
 </head>
+<style>
+  body{
+    background-image: url(static/marah.jpg);
+    min-height: 500px;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1; 
+   margin:0;
+    padding:0;
+    text-align: center;
+    font-family: sans-serif;
+}
+#titre{
+        color: #16a085
+    ;
+    position: relative;
+    top: 30px;
+    text-shadow:2px 2px  #4e5b59;
+    font-family: sans-serif;
+    font-size: 45px;
+}
+.teacher{
+	color:#16a085;
+}
+#homee{
+	text-decoration: none;
+	font-weight: 600
+
+}
+#hebrew{
+position: relative;
+  right: 40%;
+  text-decoration: none;
+  color:#bbcecb;
+  font-weight: 600
+}
+</style>
+
+
+
 <body>
-<h1>hebrew teachers</h1>
+	<h1 id="titre"> The teachers</h1>
+<h1 class="teacher" style="position: fixed; top: 22%;right:37%;  width:100%;">Hebrew teachers:</h1>
+<br><br><Br><r><Br><br><br>
 <p>
 {%for hebrew in hebrew_teachers%}
-	<span><a href = "{{url_for('profile', ids = hebrew.id)}}">{{hebrew.firstname}} {{hebrew.lastname}}</a></span>
+	<span><a id="hebrew" align="right"  href = "{{url_for('profile', ids = hebrew.id)}}">{{hebrew.firstname}} {{hebrew.lastname}}</a></span>
 	<br>
 {%endfor%}
 </p>
 <br>
-<h1>arabic teachers</h1>
+<h1 class="teacher" style="position: fixed; top: 60%;right:37%;  width:100%;">Arabic teachers:</h1>
 <p>
 {%for arab in arabic_teachers%}
 	<span><a href = "{{url_for('profile', ids = arab.id)}}">{{arab.firstname}} {{arab.lastname}}</a></span>
 	<br>
 {%endfor%}
 </p>
-<a href = "{{url_for('home')}}">back home</a>
+<a id="homee" style="position: fixed;bottom:3%; left:0%;   width:100%;color:red;" href = "{{url_for('home')}}">back home</a>
 </body>
 </html>

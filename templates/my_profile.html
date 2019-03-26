@@ -16,7 +16,7 @@
 /*    text-align: center;*/
     font-family: sans-serif;
 }
-#name{
+.name{
 	text-align: center;
 	color: #16a085;
     position: relative;
@@ -43,7 +43,7 @@ hr.horiz{
 
 {%if usertype == teacher%}
 
-	<h1 id="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
+	<h1 class="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
 	<h2 class="components" style="position: fixed; bottom: 7%;left:3%;  width:100%;">amount of courses: {{user.courses}}</h2>
 	<h2 class="components" style="position: fixed; bottom: 1%;left:3%; width:100%;">amount of buyers: {{user.buyers}}</h2>
 	<br><br><br><Br>
@@ -89,7 +89,7 @@ hr.horiz{
 {%if usertype == student%}
 
 
-	<h1>{{user.username}}'s profile</h1>
+	<h1 class="name">{{user.username}}'s profile</h1>
 	<h2>courses I bought</h2>
 	<hr>
 	{%for course in courses%}
