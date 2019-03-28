@@ -10,14 +10,14 @@
         #description{
         	text-align: left;
             padding-right:580px;
-            font-size: 25px;
+            font-size: 20px;
             padding-left: 20px;
             font-weight: 500;
             color:#fff;
-            text-shadow: 2px 2px #4f4a47;
+            /*text-shadow: 2px 2px #4f4a47;*/
             padding-bottom: 0px;
             margin-bottom: -200px;
-            font-family: sans-serif;
+            font-family: Courier New;
         }
         .background-wrap{
             position:fixed;
@@ -143,6 +143,9 @@
 #get-started {
 	background-color:transparent;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 
     	</style>
@@ -152,7 +155,7 @@
 	 
 
 
-<button class="button" id="get-started" onclick="window.location.href = '{{url_for('login')}}';"> <span> Get started </span> </button>
+<button class="button" id="get-started" onclick="window.location.href = '{{url_for('login')}}';"> <span> Get <br> Started </span> </button>
 
 
 <!-- <h1>get started!</h1>
@@ -176,7 +179,7 @@
 
 
         <h1> LFT </h1>
-        <p> Language For Two </p>
+        <p style = "font-family:Courier New;"> Language For Two </p>
     	<img src="{{ url_for('static', filename='meetfinal.png') }}" id="logo2">
 
     	<h2 id="description">
