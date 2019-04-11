@@ -7,6 +7,7 @@
         <style>
 
 
+
         #description{
         	text-align: left;
             padding-right:580px;
@@ -44,20 +45,34 @@
             background-color: rgba(0,0,0,0.7);
         }
 
-        .content h1{
-            text-align: center;
-            font-size: 65px;
-            text-transform: uppercase;
-            font-weight: 300;
-            color:#fff;
-            margin: 0;
-  			position: absolute;
-  			top: 50%;
-  			left: 50%;
-  			-ms-transform: translate(-50%, -50%);
-  			transform: translate(-50%, -50%);
+#video-bg-elem{
+position:absolute;
+top:0;
+left:0;
+min-height: 100%;
+min-width: 100%;
+}
+.content{
+position:absolute;
+width:100%;
+min-height: 100%;
+z-index: 100%;
+background-color: rgba(0,0,0,0.7);
+}
 
-        }
+.content h1{
+text-align: center;
+font-size: 65px;
+text-transform: uppercase;
+font-weight: 300;
+color:#fff;
+margin: 0;
+position: absolute;
+top: 50%;
+left: 50%;
+-ms-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+}
         #text{
             text-align: left;
             padding-right:580px;
@@ -179,20 +194,19 @@ html {
 
 
         <h1> LFT </h1>
+<<<<<<< HEAD
+        <p styl="couriel"> Language For Two </p>
+=======
         <p style = "font-family:Courier New;"> Language For Two </p>
+>>>>>>> 1ab5317c2681a7c618f2cc6b247032568c2544ac
     	<img src="{{ url_for('static', filename='meetfinal.png') }}" id="logo2">
 
     	<h2 id="description">
-    		For anyone who finds difficulties in learning <bold> Arabic or Hebrew ,</bold>
+    		Our website offers you heritage in the  <bold> language,</bold>
     		
-    		has the ability to teach or want to earn cultural heritage...
-    		<br>
-    		<bold> LFT </bold> offers a chance for those who are keen on either of the languages to teach it and those in request of it to learn it
-    		<br>
-    		On this website you can buy and study courses through JOYFUL games amd quizzes.
-    		<br>
-    		<bold> Language For Two, Let the Fun begin !
-    		</bold>
+    		you lack through teachers,institutes and authorities.<br>
+        Moreover provides you with enojoyable language skills at any<bold> time </bold> and <bold> place .</bold>
+    	
     	</h2>
 
 
