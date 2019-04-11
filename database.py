@@ -8,7 +8,7 @@ DBSession = sessionmaker(bind=engine)
 session = DBSession()
 #create a teacher
 def create_teacher(firstname, lastname, username, password, email, language):
-	teacher = Teachers(firstname = firstname, lastname = lastname, username = username, password = password, email = email, language = language, courses = 0, buyers = 0)
+	teacher = Teachers(firstname = firstname, lastname = lastname, username = username, password = password, email = email, language = language, courses = 0, buyers = 0, rate_amount = 1, grades = 3)
 	session.add(teacher)
 	session.commit()
 #create a student
@@ -147,3 +147,14 @@ def add_advertiser(company_name, info, link):
 def query_advertisers():
 	adverts = session.query(Advertisers).all()
 	return adverts
+#getting rating of a teacher
+def get_rating_teacher(username):
+	teacher = session.query(Teachers).filter_by(username = username).first()
+	return int(teacher.grades / teacher.rate_amount)
+#updating a teacher's rating
+def update_rating(username, grade):
+	teacher = session.query(Teachers).filter_by(username = username).first()
+	teacher.grades += grade
+	teacher.rate_amount += 1
+	session.commit()
+

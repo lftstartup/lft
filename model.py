@@ -15,8 +15,10 @@ class Teachers(Base):
 	language = Column(String)
 	courses = Column(Integer)
 	buyers = Column(Integer)
+	rate_amount = Column(Integer)
+	grades = Column(Integer)
 	def __repr__(self):
-		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email
+		message = "\nfirst name: " + self.firstname + "\nlast name: " + self.lastname + "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\nrating: " + self.rating
 #students
 class Students(Base):
 	__tablename__ = 'students'

@@ -466,7 +466,7 @@ def purchased(ids):
 	else:
 		return redirect(url_for('login'))
 @app.route('/courses/<int:ids>')
-def courses(ids):
+def courses(is_password):
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
