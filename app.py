@@ -5,7 +5,7 @@ from database import create_student, create_teacher, query_teacher_username, que
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
-from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers
+from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers, get_rating_teacher, update_rating
 from flask_mail import Mail, Message
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv', 'AVI', 'Avi'])
@@ -362,13 +362,18 @@ def all_teachers():
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
-@app.route('/profile/<int:ids>')
+@app.route('/profile/<int:ids>', methods = ['GET', 'POST'])
 def profile(ids):
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
 			teacher = query_teacher_id(ids)
+			if usertype == 'student':
+				if request.method == 'POST':
+					grade = request.form['grade']
+					update_rating(teacher.username, grade)
+			rating = get_rating_teacher(teacher.username)
 			posts = query_posts_teacher(teacher.username)
 			courses = query_courses_teacher(teacher.username)
 			available_courses = []
@@ -385,18 +390,23 @@ def profile(ids):
 					if name == username:
 						message = True
 						break
-			return render_template("profile.html",availabe = message, true = True, ids = ids, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
+			return render_template("profile.html", rating = rating, availabe = message, true = True, ids = ids, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
 		else:
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
-@app.route('/profile_name/<string:name>')
+@app.route('/profile_name/<string:name>', methods = ['GET','POST'])
 def profile_name(name):
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
 			teacher = query_teacher_username(name)
+			if usertype == 'student':
+				if request.method == 'POST':
+					grade = request.form['grade']
+					update_rating(teacher.username, grade)
+			rating = get_rating_teacher(teacher.username)
 			posts = query_posts_teacher(name)
 			courses = query_courses_teacher(name)
 			available_courses = []
@@ -413,7 +423,7 @@ def profile_name(name):
 					if name == username:
 						message = True
 						break
-			return render_template("profile.html", availabe = message, true = True, false = False, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
+			return render_template("profile.html", availabe = message, rating = rating, true = True, false = False, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
 		else:
 			return redirect(url_for('login'))
 	else:

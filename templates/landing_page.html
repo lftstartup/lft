@@ -7,26 +7,43 @@
         <style>
 
 
-#description{
-text-align: left;
-padding-right:580px;
-font-size: 25px;
-padding-left: 20px;
-font-weight: 500;
-color:#fff;
-padding-bottom: 0px;
-margin-bottom: -200px;
-font-family: courier;
-}
-.background-wrap{
-position:fixed;
-z-index: -1000;
-width:100%;
-height:100%;
-overflow: hidden;
-top:0;
-left:0;
-}
+
+        #description{
+        	text-align: left;
+            padding-right:580px;
+            font-size: 20px;
+            padding-left: 20px;
+            font-weight: 500;
+            color:#fff;
+            /*text-shadow: 2px 2px #4f4a47;*/
+            padding-bottom: 0px;
+            margin-bottom: -200px;
+            font-family: Courier New;
+        }
+        .background-wrap{
+            position:fixed;
+            z-index: -1000;
+            width:100%;
+            height:100%;
+            overflow: hidden;
+            top:0;
+            left:0;
+        }
+
+        #video-bg-elem{
+            position:absolute;
+            top:0;
+            left:0;
+            min-height: 100%;
+            min-width: 100%;
+        }
+        .content{
+            position:absolute;
+            width:100%;
+            min-height: 100%;
+            z-index: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
 
 #video-bg-elem{
 position:absolute;
@@ -141,6 +158,9 @@ transform: translate(-50%, -50%);
 #get-started {
 	background-color:transparent;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 
     	</style>
@@ -174,7 +194,11 @@ transform: translate(-50%, -50%);
 
 
         <h1> LFT </h1>
+<<<<<<< HEAD
         <p styl="couriel"> Language For Two </p>
+=======
+        <p style = "font-family:Courier New;"> Language For Two </p>
+>>>>>>> 1ab5317c2681a7c618f2cc6b247032568c2544ac
     	<img src="{{ url_for('static', filename='meetfinal.png') }}" id="logo2">
 
     	<h2 id="description">
