@@ -5,7 +5,8 @@ from database import create_student, create_teacher, query_teacher_username, que
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
-from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers, get_rating_teacher, update_rating
+from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers, get_rating_teacher, update_rating, 
+from database import get_messages_username, get_responses_username
 from flask_mail import Mail, Message
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv', 'AVI', 'Avi'])
@@ -625,6 +626,35 @@ def become_advertiser():
 		add_advertiser(company_name, info, link)
 		redirect(url_for('login'))
 		return render_template('login.html')
+#route for the chats
+@app.route('/chat', methods = ['GET', 'POST'])
+def chat():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype == 'teacher':
+				return redirect(url_for('home'))
+			else:
+				if request.method == 'GET':
+					return render_template('chat.html')
+				else:
+					sender = username
+					reciever = 'computer'
+					message = request.form['message']
+					send_message(sender, reciever, message)
+					response = get_response()
+					send_message('computer', username, response)
+					sended = get_messages_username(username)
+					responses = get_responses_username(username)
+					chats = []
+					if len(sended) > 0:
+						for i in range(len(sended)):
+							chats.append(sended[i])
+							chats.append(responses[i])
+
+					return render_template("chat.html", chats = chats, messages = get_messages_username)
+
 @app.route('/logout')
 def logout():
 	login_session.pop('username', None)

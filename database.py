@@ -157,4 +157,17 @@ def update_rating(username, grade):
 	teacher.grades += grade
 	teacher.rate_amount += 1
 	session.commit()
+#send message
+def send_message(sender, reciever, message):
+	message = Chats(sender = sender, dest = reciever, message = message)
+	session.add(message)
+	session.commit()
+#getting all messages from username
+def get_messages_username(username):
+	chats = session.query(Chats).filter_by(sender = username).all()
+	return chats
+#getting sent_to from username
+def get_responses_username(username):
+	chats = session.query(Chats).filter_by(dest = username).all()
+	return chats
 

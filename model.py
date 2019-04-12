@@ -84,3 +84,13 @@ class Advertisers(Base):
 	link = Column(String)
 	def __repr__(self):
 		message = "\ncompany name: " + self.company_name + "\ninfo: " + self.info + "\nlink: " + self.link
+#class for the chats
+class Chats(Base):
+	__tablename__ = "chats"
+	id = Column(Integer, primary_key = True)
+	sender = Column(String) #the username of the sender, if the computer sends, it'll be 'computer'
+	dest = Column(String) #the username of the reciever, if the computer recieves, it'll be 'computer'
+	message = Column(String)
+	#printing the db
+	def __repr__(self):
+		return "\nsender: " + self.sender + "\nreciever: " + self.dest + "\nmessage: " + self.message
