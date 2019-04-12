@@ -1,0 +1,36 @@
+<html>
+<head>
+
+</head>
+<body>
+	<center>
+	<div class = "chatbox" style = "border:1px solid black">
+
+		{%for chat in chats%}
+
+		{%if chat.sender == username%}
+			<span style = "color:red;">{{chat.sender}}: {{chat.message}}</span>
+		{%else%}
+			<span style = "color:blue;">{{chat.sender}}: {{chat.message}}</span>
+		{%endif%}
+		<br><
+		{%endfor%}
+
+	</div>
+
+
+	<form action = '/chat' method = "post">
+
+
+		<textarea name = "message" placeholder="type a message" type = "text"></textarea>
+
+		<br>
+		<input type = "submit" value = "send!">
+
+
+	</form>
+	</center>
+
+
+</body>
+</html>

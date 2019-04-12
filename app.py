@@ -654,7 +654,7 @@ def chat():
 							chats.append(sended[i])
 							chats.append(responses[i])
 
-					return render_template("chat.html", chats = chats, messages = get_messages_username)
+					return render_template("chat.html", username = username, chats = chats, messages = get_messages_username)
 
 @app.route('/logout')
 def logout():
