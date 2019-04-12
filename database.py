@@ -170,4 +170,8 @@ def get_messages_username(username):
 def get_responses_username(username):
 	chats = session.query(Chats).filter_by(dest = username).all()
 	return chats
-
+#getting a chat response
+def get_respose(responses):
+	response=random.choice(responses)
+	responses=responses.remove(response)
+	print(response)
