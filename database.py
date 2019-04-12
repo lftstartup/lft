@@ -1,5 +1,6 @@
 from model import *
 import os
+import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 engine = create_engine('sqlite:///tables.db?check_same_thread=False')
@@ -171,7 +172,6 @@ def get_responses_username(username):
 	chats = session.query(Chats).filter_by(dest = username).all()
 	return chats
 #getting a chat response
-def get_respose(responses):
+def get_response(responses):
 	response=random.choice(responses)
-	responses=responses.remove(response)
-	print(response)
+	return response
