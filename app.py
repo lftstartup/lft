@@ -639,11 +639,12 @@ def chat():
 				if request.method == 'GET':
 					return render_template('chat.html')
 				else:
+					responses1=['How are you?','How old are you?','What is your name?','Where do you study?','How many siblings do you have?','What is favorite food?']
 					sender = username
 					reciever = 'computer'
 					message = request.form['message']
 					send_message(sender, reciever, message)
-					response = get_response()
+					response = get_response(responses1)
 					send_message('computer', username, response)
 					sended = get_messages_username(username)
 					responses = get_responses_username(username)
