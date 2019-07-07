@@ -627,6 +627,48 @@ def become_advertiser():
 		add_advertiser(company_name, info, link)
 		redirect(url_for('login'))
 		return render_template('login.html')
+#route for the chats
+@app.route('/chat', methods = ['GET', 'POST'])
+def chat():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype == 'teacher':
+				return redirect(url_for('home'))
+			else:
+				if request.method == 'GET':
+					return render_template('chat.html')
+				else:
+					responses1=['How are you?','How old are you?','What is your name?','Where do you study?','How many siblings do you have?','What is favorite food?']
+					sender = username
+					reciever = 'computer'
+					message = request.form['message']
+					send_message(sender, reciever, message)
+					response = get_response(responses1)
+					send_message('computer', username, response)
+					responses1.remove(response)
+
+					sended = get_messages_username(username)
+					responses = get_responses_username(username)
+					chats = []
+					if len(sended) > 0:
+						for i in range(len(sended)):
+							chats.append(sended[i])
+							if i <= len(responses):
+								chats.append(responses[i])
+					redirect(url_for('chat'))
+					return render_template("chat.html", username = username, chats = chats, messages = get_messages_username)
+
+
+
+
+@app.route('/chat_room')
+def chatting():
+	
+	return render_tamplate('chat_room.html')
+
+
 @app.route('/logout')
 def logout():
 	login_session.pop('username', None)
