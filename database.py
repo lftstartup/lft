@@ -202,3 +202,11 @@ def add_online(username):
 	session.add(online)
 	session.commit()
 #removing online
+def remove_online(username):
+	session.query(Online).filter_by(username = username).first().delete()
+	session.commit()
+#display all online
+def get_online():
+	online = session.query(Online).all()
+	return online
+

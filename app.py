@@ -7,6 +7,7 @@ from database import query_teacher_id, create_post, query_posts, query_posts_tea
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
 from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers, get_rating_teacher, update_rating
 from database import get_messages_username, get_responses_username, get_response, send_message
+from database import *
 from flask_mail import Mail, Message
 import random
 UPLOAD_FOLDER = 'static/'
