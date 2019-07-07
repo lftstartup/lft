@@ -88,9 +88,11 @@ class Advertisers(Base):
 class Chats(Base):
 	__tablename__ = "chats"
 	id = Column(Integer, primary_key = True)
-	sender = Column(String) #the username of the sender, if the computer sends, it'll be 'computer'
-	dest = Column(String) #the username of the reciever, if the computer recieves, it'll be 'computer'
+	username_1 = Column(String) #the username of one of the users who use the chat
+	username_2 = Column(String) #the username of another user who is using the chat
 	message = Column(String)
 	#printing the db
+
 	def __repr__(self):
-		return "\nsender: " + self.sender + "\nreciever: " + self.dest + "\nmessage: " + self.message
+		return "\nchatter_name: " + self.username_1 + "\nchatter_name: " + self.username_2 + "\nmessage: " + self.message
+
