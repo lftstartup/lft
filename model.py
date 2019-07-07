@@ -94,3 +94,7 @@ class Chats(Base):
 	#printing the db
 	def __repr__(self):
 		return "\nsender: " + self.sender + "\nreciever: " + self.dest + "\nmessage: " + self.message
+class Online(Base):
+	__tablename__ = "online"
+	id = Column(Integer, primary_key = True)
+	username = Column(String)

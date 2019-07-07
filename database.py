@@ -195,3 +195,10 @@ def get_chat_messages(username1, username2):
 			flag = True
 	messages = messages.split(",")
 	return messages
+#online######
+#adding to the session
+def add_online(username):
+	online = Online(username)
+	session.add(online)
+	session.commit()
+#removing online
