@@ -6,8 +6,7 @@ from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quiz
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
 from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers, get_rating_teacher, update_rating
-from database import get_messages_username, get_responses_username, get_response, send_message
-from database import *
+from database import add_online, remove_online, get_online
 from flask_mail import Mail, Message
 import random
 UPLOAD_FOLDER = 'static/'
@@ -267,6 +266,8 @@ def home():
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
+			add_online(username)
+
 			if usertype == "teacher":
 				return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
 			else:
@@ -301,6 +302,7 @@ def login():
 							login_session['username'] = username
 							login_session['usertype'] = "teacher"
 							render_template("home.html", username = username, usertype = login_session['usertype'])
+
 							return redirect(url_for('home'))
 						else:
 							is_password = False
@@ -664,14 +666,35 @@ def chat():
 
 
 
-@app.route('/chat_room')
-def chatting():
-	
-	return render_tamplate('chat_room.html')
+@app.route('/chatroom')
+def chatroom():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			return render_tamplate('chatroom.html')
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 
 
+@app.route('/chatlist')
+def chatlist():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+
+			listi = get_online()
+			return render_template("chatlist.html", listi = listi)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 @app.route('/logout')
 def logout():
+	remove_online(login_session['username'])
 	login_session.pop('username', None)
 	login_session.pop('usertype', None)
 	return redirect(url_for('login'))
