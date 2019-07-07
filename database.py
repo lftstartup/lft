@@ -158,20 +158,40 @@ def update_rating(username, grade):
 	teacher.grades += grade
 	teacher.rate_amount += 1
 	session.commit()
-#send message
-def send_message(sender, reciever, message):
-	message = Chats(sender = sender, dest = reciever, message = message)
-	session.add(message)
+#chat########
+#query all chats
+def all_chats():
+	chats = session.query(Chats).all()
+	return chats
+#query chat
+def query_chat(username1, username2):
+	all_chats = all_chats()
+	for chat in all_chats:
+		if username1 == chat.username1 and username2 == chat.username2:
+			return chat
+		elif username2 == chat.username1 and username1 == chat.username2:
+			return chat
+		else:
+			chat = create_chat(username1, username2)
+			return chat
+#creating a chat
+def create_chat(username1, username2):
+	chat = Chats(username1 = username1, username2 = username2, message = "")
+	session.add(chat)
 	session.commit()
-#getting all messages from username
-def get_messages_username(username):
-	chats = session.query(Chats).filter_by(sender = username).all()
-	return chats
-#getting sent_to from username
-def get_responses_username(username):
-	chats = session.query(Chats).filter_by(dest = username).all()
-	return chats
-#getting a chat response
-def get_response(responses):
-	response=random.choice(responses)
-	return response
+#sending a message
+def send_message(username1, username2, sender, message):
+	chat = query_chat(username1, username2)
+	sender = session.query(Students).filter_by(username = sender).first().firstname + " " + session.query(Students).filter_by(username = sender).first().lastname
+	chat.message += "," + sender + ": " + message
+	session.commit()
+#getting all chat messages
+def get_chat_messages(username1, username2):
+	chat = query_chat(username1, username2)
+	messages = chat.message
+	flag = False
+	for m in messages:
+		if m == ",":
+			flag = True
+	messages = messages.split(",")
+	return messages
