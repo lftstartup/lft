@@ -88,14 +88,15 @@ class Advertisers(Base):
 class Chats(Base):
 	__tablename__ = "chats"
 	id = Column(Integer, primary_key = True)
-	username1 = Column(String) #the username of one of the users who use the chat
-	username2 = Column(String) #the username of another user who is using the chat
+	name = Column(String)
+	max_people = Column(Integer)
+	usernames = Column(String) #the usernames of all the people in the chat
 	message = Column(String)
 	#printing the db
 
 	def __repr__(self):
-		return "\nchatter_name: " + self.username_1 + "\nchatter_name: " + self.username_2 + "\nmessage: " + self.message
-		
+		return "\nchatter_names: " + self.usernames + "\nmessage: " + self.message
+
 class Online(Base):
 	__tablename__ = "online"
 	id = Column(Integer, primary_key = True)

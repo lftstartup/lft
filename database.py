@@ -164,30 +164,43 @@ def all_chats():
 	chats = session.query(Chats).all()
 	return chats
 #query chat
-def query_chat(username1, username2):
-	all_chats = all_chats()
-	for chat in all_chats:
-		if username1 == chat.username1 and username2 == chat.username2:
-			return chat
-		elif username2 == chat.username1 and username1 == chat.username2:
-			return chat
-		else:
-			chat = create_chat(username1, username2)
-			return chat
+def query_chat(name):
+	chats = session.query(Chats).filter_by(name = name).first()
+	return chats
 #creating a chat
-def create_chat(username1, username2):
-	chat = Chats(username1 = username1, username2 = username2, message = "")
+def create_chat(name, username, max_people):
+	chat = Chats(name = name, usernames = usernames, max_people = max_people, message = "")
 	session.add(chat)
 	session.commit()
 #sending a message
-def send_message(username1, username2, sender, message):
-	chat = query_chat(username1, username2)
-	sender = session.query(Students).filter_by(username = sender).first().firstname + " " + session.query(Students).filter_by(username = sender).first().lastname
+def send_message(name, username, message):
+	chat = query_chat(name)
+	sender = session.query(Students).filter_by(username = username).first().firstname + " " + session.query(Students).filter_by(username = username).first().lastname
 	chat.message += "," + sender + ": " + message
 	session.commit()
+#add user to chat
+def add_user_chat(name, username):
+	chat = query_chat(name)
+	chat.usernames += "," + username
+#remove user from chat
+def remove_from_chat(name, username):
+	chat = query_chat(name)
+	names = chat.usernames
+	new_names = []
+	names = names.split(',')
+	for n in names:
+		if n != username:
+			new_names.append(n)
+	usernames = ""
+	for n in new_names:
+		username += n + ","
+	usernames = username[0:-1]
+	chat.usernames = usernames
+	session.commit()
+
 #getting all chat messages
-def get_chat_messages(username1, username2):
-	chat = query_chat(username1, username2)
+def get_chat_messages(name):
+	chat = query_chat(name)
 	messages = chat.message
 	flag = False
 	for m in messages:

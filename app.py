@@ -7,6 +7,7 @@ from database import query_teacher_id, create_post, query_posts, query_posts_tea
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
 from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers, get_rating_teacher, update_rating
 from database import add_online, remove_online, get_online
+from database import *
 from flask_mail import Mail, Message
 import random
 UPLOAD_FOLDER = 'static/'
@@ -666,28 +667,38 @@ def chat():
 
 
 
-@app.route('/chatroom')
+@app.route('/chatroom/<string:name>', methods = ['GET', 'POST'])
 def chatroom():
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
-			return render_tamplate('chatroom.html')
+			if request.method == 'GET':
+				chat = query_chat(name)
+				messages = get_chat_messages(name)
+				return render_tamplate('chatroom.html', chat = chat, messages = message[::-1])
+			else:
+				message = request.form['message']
+				send_message(name, username, message)
+				chat = query_chat(name)
+				messages = get_chat_messages(name)
+				return render_tamplate('chatroom.html', chat = chat, messages = message[::-1])
+
 		else:
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
 
 
-@app.route('/chatlist')
+@app.route('/chatlist', methods = ['GET', 'POST'])
 def chatlist():
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
-
-			listi = get_online()
-			return render_template("chatlist.html", listi = listi)
+			if request.method == 'POST':
+				
+			return render_template("chatlist.html")
 		else:
 			return redirect(url_for('login'))
 	else:
