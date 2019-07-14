@@ -195,3 +195,25 @@ def get_chat_messages(username1, username2):
 			flag = True
 	messages = messages.split(",")
 	return messages
+#online######
+#adding to the session
+def add_online(username):
+	onlines = get_online()
+	flag = False
+	for o in onlines:
+		if o.username == username:
+			flag = True
+	if flag != True:
+		online = Online(username = username)
+		session.add(online)
+		session.commit()
+#removing online
+def remove_online(username):
+	session.query(Online).filter_by(username = username).delete()
+	session.commit()
+#display all online
+def get_online():
+	online = session.query(Online).all()
+	return online
+
+
