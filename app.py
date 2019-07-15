@@ -7,6 +7,7 @@ from database import query_teacher_id, create_post, query_posts, query_posts_tea
 from database import query_course_id, get_amount_buyers_id, update_buyers, update_teacher_buyers, update_teacher_courses
 from database import query_teacher_email, query_student_email, query_courses_level, add_advertiser, query_advertisers, get_rating_teacher, update_rating
 from database import add_online, remove_online, get_online
+from database import *
 from flask_mail import Mail, Message
 import random
 UPLOAD_FOLDER = 'static/'
@@ -282,50 +283,51 @@ def login():
 		if 'username' in login_session:
 			if 'usertype' in login_session:
 				return redirect(url_for('logout'))
-		return render_template("login.html")
+		return render_template("student_login.html")
 	else:
-		user = request.form['user']
-		if user == "teacher":
-			username = request.form['username']
-			password = request.form['password']
-			teachers = query_teachers()
-			#if the username is in the database
-			is_username = False
-			is_password = False
-			if len(teachers) > 0:
-				for teacher in teachers:
-					if teacher.username == username:
-						teacher_new = query_teacher_username(username)
-						if teacher_new.password == password:
-							#confirmed
-							is_password = True
-							login_session['username'] = username
-							login_session['usertype'] = "teacher"
-							render_template("home.html", username = username, usertype = login_session['usertype'])
+		# user = request.form['user']
+		# if user == "teacher":
+		# 	username = request.form['username']
+		# 	password = request.form['password']
+		# 	teachers = query_teachers()
+		# 	#if the username is in the database
+		# 	is_username = False
+		# 	is_password = False
+		# 	if len(teachers) > 0:
+		# 		for teacher in teachers:
+		# 			if teacher.username == username:
+		# 				teacher_new = query_teacher_username(username)
+		# 				if teacher_new.password == password:
+		# 					#confirmed
+		# 					is_password = True
+		# 					login_session['username'] = username
+		# 					login_session['usertype'] = "teacher"
+		# 					render_template("home.html", username = username, usertype = login_session['usertype'])
 
-							return redirect(url_for('home'))
-						else:
-							is_password = False
-						is_username = True
-			else:
-				return render_template('login.html', msg = "there are no users in our database")
-			if is_username == False:
-				return render_template("login.html", msg = "the username is not exited in our database :(")
-			if is_password == False:
-				return render_template("login.html", msg = "the password does not match the username!")
-		if user == 'student':
+		# 					return redirect(url_for('home'))
+		# 				else:
+		# 					is_password = False
+		# 				is_username = True
+		# 	else:
+		# 		return render_template('login.html', msg = "there are no users in our database")
+		# 	if is_username == False:
+		# 		return render_template("login.html", msg = "the username is not exited in our database :(")
+		# 	if is_password == False:
+		# 		return render_template("login.html", msg = "the password does not match the username!")
+		# if user == 'student':
+		if 1==1:
 			username = request.form['username']
 			password = request.form['password']
 			students = query_students()
 			if len(students) == 0:
-				return render_template('login.html', msg = "there are no users in our database")
+				return render_template('student_login.html', msg = "there are no users in our database")
 			student = query_student_username(username)
 			if student.password == password:
 				login_session['username'] = username
 				login_session['usertype'] = 'student'
 				return redirect(url_for('home'))
 			else:
-				return render_template("login.html", msg = "password is incorrect")
+				return render_template("student_login.html", msg = "password is incorrect")
 @app.route('/create_quiz', methods = ['GET', 'POST'])
 def create_quiz():
 	if 'username' in login_session:
@@ -666,28 +668,71 @@ def chat():
 
 
 
-@app.route('/chatroom')
-def chatroom():
+@app.route('/chatroom/<string:name>', methods = ['GET', 'POST'])
+def chatroom(name):
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
-			return render_tamplate('chatroom.html')
+			chat = query_chat(name)
+			if username in get_chat_users(name):
+
+				if request.method == 'GET':
+					messages = get_chat_messages(name)
+					redirect(url_for('chatroom', name = name))
+					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1])
+				else:
+					message = request.form['message']
+					send_message(name, username, message)
+					chat = query_chat(name)
+					messages = get_chat_messages(name)
+					redirect(url_for('chatroom', name = name))
+					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1])
+			else:
+				return redirect(url_for('chatlist'))
 		else:
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
 
-
-@app.route('/chatlist')
+@app.route('/join_room/<string:name>')
+def join_room(name):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			chat = query_chat(name)
+			# if chat.current_people == chat.max_people:
+			# 	return redirect(url_for('chatlist'))
+			add_user_chat(name, username)
+			return redirect(url_for('chatroom', name = name))
+		else:
+			return redirect(url_for('login'))
+	return redirect(url_for('login'))
+@app.route('/chatlist', methods = ['GET', 'POST'])
 def chatlist():
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
+			chats = all_chats()
+			if request.method == 'POST':
+				max_people = request.form['amount']
+				name = request.form['name']
+				chats = all_chats()
+				flag = False
+				for c in chats:
+					if c.name == name:
+						flag = True
+				if flag == False:
+					create_chat(name, username, max_people)
+					chats = all_chats()
+					redirect(url_for('chatlist'))
+					return render_template("chatroom_list.html", chats = chats)
 
-			listi = get_online()
-			return render_template("chatlist.html", listi = listi)
+			chats = all_chats()
+			redirect(url_for('chatlist'))
+			return render_template("chatroom_list.html", chats = chats)
 		else:
 			return redirect(url_for('login'))
 	else:

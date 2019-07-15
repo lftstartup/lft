@@ -10,15 +10,16 @@ This is a chatroom page where students will be able to chat with each other.
 <br/> 
 
 <ul>
-	<li>Eman : Hi</li><br/>
-	<li>Roy : Hello</li><br/>
-	<li>Eman : How are you?</li><br/>
-	<li>Roy : Fine</li>
+	{%for m in messages%}
+
+	<li>{{m}}</li>
+
+	{%endfor%}
 </ul>
 
 <br/><br/>
-<form action="/chat_room" method = "post">
-<input type="text" name="message" value="massage"><br/><br/>
+<form action="/chatroom/{{name}}" method = "post">
+<input type="text" name="message"><br/><br/>
 <input type="submit" value="Send">
 </form>
 
