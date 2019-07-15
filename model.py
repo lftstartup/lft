@@ -89,6 +89,7 @@ class Chats(Base):
 	__tablename__ = "chats"
 	id = Column(Integer, primary_key = True)
 	name = Column(String)
+	current_people = Column(Integer)
 	max_people = Column(Integer)
 	usernames = Column(String) #the usernames of all the people in the chat
 	message = Column(String)

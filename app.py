@@ -668,37 +668,69 @@ def chat():
 
 
 @app.route('/chatroom/<string:name>', methods = ['GET', 'POST'])
-def chatroom():
+def chatroom(name):
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
-			if request.method == 'GET':
-				chat = query_chat(name)
-				messages = get_chat_messages(name)
-				return render_tamplate('chatroom.html', chat = chat, messages = message[::-1])
-			else:
-				message = request.form['message']
-				send_message(name, username, message)
-				chat = query_chat(name)
-				messages = get_chat_messages(name)
-				return render_tamplate('chatroom.html', chat = chat, messages = message[::-1])
+			chat = query_chat(name)
+			if username in get_chat_users(name):
 
+				if request.method == 'GET':
+					messages = get_chat_messages(name)
+					redirect(url_for('chatroom', name = name))
+					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1])
+				else:
+					message = request.form['message']
+					send_message(name, username, message)
+					chat = query_chat(name)
+					messages = get_chat_messages(name)
+					redirect(url_for('chatroom', name = name))
+					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1])
+			else:
+				return redirect(url_for('chatlist'))
 		else:
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
 
-
+@app.route('/join_room/<string:name>')
+def join_room(name):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			chat = query_chat(name)
+			if chat.current_people == chat.max_people:
+				return redirect(url_for('chatlist'))
+			add_user_chat(name, username)
+			return redirect(url_for('chatroom', name = name))
+		else:
+			return redirect(url_for('login'))
+	return redirect(url_for('login'))
 @app.route('/chatlist', methods = ['GET', 'POST'])
 def chatlist():
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
 			usertype = login_session['usertype']
+			chats = all_chats()
 			if request.method == 'POST':
+				max_people = request.form['amount']
+				name = request.form['name']
+				chats = all_chats()
+				flag = False
+				for c in chats:
+					if c.name == name:
+						flag = True
+				if flag == False:
+					create_chat(name, username, max_people)
+					redirect(url_for('chatlist'))
+					return render_template("chatroom_list.html", chats = chats)
 				
-			return render_template("chatlist.html")
+			chats = all_chats()
+			redirect(url_for('chatlist'))
+			return render_template("chatroom_list.html", chats = chats)
 		else:
 			return redirect(url_for('login'))
 	else:
