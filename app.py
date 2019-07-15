@@ -285,36 +285,37 @@ def login():
 				return redirect(url_for('logout'))
 		return render_template("login.html")
 	else:
-		user = request.form['user']
-		if user == "teacher":
-			username = request.form['username']
-			password = request.form['password']
-			teachers = query_teachers()
-			#if the username is in the database
-			is_username = False
-			is_password = False
-			if len(teachers) > 0:
-				for teacher in teachers:
-					if teacher.username == username:
-						teacher_new = query_teacher_username(username)
-						if teacher_new.password == password:
-							#confirmed
-							is_password = True
-							login_session['username'] = username
-							login_session['usertype'] = "teacher"
-							render_template("home.html", username = username, usertype = login_session['usertype'])
+		# user = request.form['user']
+		# if user == "teacher":
+		# 	username = request.form['username']
+		# 	password = request.form['password']
+		# 	teachers = query_teachers()
+		# 	#if the username is in the database
+		# 	is_username = False
+		# 	is_password = False
+		# 	if len(teachers) > 0:
+		# 		for teacher in teachers:
+		# 			if teacher.username == username:
+		# 				teacher_new = query_teacher_username(username)
+		# 				if teacher_new.password == password:
+		# 					#confirmed
+		# 					is_password = True
+		# 					login_session['username'] = username
+		# 					login_session['usertype'] = "teacher"
+		# 					render_template("home.html", username = username, usertype = login_session['usertype'])
 
-							return redirect(url_for('home'))
-						else:
-							is_password = False
-						is_username = True
-			else:
-				return render_template('login.html', msg = "there are no users in our database")
-			if is_username == False:
-				return render_template("login.html", msg = "the username is not exited in our database :(")
-			if is_password == False:
-				return render_template("login.html", msg = "the password does not match the username!")
-		if user == 'student':
+		# 					return redirect(url_for('home'))
+		# 				else:
+		# 					is_password = False
+		# 				is_username = True
+		# 	else:
+		# 		return render_template('login.html', msg = "there are no users in our database")
+		# 	if is_username == False:
+		# 		return render_template("login.html", msg = "the username is not exited in our database :(")
+		# 	if is_password == False:
+		# 		return render_template("login.html", msg = "the password does not match the username!")
+		# if user == 'student':
+		if 1==1:
 			username = request.form['username']
 			password = request.form['password']
 			students = query_students()
@@ -725,9 +726,10 @@ def chatlist():
 						flag = True
 				if flag == False:
 					create_chat(name, username, max_people)
+					chats = all_chats()
 					redirect(url_for('chatlist'))
 					return render_template("chatroom_list.html", chats = chats)
-				
+
 			chats = all_chats()
 			redirect(url_for('chatlist'))
 			return render_template("chatroom_list.html", chats = chats)
