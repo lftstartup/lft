@@ -283,7 +283,7 @@ def login():
 		if 'username' in login_session:
 			if 'usertype' in login_session:
 				return redirect(url_for('logout'))
-		return render_template("login.html")
+		return render_template("student_login.html")
 	else:
 		# user = request.form['user']
 		# if user == "teacher":
@@ -320,14 +320,14 @@ def login():
 			password = request.form['password']
 			students = query_students()
 			if len(students) == 0:
-				return render_template('login.html', msg = "there are no users in our database")
+				return render_template('student_login.html', msg = "there are no users in our database")
 			student = query_student_username(username)
 			if student.password == password:
 				login_session['username'] = username
 				login_session['usertype'] = 'student'
 				return redirect(url_for('home'))
 			else:
-				return render_template("login.html", msg = "password is incorrect")
+				return render_template("student_login.html", msg = "password is incorrect")
 @app.route('/create_quiz', methods = ['GET', 'POST'])
 def create_quiz():
 	if 'username' in login_session:
@@ -702,8 +702,8 @@ def join_room(name):
 			username = login_session['username']
 			usertype = login_session['usertype']
 			chat = query_chat(name)
-			if chat.current_people == chat.max_people:
-				return redirect(url_for('chatlist'))
+			# if chat.current_people == chat.max_people:
+			# 	return redirect(url_for('chatlist'))
 			add_user_chat(name, username)
 			return redirect(url_for('chatroom', name = name))
 		else:
