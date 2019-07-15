@@ -12,7 +12,7 @@ This is a chatroom page where students will be able to chat with each other.
 <ul>
 	{%for m in messages%}
 
-	<li>{{m}}</li>
+	<li>{{m.sender}}[{{m.time}}]: {{m.message}}</li>
 
 	{%endfor%}
 </ul>
