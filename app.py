@@ -13,6 +13,7 @@ import random
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv', 'AVI', 'Avi'])
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'asdf movies'
 app.config.update(dict(
 	DEBUG = True,
 	MAIL_SERVER = 'smtp.gmail.com',
@@ -675,14 +676,14 @@ def chatroom(name):
 			username = login_session['username']
 			usertype = login_session['usertype']
 			chat = query_chat(name)
-			if username in get_chat_users(name):
-
+			if 1 == 1:
 				if request.method == 'GET':
 					messages = get_chat_messages(name)
 					redirect(url_for('chatroom', name = name))
 					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1])
 				else:
 					message = request.form['message']
+					print(message)
 					send_message(name, username, message)
 					chat = query_chat(name)
 					messages = get_chat_messages(name)
@@ -693,7 +694,7 @@ def chatroom(name):
 		else:
 			return redirect(url_for('login'))
 	else:
-		return redirect(url_for('login'))
+		return redirehomect(url_for('login'))
 
 @app.route('/join_room/<string:name>')
 def join_room(name):
@@ -702,10 +703,21 @@ def join_room(name):
 			username = login_session['username']
 			usertype = login_session['usertype']
 			chat = query_chat(name)
-			# if chat.current_people == chat.max_people:
-			# 	return redirect(url_for('chatlist'))
-			add_user_chat(name, username)
-			return redirect(url_for('chatroom', name = name))
+			# print(get_chat_users(name))
+			usernames = get_chat_users(chat)
+			print("join rooms")
+			if username in usernames:
+				print("in")
+				return redirect(url_for('chatroom', name = name))
+			else:
+				if chat.current_people >= chat.max_people:
+					print("over")
+					return redirect(url_for('chatlist'))
+				else:
+					print("new")
+					add_user_chat(name, username)
+					# print(get_chat_users(name))
+					return redirect(url_for('chatroom', name = name))
 		else:
 			return redirect(url_for('login'))
 	return redirect(url_for('login'))
@@ -717,7 +729,6 @@ def chatlist():
 			usertype = login_session['usertype']
 			chats = all_chats()
 			if request.method == 'POST':
-				max_people = request.form['amount']
 				name = request.form['name']
 				chats = all_chats()
 				flag = False
@@ -725,7 +736,7 @@ def chatlist():
 					if c.name == name:
 						flag = True
 				if flag == False:
-					create_chat(name, username, max_people)
+					create_chat(name, username)
 					chats = all_chats()
 					redirect(url_for('chatlist'))
 					return render_template("chatroom_list.html", chats = chats)
