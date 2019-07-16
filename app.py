@@ -278,6 +278,42 @@ def home():
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
+@app.route('/teacher_login', methods = ['GET', 'POST'])
+def teacher_login():
+	if request.method == 'POST':
+		if 1 == 1:
+			username = request.form['username']
+			password = request.form['password']
+			teachers = query_teachers()
+			#if the username is in the database
+			is_username = False
+			is_password = False
+			if len(teachers) > 0:
+				for teacher in teachers:
+					if teacher.username == username:
+						teacher_new = query_teacher_username(username)
+						if teacher_new.password == password:
+							#confirmed
+							is_password = True
+							login_session['username'] = username
+							login_session['usertype'] = "teacher"
+							render_template("home.html", username = username, usertype = login_session['usertype'])
+
+							return redirect(url_for('home'))
+						else:
+							is_password = False
+						is_username = True
+			else:
+				return render_template('teacher_login.html', msg = "there are no users in our database")
+			if is_username == False:
+				return render_template("teacher_login.html", msg = "the username is not exited in our database :(")
+			if is_password == False:
+				return render_template("teacher_login.html", msg = "the password does not match the username!")
+	else:
+		if 'username' in login_session:
+			if 'usertype' in login_session:
+				return redirect(url_for('logout'))
+		return render_template("teacher_login.html")
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	if request.method == 'GET':
@@ -286,35 +322,7 @@ def login():
 				return redirect(url_for('logout'))
 		return render_template("student_login.html")
 	else:
-		# user = request.form['user']
-		# if user == "teacher":
-		# 	username = request.form['username']
-		# 	password = request.form['password']
-		# 	teachers = query_teachers()
-		# 	#if the username is in the database
-		# 	is_username = False
-		# 	is_password = False
-		# 	if len(teachers) > 0:
-		# 		for teacher in teachers:
-		# 			if teacher.username == username:
-		# 				teacher_new = query_teacher_username(username)
-		# 				if teacher_new.password == password:
-		# 					#confirmed
-		# 					is_password = True
-		# 					login_session['username'] = username
-		# 					login_session['usertype'] = "teacher"
-		# 					render_template("home.html", username = username, usertype = login_session['usertype'])
-
-		# 					return redirect(url_for('home'))
-		# 				else:
-		# 					is_password = False
-		# 				is_username = True
-		# 	else:
-		# 		return render_template('login.html', msg = "there are no users in our database")
-		# 	if is_username == False:
-		# 		return render_template("login.html", msg = "the username is not exited in our database :(")
-		# 	if is_password == False:
-		# 		return render_template("login.html", msg = "the password does not match the username!")
+		
 		# if user == 'student':
 		if 1==1:
 			username = request.form['username']
@@ -744,6 +752,38 @@ def chatlist():
 			chats = all_chats()
 			redirect(url_for('chatlist'))
 			return render_template("chatroom_list.html", chats = chats)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/notify', methods = ['GET', 'POST'])
+def notify():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype == 'teacher':
+				if request.method == 'GET':
+					return render_template('notify.html')
+
+				else:
+					chat_name = request.form['chat_name']
+					time = request.form['time']
+					topic = request.form['topic']
+
+					title = "your teacher " + username + " has declared a support chat"
+					content = "Hello student!\nat " + time + " there will be a support group chat with your teacher " + username + " on " + topic
+					
+					all_buyers = find_buyers(username)
+
+					for buyer in all_buyers:
+						email = query_student_username(buyer).email
+						msg = Message(title, sender='recycledtrash.meet@gmail.com', recipients=[email])
+						msg.body = content
+						mail.send(msg)
+			else:
+				return redirect(url_for('home'))
+
 		else:
 			return redirect(url_for('login'))
 	else:
