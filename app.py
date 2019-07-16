@@ -1,6 +1,6 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session as login_session
 from werkzeug.utils import secure_filename
-import os 
+import os
 from database import create_student, create_teacher, query_teacher_username, query_student_username, query_teachers, query_students
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
@@ -138,6 +138,9 @@ def register_student():
 		for teacher in teachers:
 			if teacher.email == email:
 				return render_template("register_student.html", msg = "email is taken")
+		for teacher in teachers:
+			if teacher.username == username:
+				return render_template("register_student.html", msg = "username is taken")
 		for student in students:
 			if student.email == email:
 				return render_template("register_student.html", msg = "email is taken")
@@ -208,6 +211,9 @@ def register_teacher():
 		for student in students:
 			if student.email == email:
 				return render_template("register_teacher.html", msg = "email is taken")
+		for student in students:
+			if student.username == username:
+				return render_template("register_teacher.html", msg = "username is taken")
 		for teacher in teachers:
 			if teacher.username == username:
 				return render_template("register_teacher.html", msg = "username is taken")
@@ -231,13 +237,13 @@ def register_teacher():
 			return render_template("register_teacher.html", msg = "password is too long, maximum amount of characters allowed is 18")
 		firstname = request.form['firstname']
 		lastname = request.form['lastname']
-		
+
 		language = request.form['language']
 		#checking if the language is hebrew or arabic
 		if language.upper() != "hebrew".upper() and language.upper() != "arabic".upper():
 			return render_template("register_teacher.html", msg = "language has to be either 'hebrew' or 'arabic'")
 		language = language.lower()
-		
+
 		#checking if email has a @
 		is_at = False
 		for i in range(len(email)):
@@ -273,7 +279,7 @@ def home():
 			if usertype == "teacher":
 				return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
 			else:
-				return render_template("home.html", username = username, usertype = usertype, student = "student")				
+				return render_template("home.html", username = username, usertype = usertype, student = "student")
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -322,7 +328,7 @@ def login():
 				return redirect(url_for('logout'))
 		return render_template("student_login.html")
 	else:
-		
+
 		# if user == 'student':
 		if 1==1:
 			username = request.form['username']
@@ -482,7 +488,7 @@ def purchased(ids):
 	else:
 		return redirect(url_for('login'))
 @app.route('/courses/<int:ids>')
-def courses(is_password):
+def courses(ids):
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
@@ -574,7 +580,7 @@ def forgot_password():
 				mail.send(msg)
 				return render_template("forgot_password.html", msg = "successfully sent an email")
 
-			
+
 		return render_template("forgot_password.html", msg = "email does not exsist!")
 
 @app.route('/my_profile')
@@ -773,9 +779,9 @@ def notify():
 
 					title = "your teacher " + username + " has declared a support chat"
 					content = "Hello student!\nat " + time + " there will be a support group chat with your teacher " + username + " on " + topic
-					
-					all_buyers = find_buyers(username)
 
+					all_buyers = find_buyers(username)
+					all_buyers.pop(0)
 					for buyer in all_buyers:
 						email = query_student_username(buyer).email
 						msg = Message(title, sender='recycledtrash.meet@gmail.com', recipients=[email])
