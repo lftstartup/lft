@@ -246,3 +246,14 @@ def get_online():
 	online = session.query(Online).all()
 	return online
 
+####teacher support things
+#find all the teacher's buyers
+def find_buyers(username):
+	courses = query_courses_teacher(username)
+	buyers = []
+	for course in courses:
+		purchased = course.purchased.split(',')
+		for p in purchased:
+			buyers.append(p)
+	buyers = list(dict.fromkeys(buyers))
+	return buyers
