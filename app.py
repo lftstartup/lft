@@ -356,6 +356,7 @@ def create_quiz():
 					owner = username
 					language = request.form['language']
 					subject = request.form['subject']
+					level = request.form['level']
 					question1 = request.form['firstquestion']
 					answer1 = request.form['firstanswer']
 					question2 = request.form['secondquestion']
@@ -363,7 +364,7 @@ def create_quiz():
 					question3 = request.form['thirdquestion']
 					answer3 = request.form['thirdanswer']
 					language = language.lower()
-					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3)
+					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3, level)
 					return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
 			else:
 				return render_template("home.html", username = username, usertype = usertype)

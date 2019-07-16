@@ -31,14 +31,8 @@
 
 
 
-<<<<<<< HEAD
 <body class="kvootza">
-=======
-<body>
-  
 
-
->>>>>>> 155475c6639d56f90b473c84effba6ca61ce5a41
 <h1 class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
 {%if usertype == teacher%}
 <a href = "{{url_for('create_quiz')}}">create a quiz</a>
@@ -51,6 +45,7 @@
 {%if usertype == student%}
 <a href = "{{url_for('all_teachers')}}">find your teacher</a>
 <a href = "{{url_for('feed')}}">feed</a>
+<a href = "{{url_for('quizes')}}">find fun quizes</a>
 {%endif%}
 <a href = "{{url_for('my_profile')}}">my profile</a>
 <a href = "{{url_for('chatlist')}}">chat rooms</a>
