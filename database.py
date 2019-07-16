@@ -166,7 +166,7 @@ def all_chats():
 	return chats
 #query chat
 def query_chat(name):
-	
+
 	chats = session.query(Chats).filter_by(name = name).first()
 	return chats
 #creating a chat
@@ -257,3 +257,5 @@ def find_buyers(username):
 			buyers.append(p)
 	buyers = list(dict.fromkeys(buyers))
 	return buyers
+
+print(find_buyers("noam"))
