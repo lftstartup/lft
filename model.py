@@ -92,11 +92,17 @@ class Chats(Base):
 	current_people = Column(Integer)
 	max_people = Column(Integer)
 	usernames = Column(String) #the usernames of all the people in the chat
-	message = Column(String)
 	#printing the db
 
+class Messages(Base):
+	__tablename__ = "messages"
+	id = Column(Integer, primary_key = True, autoincrement=True)
+	name = Column(String)
+	sender = Column(String)
+	message = Column(String)
+	time = Column(String)
 	def __repr__(self):
-		return "\nchatter_names: " + self.usernames + "\nmessage: " + self.message
+		return str(self.id) + "+\n" + str(self.message)
 
 class Online(Base):
 	__tablename__ = "online"

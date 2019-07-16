@@ -3,6 +3,7 @@ import os
 import random
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import datetime
 engine = create_engine('sqlite:///tables.db?check_same_thread=False')
 Base.metadata.create_all(engine)
 DBSession = sessionmaker(bind=engine)
@@ -165,26 +166,27 @@ def all_chats():
 	return chats
 #query chat
 def query_chat(name):
-	chats = session.query(Chats).filter_by(name = name).all()
-	if len(chats) == 0:
-		return 0
+	
 	chats = session.query(Chats).filter_by(name = name).first()
 	return chats
 #creating a chat
-def create_chat(name, username, max_people):
-	chat = Chats(name = name, usernames = username, max_people = max_people, message = "", current_people = 1)
+def create_chat(name, username, max_people = 8):
+	chat = Chats(name = name, usernames = username, max_people = max_people, current_people = 1)
 	session.add(chat)
 	session.commit()
 #sending a message
 def send_message(name, username, message):
-	chat = query_chat(name)
-	sender = username
-	chat.message += "," + sender + ": " + message
+	now = str(datetime.datetime.now())[0:-7]
+	message = Messages(name = name, message = message, sender = username, time = now)
+	print(message)
+	session.add(message)
 	session.commit()
 #add user to chat
 def add_user_chat(name, username):
 	chat = query_chat(name)
 	if username in get_chat_users(name):
+		pass
+	else:
 		chat.usernames += "," + username
 		chat.current_people += 1
 		session.commit()
@@ -221,13 +223,7 @@ def get_chat_users(name):
 #getting all chat messages
 def get_chat_messages(name):
 	chat = query_chat(name)
-	messages = chat.message
-	flag = False
-	for m in messages:
-		if m == ",":
-			flag = True
-	if flag:
-		messages = messages.split(",")
+	messages = session.query(Messages).filter_by(name = name).all()
 	return messages
 #online######
 #adding to the session
@@ -249,3 +245,4 @@ def remove_online(username):
 def get_online():
 	online = session.query(Online).all()
 	return online
+
