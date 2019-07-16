@@ -48,8 +48,7 @@ def query_students():
 	return students
 #creating a quiz
 def create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3, level):
-	if level > 5:
-		level = 5
+	
 	quiz = Quizes(owner = owner, language = language, subject = subject, firstquestion = question1, firstanswer = answer1, secondquestion = question2, secondanswer = answer2, thirdquestion = question3, thirdanswer = answer3, level = level)
 	session.add(quiz)
 	session.commit()
