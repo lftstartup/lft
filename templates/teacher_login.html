@@ -4,7 +4,19 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<<<<<<< HEAD
+        <title>LFT</title>  
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+=======
         <title>LFT</title>
+>>>>>>> 703ff8c4f68ea5496c114715f9b99d347df20c1f
     </head>
 
         <style type="text/css">
@@ -146,6 +158,35 @@ body{
 
 
 <body class="background">
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="home.html">Logo</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        LogIn
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('teacher_login')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('login')}}">Student</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        SignUp
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('register_teacher')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('register_student')}}">Student</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<br>
 
 
         <div class="form-style-5">
@@ -175,6 +216,10 @@ body{
                 <br>
                 and here to sign up as a <a class="link" href = "{{url_for('register_teacher')}}">teacher</a></span>
             </div>
+<<<<<<< HEAD
+           
+          
+=======
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -211,5 +256,6 @@ body{
   </div>
 </nav>
 
+>>>>>>> 703ff8c4f68ea5496c114715f9b99d347df20c1f
     </body>
 </html>
