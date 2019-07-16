@@ -26,3 +26,38 @@
 .background > * {
     z-index: 10];
 }
+
+button {
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+iframe {
+  border: none;
+}
+
+.kvootza{
+    background-image: url("s.jpeg");
+}
+
+
+/*.background{
+	background-image: url("marah.jpg");
+    position: relative;
+}
+
+.layer {
+    background-color: rgba(248, 247, 216, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+

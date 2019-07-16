@@ -1,0 +1,36 @@
+<html>
+<head>
+
+  <title>{{quiz.topic}} quiz</title>
+
+</head>
+<body>
+<form action = "/quiz/{{quiz.id}}" method = "post">
+
+  <h1>{{quiz.language}} quiz!</h1>
+  <br>
+  <span>first question: {{quiz.firstquestion}}</<span>
+  <br>
+  <input type = "text" name = "firstAnswer">
+  <br>
+  <span>second question: {{quiz.secondquestion}}</span>
+  <br>
+  <input type = "text" name = "secondAnswer">
+  <br>
+  <span>third question: {{quiz.thirdquestion}}</span>
+  <br>
+  <input type = "text" name = "thirdAnswer">
+  <br>
+  <input type = "submit" value = "submit">
+
+</form>
+<br>
+<span>{{msg}}</span>
+<br>
+<a href = "{{url_for('home')}}">back home!</a>
+
+
+
+
+</body>
+</html>
