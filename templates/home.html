@@ -49,7 +49,23 @@
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="{{url_for('landing_page')}}">Log Out</a>
+      {%if usertype == teacher%}
+      <a lass="nav-link" href = "{{url_for('create_quiz')}}">create a quiz</a>
+      <a lass="nav-link" href = "{{url_for('upload_course')}}">upload a course</a>
+      <a lass="nav-link" href = "{{url_for('feed')}}">advertize yourself</a>
+      {%endif%}
+
+
+      <!-- ---------------------------------------------------------------------- -->
+      {%if usertype == student%}
+      <a lass="nav-link" href = "{{url_for('all_teachers')}}">find your teacher</a>
+      <a lass="nav-link" href = "{{url_for('feed')}}">feed</a>
+      <a lass="nav-link" href = "{{url_for('quizes')}}">find fun quizes</a>
+      {%endif%}
+      <a lass="nav-link" href = "{{url_for('my_profile')}}">my profile</a>
+      <a lass="nav-link" href = "{{url_for('chatlist')}}">chat rooms</a>
+      <a lass="nav-link" href = "{{url_for('contact_us')}}">contact us</a>
+      <a lass="nav-link" href = "{{url_for('logout')}}">log out</a>
 
   </ul>
 </nav>
@@ -57,22 +73,6 @@
 
 
 <h1 class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
-{%if usertype == teacher%}
-<a href = "{{url_for('create_quiz')}}">create a quiz</a>
-<a href = "{{url_for('upload_course')}}">upload a course</a>
-<a href = "{{url_for('feed')}}">advertize yourself</a>
-{%endif%}
 
-
-<!-- ---------------------------------------------------------------------- -->
-{%if usertype == student%}
-<a href = "{{url_for('all_teachers')}}">find your teacher</a>
-<a href = "{{url_for('feed')}}">feed</a>
-<a href = "{{url_for('quizes')}}">find fun quizes</a>
-{%endif%}
-<a href = "{{url_for('my_profile')}}">my profile</a>
-<a href = "{{url_for('chatlist')}}">chat rooms</a>
-<a href = "{{url_for('contact_us')}}">contact us</a>
-<a href = "{{url_for('logout')}}">log out</a>
 </body>
 </html>
