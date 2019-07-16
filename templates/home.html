@@ -1,6 +1,7 @@
 <html>
 <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+
 </head>
 <style>
 	body{
@@ -30,6 +31,9 @@
 
 
 <body>
+  
+
+
 <h1 class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
 {%if usertype == teacher%}
 <a href = "{{url_for('create_quiz')}}">create a quiz</a>
