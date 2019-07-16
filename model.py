@@ -29,7 +29,7 @@ class Students(Base):
 	courses = Column(String)
 	level = Column(Integer)
 	def __repr__(self):
-		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\n" 
+		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\n"
 		return "\nstudent id: " + str(self.id) + message
 class Quizes(Base):
 	__tablename__ = "quizes"
@@ -37,6 +37,7 @@ class Quizes(Base):
 	owner = Column(String)
 	language = Column(String)
 	subject = Column(String)
+	level = Column(String)
 	firstquestion = Column(String)
 	firstanswer = Column(String)
 	secondquestion = Column(String)
@@ -108,4 +109,3 @@ class Online(Base):
 	__tablename__ = "online"
 	id = Column(Integer, primary_key = True)
 	username = Column(String)
-

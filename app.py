@@ -356,6 +356,7 @@ def create_quiz():
 					owner = username
 					language = request.form['language']
 					subject = request.form['subject']
+					level = request.form['level']
 					question1 = request.form['firstquestion']
 					answer1 = request.form['firstanswer']
 					question2 = request.form['secondquestion']
@@ -363,7 +364,7 @@ def create_quiz():
 					question3 = request.form['thirdquestion']
 					answer3 = request.form['thirdanswer']
 					language = language.lower()
-					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3)
+					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3, level)
 					return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
 			else:
 				return render_template("home.html", username = username, usertype = usertype)
@@ -790,6 +791,50 @@ def notify():
 			else:
 				return redirect(url_for('home'))
 
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/quiz/<int:id>', methods = ['GET', 'POST'])
+def quiz(id):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype != "student":
+				return redirect(url_for('home'))
+			quiz = get_quiz_id(id)
+			if request.method == 'GET':
+				return render_template('quiz.html', quiz = quiz)
+			else:
+				firstAnswer = request.form['firstAnswer']
+				secondAnswer = request.form['secondAnswer']
+				thirdAnswer = request.form['thirdAnswer']
+				msg = ""
+				mistake_counter = 0
+				if firstAnswer != quiz.firstanswer:
+					mistake_counter += 1
+				if secondAnswer != quiz.secondanswer:
+					mistake_counter += 1
+				if thirdAnswer != quiz.thirdanswer:
+					mistake_counter += 1
+				if mistake_counter == 0:
+					return render_template("quiz.html", quiz = quiz, msg = "great job! 3/3")
+				else:
+					return render_template("quiz.html", quiz = quiz, msg = "final score: " + str(3 - mistake_counter) + "/3")
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+
+@app.route('/quizes')
+def quizes():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			quizes = get_quizes()
+			return render_template("quizes.html", quizes = quizes)
 		else:
 			return redirect(url_for('login'))
 	else:
