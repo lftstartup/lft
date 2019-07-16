@@ -6,13 +6,10 @@
     ),
 
     url("marah.jpg");
-/*
-    background-image: url("marah.jpg");
-    display: block;
-    position: relative;
-    height: 100%;
-    width: 100%;*/
 }
+
+.buttonlook {border-radius: 12px;}
+
 
 .background::after {
     content: "";
@@ -44,6 +41,7 @@ iframe {
   border: none;
 }
 
+<<<<<<< HEAD
 .logoimage:
 {
 /*    border-radius: 8px;*/
@@ -52,6 +50,11 @@ iframe {
 }
 
 
+=======
+.kvootza{
+    background-image: url("s.jpeg");
+}
+>>>>>>> e79b57c6b4631a8b2fa1ae7dd9a6f768e8244bf0
 
 
 /*.background{
@@ -67,4 +70,5 @@ iframe {
     width: 100%;
     height: 100%;
 }
+
 

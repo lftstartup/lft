@@ -794,6 +794,50 @@ def notify():
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
+@app.route('/quiz/<int:id>', methods = ['GET', 'POST'])
+def quiz(id):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype != "student":
+				return redirect(url_for('home'))
+			quiz = get_quiz_id(id)
+			if request.method == 'GET':
+				return render_template('quiz.html', quiz = quiz)
+			else:
+				firstAnswer = request.form['firstAnswer']
+				secondAnswer = request.form['secondAnswer']
+				thirdAnswer = request.form['thirdAnswer']
+				msg = ""
+				mistake_counter = 0
+				if firstAnswer != quiz.firstanswer:
+					mistake_counter += 1
+				if secondAnswer != quiz.secondanswer:
+					mistake_counter += 1
+				if thirdAnswer != quiz.thirdanswer:
+					mistake_counter += 1
+				if mistake_counter == 0:
+					return render_template("quiz.html", quiz = quiz, msg = "great job! 3/3")
+				else:
+					return render_template("quiz.html", quiz = quiz, msg = "final score: " + str(3 - mistake_counter) + "/3")
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+
+@app.route('/quizes')
+def quizes():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			quizes = get_quizes()
+			return render_template("quizes.html", quizes = quizes)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
 @app.route('/logout')
 def logout():
 	remove_online(login_session['username'])

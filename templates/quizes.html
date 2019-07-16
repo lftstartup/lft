@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>availabe quizes</title>
+</head>
+<body>
+<h1>availabe quizes</h1>
+<hr>
+
+{%for quiz in quizes%}
+
+<span><a href = "{{url_for('quiz', id = quiz.id)}}">{{quiz.language}}:</a> {{quiz.subject}} by {{quiz.owner}}</span>
+<br>
+
+{%endfor%}
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
