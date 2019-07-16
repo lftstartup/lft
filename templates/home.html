@@ -1,6 +1,7 @@
 <html>
 <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+
 </head>
 <style>
 	body{
@@ -10,7 +11,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: -1; 
+    z-index: -1;
     /*filter: blur(3px);*/
     margin:0;
     padding:0;
@@ -30,6 +31,9 @@
 
 
 <body>
+  
+
+
 <h1 class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
 {%if usertype == teacher%}
 <a href = "{{url_for('create_quiz')}}">create a quiz</a>
@@ -44,6 +48,8 @@
 <a href = "{{url_for('feed')}}">feed</a>
 {%endif%}
 <a href = "{{url_for('my_profile')}}">my profile</a>
+<a href = "{{url_for('chatlist')}}">chat rooms</a>
+<a href = "{{url_for('contact_us')}}">contact us</a>
 <a href = "{{url_for('logout')}}">log out</a>
 </body>
 </html>

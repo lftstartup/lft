@@ -4,12 +4,24 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        <title>LFT</title>   
+<<<<<<< HEAD
+        <title>LFT</title>  
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+=======
+        <title>LFT</title>
+>>>>>>> 703ff8c4f68ea5496c114715f9b99d347df20c1f
     </head>
-    
+
         <style type="text/css">
 
-    
+
 body{
     /*background-image: url(static/marah.jpg);*/
     min-height: 500px;
@@ -17,7 +29,7 @@ body{
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: -1; 
+    z-index: -1;
     /*filter: blur(3px);*/
     margin:0;
     padding:0;
@@ -79,9 +91,9 @@ body{
     outline: 0;
     padding: 10px;
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box; 
+    -moz-box-sizing: border-box;
     background-color: #e8eeef;
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
@@ -146,28 +158,57 @@ body{
 
 
 <body class="background">
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="home.html">Logo</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        LogIn
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('teacher_login')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('login')}}">Student</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        SignUp
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('register_teacher')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('register_student')}}">Student</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<br>
 
 
         <div class="form-style-5">
 
-                <form action="/login" method="post">
+                <form action="/teacher_login" method="post">
                     <fieldset>
 
                         <legend><span class="number">1</span> User Info</legend>
                         <input type="text" name="username" placeholder="Your Name ">
                         <br>
                         <input type="password" name="password" placeholder="password">
-                              
+
                     </fieldset>
                         <input type="submit" value="login">
                 </form>
         </div>
 
-               
-        
+
+
             <div id="id" style="position: fixed; bottom: 7%; width:100%; text-align: center">
-    
-    
+
+
                 <span ><a class="link" href = "{{url_for('forgot_password')}}">forgot password</a></span>
                 <span>you don't have an account?
                 <br>
@@ -175,6 +216,10 @@ body{
                 <br>
                 and here to sign up as a <a class="link" href = "{{url_for('register_teacher')}}">teacher</a></span>
             </div>
+<<<<<<< HEAD
+           
+          
+=======
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Navbar</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -210,6 +255,7 @@ body{
     </form>
   </div>
 </nav>
-          
+
+>>>>>>> 703ff8c4f68ea5496c114715f9b99d347df20c1f
     </body>
 </html>
