@@ -2,6 +2,14 @@
 <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 
+          <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 </head>
 <style>
 	body{
@@ -27,11 +35,34 @@
     font-size: 50px;
 }
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> e79b57c6b4631a8b2fa1ae7dd9a6f768e8244bf0
 </style>
 
 
 
 <body class="kvootza">
+<<<<<<< HEAD
+=======
+=======
+<body>
+
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#"> <!-- <img class="logoimage" src="/static/logo.png"> --></a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{{url_for('landing_page')}}">Log Out</a>
+
+  </ul>
+</nav>
+<br>
+  
+>>>>>>> a1f96eb79153ae1f1c6ab758b2b7985b360f283f
 
 <h1 class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
 {%if usertype == teacher%}
