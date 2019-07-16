@@ -6,6 +6,11 @@
     ),
 
     url("marah.jpg");
+}
+
+.buttonlook {border-radius: 12px;}
+
+
 /*
     background-image: url("marah.jpg");
     display: block;
@@ -30,19 +35,7 @@
     z-index: 10];
 }
 
-button {
-  outline: none;
-  border: none;
-  background: transparent;
-}
 
-button:hover {
-  cursor: pointer;
-}
-
-iframe {
-  border: none;
-}
 
 
 
