@@ -4,38 +4,62 @@
 		<meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <style>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+  // Add smooth scrolling to all links
+  $("a").on('click', function(event) {
 
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
 
+      // Store hash
+      var hash = this.hash;
 
-        #description{
-        	text-align: left;
-            padding-right:580px;
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+   
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    } // End if
+  });
+});
+</script>
+
+<style>
+        #description {
+        	  text-align: left;
+            position:absolute;
+            top:1000;
+            bottom:0;
+            height:-2000px;
+            padding-bottom:-100px;
+            /*padding-right:580px;*/
             font-size: 20px;
-            padding-left: 20px;
+            /*padding-left: 20px;*/
             font-weight: 500;
             color:#fff;
             /*text-shadow: 2px 2px #4f4a47;*/
-            padding-bottom: 0px;
-            margin-bottom: -200px;
+            /*padding-bottom: 0px;*/
+            margin-bottom:-100px;
             font-family: Courier New;
+            background-color:white;
         }
+
         .background-wrap{
             position:fixed;
-            z-index: -1000;
+            z-index: -2000;
             width:100%;
             height:100%;
             overflow: hidden;
             top:0;
             left:0;
-        }
-
-        #video-bg-elem{
-            position:absolute;
-            top:0;
-            left:0;
-            min-height: 100%;
-            min-width: 100%;
         }
         .content{
             position:absolute;
@@ -87,9 +111,9 @@ transform: translate(-50%, -50%);
             text-align: left;
         }
         .content p{
-            text-align: center;
-            font-size: 20px;
-            letter-spacing: 3px;
+        text-align: center;
+        font-size: 20px;
+        letter-spacing: 3px;
             color: #aaa;
             margin: 0;
   			position: absolute;
@@ -108,6 +132,8 @@ transform: translate(-50%, -50%);
     margin-left: auto;
     margin-right: auto;
 }
+
+/* BUTTON CSS */
 .button {
   display: inline-block;
   border-radius: 4px;
@@ -154,10 +180,13 @@ transform: translate(-50%, -50%);
   right: 0;
 }
 
+
 #get-started {
 	background-color:transparent;
+  z-index: 10;
 }
 html {
+  overflow-y: scroll;
   scroll-behavior: smooth;
 }
 
@@ -171,17 +200,14 @@ html {
 
 
 
-    	</style>
 
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</style>
 
 </head>
+<<<<<<< HEAD
+<body class="content">
+<a class="button" id="get-started" href="/#description"> <span> Get <br> Started </span> </a>
+=======
 <body>
 	 <nav class="navbar navbar-expand-sm bg navbar">
   <!-- Brand -->
@@ -215,6 +241,7 @@ html {
 
 
 <button class="button" id="get-started" onclick="window.location.href = '{{url_for('login')}}';"> <span> Get <br> Started </span> </button>
+>>>>>>> a07ddb7a0872b8dee6bb00707828fff4bdc3eba2
 
 
 <!-- <h1>get started!</h1>
@@ -224,13 +251,14 @@ html {
         <source src="/static/video2.mp4" type="video/mp4">
                 video not supported
         </video>
+        </div> <!-- Anna: the background wrap should not include the content; this div was `position: fixed` while content should not be -->
         <div class="content">
          <div id="text">
-            <!-- <h3>Welcome to Betterways your neighborhood's website!</h3> -->
+          
             <h3 class="home-content">
 
 
-                <!-- write what is the website about -->
+              
 
             </h3>
         </h3>
@@ -242,23 +270,26 @@ html {
         <p style = "font-family:Courier New;"> Language For Two </p>
     	<img src="{{ url_for('static', filename='meetfinal.png') }}" id="logo2">
 
+<<<<<<< HEAD
+      <div id="description" >      
+    	<h2 id="descriptiontext">
+=======
       <br><br><br>
 
     	<h2 id="description">
+>>>>>>> a07ddb7a0872b8dee6bb00707828fff4bdc3eba2
     		Our website offers you heritage in the  <bold> language,</bold>
     		
     		you lack through teachers,institutes and authorities.<br>
         Moreover provides you with enojoyable language skills at any<bold> time </bold> and <bold> place .</bold>
     	
     	</h2>
+      </div>
 
-
-
-
-        </div>
         <script src="{{ url_for('static', filename='jquery.js') }}"></script>
         <script src="{{ url_for('static', filename='bootstrap.bundle.js') }}"></script>
         <script src="{{ url_for('static', filename='inter.js') }}"></script>
+      </div>
 </body>
 </html>
 
