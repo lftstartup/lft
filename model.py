@@ -28,6 +28,8 @@ class Students(Base):
 	email = Column(String)
 	courses = Column(String)
 	level = Column(Integer)
+	subscribed = Column(Boolean)
+
 	def __repr__(self):
 		message = "\nusername: " + self.username + "\npassword: " + self.password + "\nemail: " + self.email + "\n"
 		return "\nstudent id: " + str(self.id) + message

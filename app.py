@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session as login_session
+from flask import Flask, render_template, send_from_directory, request, redirect, jsonify, url_for, session as login_session
 from werkzeug.utils import secure_filename
 import os
 from database import create_student, create_teacher, query_teacher_username, query_student_username, query_teachers, query_students
@@ -10,6 +10,14 @@ from database import add_online, remove_online, get_online
 from database import *
 from flask_mail import Mail, Message
 import random
+import paypalrestsdk
+
+#PAYPAL STUFF####
+paypalrestsdk.configure({
+  "mode": "sandbox", # sandbox or live
+  "client_id": "AVfVNc37bTnn1XBoz5B2wzK0iJpAvEOaguiQSJl5KP1ZFxqQIR6h3tzG2D6K01ijFUD8srHtJeRXQkOy",
+  "client_secret": "EGQCapUD0K-oyPvd7z2zE_YSOLvrpTgA4pCuKYaDmp2I1CZ2de4fCzru6DLZI9iX2DqlOmITMtrIklOj" })
+
 UPLOAD_FOLDER = 'static/'
 ALLOWED_EXTENSIONS = set(['mp4', 'mov', 'avi', 'flv', 'AVI', 'Avi'])
 app = Flask(__name__)
@@ -413,7 +421,8 @@ def profile(ids):
 					if name == username:
 						message = True
 						break
-			return render_template("profile.html", rating = rating, availabe = message, true = True, ids = ids, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
+			student = query_student_username(username)
+			return render_template("profile.html", student = student, rating = rating, availabe = message, true = True, ids = ids, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], posts = posts, teacher = teacher, quizes = quizes, username = username, usertype = usertype)
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -446,7 +455,8 @@ def profile_name(name):
 					if name == username:
 						message = True
 						break
-			return render_template("profile.html", availabe = message, rating = rating, true = True, false = False, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
+			student = query_student_username(username)
+			return render_template("profile.html", student = student, availabe = message, rating = rating, true = True, false = False, acourses = available_courses, alen = len(available_courses), clen = len(courses), zero = 0, courses = courses[::-1], teacher = teacher, posts = posts, quizes = quizes, username = username, usertype = usertype)
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -835,6 +845,55 @@ def quizes():
 			usertype = login_session['usertype']
 			quizes = get_quizes()
 			return render_template("quizes.html", quizes = quizes)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/payment', methods = ['POST'])
+def payment():
+	payment = paypalrestsdk.Payment({
+	    "intent": "sale",
+	    "payer": {
+	        "payment_method": "paypal"},
+	    "redirect_urls": {
+	        "return_url": "http://localhost:3000/payment/execute",
+	        "cancel_url": "http://localhost:3000/"},
+	    "transactions": [{
+	        "item_list": {
+	            "items": [{
+	                "name": "subscription",
+	                "sku": "subscription",
+	                "price": "25.00",
+	                "currency": "USD",
+	                "quantity": 1}]},
+	        "amount": {
+	            "total": "25.00",
+	            "currency": "USD"},
+	        "description": "This is a monthly subscription fee"}]})
+	if payment.create():
+		print("success!")
+	else:
+		print(payment.error)
+	return jsonify({'paymentID' : payment.id})
+
+@app.route("/execute", methods = ['POST'])
+def execute():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype == 'student':
+				success =  False
+				payment = paypalrestsdk.Payment.find(request.form['paymentID'])
+				if payment.execute({'payer_id' : request.form['payerID']}):
+					print("execute success")
+					success = True
+					update_sub(username)
+				else:
+					print(payment.error)
+				return redirect(url_for('home'))
+			else:
+				return redirect(url_for('home'))
 		else:
 			return redirect(url_for('login'))
 	else:
