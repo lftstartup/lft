@@ -73,6 +73,8 @@
           payerID: data.payerID
         }).then(function(res){
           //this payment is complete!
+        window.location.href = "http://127.0.0.1:5000/all_teachers";
+
         })
      },
 
@@ -80,7 +82,7 @@
  </script>
  {%endif%}
 {%if student.subscribed == true%}
-<a href = "{{url_for('purchased', ids = course.id)}}">add this course</a>
+  <a href = "{{url_for('purchased', ids = course.id)}}">add this course</a>
 {%endif%}
 {%endif%}
 {%if course in acourses%}
