@@ -2,7 +2,15 @@
 <!doctype html>
 <html>
 <head>
-        <title>LFT</title>   
+        <title>LFT</title>
+
+
+          <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
     </head>
@@ -14,7 +22,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    z-index: -1; 
+    z-index: -1;
     /*filter: blur(3px);*/
     margin:0;
     padding:0;
@@ -63,9 +71,9 @@
     outline: 0;
     padding: 10px;
     width: 100%;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box; 
+    -moz-box-sizing: border-box;
     background-color: #e8eeef;
     color:#8a97a0;
     -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
@@ -135,13 +143,44 @@
 
     <body>
 
-        
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Logo</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        LogIn
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('teacher_login')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('login')}}">Student</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        SignUp
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('register_teacher')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('register_student')}}">Student</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<br>
+
+
+
         <div class="form-style-5">
-   
-           
+
+
                 <form action="/register_student" method="post">
                     <fieldset>
-                        <legend><span class="number">1</span> Student info </legend>
+                        <legend><span class="number">1</span> Student SignUp </legend>
 
                     <input type="text" name="username" placeholder="User Name" >
                     <br>
@@ -152,15 +191,15 @@
                     <br>
 
                         <span ><strong id="red"> {{msg}} </strong></span>
-                  
+
                 </fieldset>
                     <input type="submit" value="Signup" >
-                    
+
 
                 </form>
         </div>
 
-        
+
 
     </body>
 </html>

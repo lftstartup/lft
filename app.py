@@ -1,6 +1,6 @@
 from flask import Flask, render_template, send_from_directory, request, redirect, url_for, session as login_session
 from werkzeug.utils import secure_filename
-import os 
+import os
 from database import create_student, create_teacher, query_teacher_username, query_student_username, query_teachers, query_students
 from database import create_quizes, get_quizes, get_arab_quizes, get_hebrew_quizes, get_quizes_by_owner, query_arab_teachers, query_hebrew_teachers
 from database import query_teacher_id, create_post, query_posts, query_posts_teacher, create_course, query_courses, query_courses_teacher
@@ -138,6 +138,9 @@ def register_student():
 		for teacher in teachers:
 			if teacher.email == email:
 				return render_template("register_student.html", msg = "email is taken")
+		for teacher in teachers:
+			if teacher.username == username:
+				return render_template("register_student.html", msg = "username is taken")
 		for student in students:
 			if student.email == email:
 				return render_template("register_student.html", msg = "email is taken")
@@ -208,6 +211,9 @@ def register_teacher():
 		for student in students:
 			if student.email == email:
 				return render_template("register_teacher.html", msg = "email is taken")
+		for student in students:
+			if student.username == username:
+				return render_template("register_teacher.html", msg = "username is taken")
 		for teacher in teachers:
 			if teacher.username == username:
 				return render_template("register_teacher.html", msg = "username is taken")
@@ -231,13 +237,13 @@ def register_teacher():
 			return render_template("register_teacher.html", msg = "password is too long, maximum amount of characters allowed is 18")
 		firstname = request.form['firstname']
 		lastname = request.form['lastname']
-		
+
 		language = request.form['language']
 		#checking if the language is hebrew or arabic
 		if language.upper() != "hebrew".upper() and language.upper() != "arabic".upper():
 			return render_template("register_teacher.html", msg = "language has to be either 'hebrew' or 'arabic'")
 		language = language.lower()
-		
+
 		#checking if email has a @
 		is_at = False
 		for i in range(len(email)):
@@ -273,11 +279,47 @@ def home():
 			if usertype == "teacher":
 				return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
 			else:
-				return render_template("home.html", username = username, usertype = usertype, student = "student")				
+				return render_template("home.html", username = username, usertype = usertype, student = "student")
 		else:
 			return redirect(url_for('login'))
 	else:
 		return redirect(url_for('login'))
+@app.route('/teacher_login', methods = ['GET', 'POST'])
+def teacher_login():
+	if request.method == 'POST':
+		if 1 == 1:
+			username = request.form['username']
+			password = request.form['password']
+			teachers = query_teachers()
+			#if the username is in the database
+			is_username = False
+			is_password = False
+			if len(teachers) > 0:
+				for teacher in teachers:
+					if teacher.username == username:
+						teacher_new = query_teacher_username(username)
+						if teacher_new.password == password:
+							#confirmed
+							is_password = True
+							login_session['username'] = username
+							login_session['usertype'] = "teacher"
+							render_template("home.html", username = username, usertype = login_session['usertype'])
+
+							return redirect(url_for('home'))
+						else:
+							is_password = False
+						is_username = True
+			else:
+				return render_template('teacher_login.html', msg = "there are no users in our database")
+			if is_username == False:
+				return render_template("teacher_login.html", msg = "the username is not exited in our database :(")
+			if is_password == False:
+				return render_template("teacher_login.html", msg = "the password does not match the username!")
+	else:
+		if 'username' in login_session:
+			if 'usertype' in login_session:
+				return redirect(url_for('logout'))
+		return render_template("teacher_login.html")
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
 	if request.method == 'GET':
@@ -286,35 +328,7 @@ def login():
 				return redirect(url_for('logout'))
 		return render_template("student_login.html")
 	else:
-		# user = request.form['user']
-		# if user == "teacher":
-		# 	username = request.form['username']
-		# 	password = request.form['password']
-		# 	teachers = query_teachers()
-		# 	#if the username is in the database
-		# 	is_username = False
-		# 	is_password = False
-		# 	if len(teachers) > 0:
-		# 		for teacher in teachers:
-		# 			if teacher.username == username:
-		# 				teacher_new = query_teacher_username(username)
-		# 				if teacher_new.password == password:
-		# 					#confirmed
-		# 					is_password = True
-		# 					login_session['username'] = username
-		# 					login_session['usertype'] = "teacher"
-		# 					render_template("home.html", username = username, usertype = login_session['usertype'])
 
-		# 					return redirect(url_for('home'))
-		# 				else:
-		# 					is_password = False
-		# 				is_username = True
-		# 	else:
-		# 		return render_template('login.html', msg = "there are no users in our database")
-		# 	if is_username == False:
-		# 		return render_template("login.html", msg = "the username is not exited in our database :(")
-		# 	if is_password == False:
-		# 		return render_template("login.html", msg = "the password does not match the username!")
 		# if user == 'student':
 		if 1==1:
 			username = request.form['username']
@@ -342,6 +356,7 @@ def create_quiz():
 					owner = username
 					language = request.form['language']
 					subject = request.form['subject']
+					level = request.form['level']
 					question1 = request.form['firstquestion']
 					answer1 = request.form['firstanswer']
 					question2 = request.form['secondquestion']
@@ -349,7 +364,7 @@ def create_quiz():
 					question3 = request.form['thirdquestion']
 					answer3 = request.form['thirdanswer']
 					language = language.lower()
-					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3)
+					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3, level)
 					return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
 			else:
 				return render_template("home.html", username = username, usertype = usertype)
@@ -474,7 +489,7 @@ def purchased(ids):
 	else:
 		return redirect(url_for('login'))
 @app.route('/courses/<int:ids>')
-def courses(is_password):
+def courses(ids):
 	if 'username' in login_session:
 		if 'usertype' in login_session:
 			username = login_session['username']
@@ -566,7 +581,7 @@ def forgot_password():
 				mail.send(msg)
 				return render_template("forgot_password.html", msg = "successfully sent an email")
 
-			
+
 		return render_template("forgot_password.html", msg = "email does not exsist!")
 
 @app.route('/my_profile')
@@ -744,6 +759,82 @@ def chatlist():
 			chats = all_chats()
 			redirect(url_for('chatlist'))
 			return render_template("chatroom_list.html", chats = chats)
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/notify', methods = ['GET', 'POST'])
+def notify():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype == 'teacher':
+				if request.method == 'GET':
+					return render_template('notify.html')
+
+				else:
+					chat_name = request.form['chat_name']
+					time = request.form['time']
+					topic = request.form['topic']
+
+					title = "your teacher " + username + " has declared a support chat"
+					content = "Hello student!\nat " + time + " there will be a support group chat with your teacher " + username + " on " + topic
+
+					all_buyers = find_buyers(username)
+					for buyer in all_buyers:
+						email = query_student_username(buyer).email
+						msg = Message(title, sender='recycledtrash.meet@gmail.com', recipients=[email])
+						msg.body = content
+						mail.send(msg)
+						return redirect(url_for('my_profile'))
+			else:
+				return redirect(url_for('home'))
+
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+@app.route('/quiz/<int:id>', methods = ['GET', 'POST'])
+def quiz(id):
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			if usertype != "student":
+				return redirect(url_for('home'))
+			quiz = get_quiz_id(id)
+			if request.method == 'GET':
+				return render_template('quiz.html', quiz = quiz)
+			else:
+				firstAnswer = request.form['firstAnswer']
+				secondAnswer = request.form['secondAnswer']
+				thirdAnswer = request.form['thirdAnswer']
+				msg = ""
+				mistake_counter = 0
+				if firstAnswer != quiz.firstanswer:
+					mistake_counter += 1
+				if secondAnswer != quiz.secondanswer:
+					mistake_counter += 1
+				if thirdAnswer != quiz.thirdanswer:
+					mistake_counter += 1
+				if mistake_counter == 0:
+					return render_template("quiz.html", quiz = quiz, msg = "great job! 3/3")
+				else:
+					return render_template("quiz.html", quiz = quiz, msg = "final score: " + str(3 - mistake_counter) + "/3")
+		else:
+			return redirect(url_for('login'))
+	else:
+		return redirect(url_for('login'))
+
+@app.route('/quizes')
+def quizes():
+	if 'username' in login_session:
+		if 'usertype' in login_session:
+			username = login_session['username']
+			usertype = login_session['usertype']
+			quizes = get_quizes()
+			return render_template("quizes.html", quizes = quizes)
 		else:
 			return redirect(url_for('login'))
 	else:

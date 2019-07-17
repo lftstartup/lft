@@ -1,7 +1,8 @@
 <html>
 <head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 </head>
-<body>
+<body class="sarah">
 <h1>contact us form:</h1>
 <hr>
 <form action = '/contact_us' method = "post">
@@ -15,5 +16,7 @@
 <br>
 <input type = "submit" value = "contact us">
 </form>
+<br>
+<a href = "{{url_for('home')}}">back home!</a>
 </body>
 </html>
