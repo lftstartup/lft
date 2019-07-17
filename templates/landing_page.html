@@ -1,10 +1,12 @@
 <html>
 <head>
-
-		<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+                  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
   // Add smooth scrolling to all links
@@ -49,8 +51,7 @@ $(document).ready(function(){
             /*padding-bottom: 0px;*/
             margin-bottom:-100px;
             font-family: Courier New;
-            background-color:white;
-        }
+           }
 
         .background-wrap{
             position:fixed;
@@ -62,6 +63,7 @@ $(document).ready(function(){
             left:0;
         }
         .content{
+            top:0;
             position:absolute;
             width:100%;
             min-height: 100%;
@@ -186,15 +188,20 @@ transform: translate(-50%, -50%);
   z-index: 10;
 }
 html {
-  overflow-y: scroll;
   scroll-behavior: smooth;
 }
 
+.navbar{
+  z-index: 1;
+}
+
 .navbar .navbar-brand{
+  z-index: 1;
   color: white !important;
 }
 
 #navbardrop{
+  z-index: 1;
   color: white !important;
 }
 
@@ -203,13 +210,12 @@ html {
 
 </style>
 
+
+
 </head>
-<<<<<<< HEAD
-<body class="content">
-<a class="button" id="get-started" href="/#description"> <span> Get <br> Started </span> </a>
-=======
 <body>
-	 <nav class="navbar navbar-expand-sm bg navbar">
+
+  <nav class="navbar navbar-expand-sm bg navbar">
   <!-- Brand -->
   <a class="navbar-brand" href="#">Logo</a>
 
@@ -238,10 +244,9 @@ html {
   </ul>
 </nav>
 <br>
+  <div class="content">
 
-
-<button class="button" id="get-started" onclick="window.location.href = '{{url_for('login')}}';"> <span> Get <br> Started </span> </button>
->>>>>>> a07ddb7a0872b8dee6bb00707828fff4bdc3eba2
+<a class="button" id="get-started" href="/#description"> <span> Get <br> Started </span> </a>
 
 
 <!-- <h1>get started!</h1>
@@ -268,16 +273,10 @@ html {
         <h1> LFT </h1>
 
         <p style = "font-family:Courier New;"> Language For Two </p>
-    	<img src="{{ url_for('static', filename='meetfinal.png') }}" id="logo2">
+    <!-- 	<img src="{{ url_for('static', filename='meetfinal.png') }}" id="logo2"> -->
 
-<<<<<<< HEAD
       <div id="description" >      
     	<h2 id="descriptiontext">
-=======
-      <br><br><br>
-
-    	<h2 id="description">
->>>>>>> a07ddb7a0872b8dee6bb00707828fff4bdc3eba2
     		Our website offers you heritage in the  <bold> language,</bold>
     		
     		you lack through teachers,institutes and authorities.<br>
@@ -290,6 +289,7 @@ html {
         <script src="{{ url_for('static', filename='bootstrap.bundle.js') }}"></script>
         <script src="{{ url_for('static', filename='inter.js') }}"></script>
       </div>
+    </div>
 </body>
 </html>
 
