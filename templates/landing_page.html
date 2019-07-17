@@ -1,10 +1,12 @@
 <html>
 <head>
-
-		<meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+                  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function(){
   // Add smooth scrolling to all links
@@ -61,6 +63,7 @@ $(document).ready(function(){
             left:0;
         }
         .content{
+            top:0;
             position:absolute;
             width:100%;
             min-height: 100%;
@@ -185,16 +188,64 @@ transform: translate(-50%, -50%);
   z-index: 10;
 }
 html {
-  overflow-y: scroll;
   scroll-behavior: smooth;
 }
+
+.navbar{
+  z-index: 1;
+}
+
+.navbar .navbar-brand{
+  z-index: 1;
+  color: white !important;
+}
+
+#navbardrop{
+  z-index: 1;
+  color: white !important;
+}
+
 
 
 
 </style>
 
+
+
 </head>
-<body class="content">
+<body>
+
+  <nav class="navbar navbar-expand-sm bg navbar">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Logo</a>
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        LogIn
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('teacher_login')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('login')}}">Student</a>
+      </div>
+    </li>
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        SignUp
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{url_for('register_teacher')}}">Teacher</a>
+        <a class="dropdown-item" href="{{url_for('register_student')}}">Student</a>
+      </div>
+    </li>
+  </ul>
+</nav>
+<br>
+  <div class="content">
+
 <a class="button" id="get-started" href="/#description"> <span> Get <br> Started </span> </a>
 
 
@@ -238,6 +289,7 @@ html {
         <script src="{{ url_for('static', filename='bootstrap.bundle.js') }}"></script>
         <script src="{{ url_for('static', filename='inter.js') }}"></script>
       </div>
+    </div>
 </body>
 </html>
 
