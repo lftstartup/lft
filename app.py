@@ -782,12 +782,12 @@ def notify():
 					content = "Hello student!\nat " + time + " there will be a support group chat with your teacher " + username + " on " + topic
 
 					all_buyers = find_buyers(username)
-					all_buyers.pop(0)
 					for buyer in all_buyers:
 						email = query_student_username(buyer).email
 						msg = Message(title, sender='recycledtrash.meet@gmail.com', recipients=[email])
 						msg.body = content
 						mail.send(msg)
+						return redirect(url_for('my_profile'))
 			else:
 				return redirect(url_for('home'))
 
