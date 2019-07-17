@@ -356,6 +356,7 @@ def create_quiz():
 					owner = username
 					language = request.form['language']
 					subject = request.form['subject']
+					level = request.form['level']
 					question1 = request.form['firstquestion']
 					answer1 = request.form['firstanswer']
 					question2 = request.form['secondquestion']
@@ -363,7 +364,7 @@ def create_quiz():
 					question3 = request.form['thirdquestion']
 					answer3 = request.form['thirdanswer']
 					language = language.lower()
-					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3)
+					create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3, level)
 					return render_template("home.html", username = username, usertype = usertype, teacher = "teacher")
 			else:
 				return render_template("home.html", username = username, usertype = usertype)
@@ -781,12 +782,12 @@ def notify():
 					content = "Hello student!\nat " + time + " there will be a support group chat with your teacher " + username + " on " + topic
 
 					all_buyers = find_buyers(username)
-					all_buyers.pop(0)
 					for buyer in all_buyers:
 						email = query_student_username(buyer).email
 						msg = Message(title, sender='recycledtrash.meet@gmail.com', recipients=[email])
 						msg.body = content
 						mail.send(msg)
+						return redirect(url_for('my_profile'))
 			else:
 				return redirect(url_for('home'))
 

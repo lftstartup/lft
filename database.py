@@ -28,8 +28,10 @@ def query_teacher_id(ids):
 	return teacher
 #getting a student by username
 def query_student_username(username):
-	student = session.query(Students).filter_by(username = username).first()
-	return student
+	student = session.query(Students).filter_by(username = username).all()
+	if len(student) == 0:
+		return 0
+	return student[0]
 #getting all teachers
 def query_teachers():
 	teachers = session.query(Teachers).all()
@@ -47,8 +49,9 @@ def query_students():
 	students = session.query(Students).all()
 	return students
 #creating a quiz
-def create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3):
-	quiz = Quizes(owner = owner, language = language, subject = subject, firstquestion = question1, firstanswer = answer1, secondquestion = question2, secondanswer = answer2, thirdquestion = question3, thirdanswer = answer3)
+def create_quizes(owner, language, subject, question1, question2, question3, answer1, answer2, answer3, level):
+
+	quiz = Quizes(owner = owner, language = language, subject = subject, firstquestion = question1, firstanswer = answer1, secondquestion = question2, secondanswer = answer2, thirdquestion = question3, thirdanswer = answer3, level = level)
 	session.add(quiz)
 	session.commit()
 #get quiz by id

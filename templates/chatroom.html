@@ -1,5 +1,6 @@
 <html>
 <head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 </head>
 <body>
 <h1>Chatroom Page</h1>
@@ -7,22 +8,20 @@
 This is a chatroom page where students will be able to chat with each other.
 
 <br/>
-<br/> 
+<br/>
 
-<ul>
 	{%for m in messages%}
 
-	<li>{{m.sender}}[{{m.time}}]: {{m.message}}</li>
-
+	<span>{{m.sender}}[{{m.time}}]: {{m.message}}</span>
+	<br>
 	{%endfor%}
-</ul>
 
 <br/><br/>
 <form action="/chatroom/{{name}}" method = "post">
 <input type="text" name="message"><br/><br/>
 <input type="submit" value="Send">
 </form>
-
+<a href = "{{url_for('chatlist')}}">back to chat list</a>
 
 </body>
 </html>

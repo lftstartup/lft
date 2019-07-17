@@ -7,11 +7,10 @@
 This page will contain a list of the chatrooms that are available in the moment. For example:
 
 <h2>Available chatrooms:</h2>
-<ul>
 	{%for chat in chats%}
-  <li><a href = "{{url_for('chatroom', name = chat.name)}}">{{chat.name}}</a></li>
+  <a href = "{{url_for('chatroom', name = chat.name)}}">{{chat.name}}</a>
+	<br>
   {%endfor%}
-</ul>
 
 <br/><br/>
 
