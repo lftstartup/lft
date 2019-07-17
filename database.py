@@ -15,7 +15,7 @@ def create_teacher(firstname, lastname, username, password, email, language):
 	session.commit()
 #create a student
 def create_student(username, password, email):
-	student = Students(username = username, password = password, email = email, courses = "", level = "1")
+	student = Students(username = username, password = password, email = email, courses = "", level = "1", subscribed = False)
 	session.add(student)
 	session.commit()
 #getting a teacher by username
@@ -261,4 +261,7 @@ def find_buyers(username):
 	buyers = list(dict.fromkeys(buyers))
 	return buyers
 
-print(find_buyers("noam"))
+def update_sub(username):
+	student = query_student_username(username)
+	student.subscribed = True
+	session.commit()

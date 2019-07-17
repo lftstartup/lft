@@ -39,7 +39,49 @@
   <source src="{{course.trailer}}" type="video/mp4">
 </video>
 <br>
-<a href = "{{url_for('purchased', ids = course.id)}}">buy this course</a>
+{%if student.subscribed == false%}
+<div id="paypal-button"></div>
+<script src = "https://paypalobjects.com/api/checkout.js"></script>
+ <script>
+  var CREATE_PAYMENT_URL = 'http://127.0.0.1:5000/payment';
+  var EXECUTE_PAYMENT_URL = 'http://127.0.0.1:5000/execute';
+   paypal.Button.render({
+     env: 'sandbox', // Or 'sandbox',
+
+     commit: true, // Show a 'Pay Now' button
+
+     style: {
+       color: 'gold',
+       size: 'small'
+     },
+
+     payment: function(data, actions) {
+       /*
+        * Set up the payment here
+        */
+        return paypal.request.post(CREATE_PAYMENT_URL).then(function(data){
+            return data.paymentID;
+        });
+     },
+
+     onAuthorize: function(data, actions) {
+       /*
+        * Execute the payment here
+        */
+        return paypal.request.post(EXECUTE_PAYMENT_URL, {
+          paymentID: data.paymentID,
+          payerID: data.payerID
+        }).then(function(res){
+          //this payment is complete!
+        })
+     },
+
+   }, '#paypal-button');
+ </script>
+ {%endif%}
+{%if student.subscribed == true%}
+<a href = "{{url_for('purchased', ids = course.id)}}">add this course</a>
+{%endif%}
 {%endif%}
 {%if course in acourses%}
 <br>
@@ -67,7 +109,7 @@
       <input type = "text" name = "email" value = "{{teacher.email}}">
       <br>
       <input type = "submit" value = "send">
-	
+
 {%endfor%}
 <br>
 <br>
