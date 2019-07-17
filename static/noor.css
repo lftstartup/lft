@@ -68,8 +68,15 @@ iframe {
 }
 .sarah{
 	background-image: url("sarah.jpeg");
+}
 
->>>>>>> 06dac9f1e1bfabe0b80dd07ffd132936178227fb
+.navbar .navbar-brand{
+	color: white !important;
+}
+
+#navbardrop{
+	color: white !important;
+}
 
 /*.background{
 	background-image: url("marah.jpg");
