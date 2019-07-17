@@ -12,6 +12,7 @@
 
 </head>
 <style>
+
 	body{
    /* background-image: url(static/marah.jpg);*/
     min-height: 500px;
@@ -37,50 +38,56 @@
 
 <<<<<<< HEAD
 
+
 =======
->>>>>>> e79b57c6b4631a8b2fa1ae7dd9a6f768e8244bf0
+>>>>>>> 06dac9f1e1bfabe0b80dd07ffd132936178227fb
 </style>
 
+</head>
 
-
-<body class="kvootza">
 <<<<<<< HEAD
-=======
-=======
-<body>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <!-- Brand -->
+<body>
+=======
+<body class="kvootza">
+
+>>>>>>> 06dac9f1e1bfabe0b80dd07ffd132936178227fb
+
+ <nav class="navbar navbar-expand-sm bg navbar">
+   <!-- Brand -->
   <a class="navbar-brand" href="#"> <!-- <img class="logoimage" src="/static/logo.png"> --></a>
 
   <!-- Links -->
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="{{url_for('landing_page')}}">Log Out</a>
+      {%if usertype == teacher%}
+      <a lass="nav-link" href = "{{url_for('create_quiz')}}">create a quiz</a>
+      <a lass="nav-link" href = "{{url_for('upload_course')}}">upload a course</a>
+      <a lass="nav-link" href = "{{url_for('feed')}}">advertize yourself</a>
+      {%endif%}
+
+
+      <!-- ---------------------------------------------------------------------- -->
+      {%if usertype == student%}
+      <a lass="nav-link" href = "{{url_for('all_teachers')}}">find your teacher</a>
+      <a lass="nav-link" href = "{{url_for('feed')}}">feed</a>
+      <a lass="nav-link" href = "{{url_for('quizes')}}">find fun quizes</a>
+      {%endif%}
+      <a lass="nav-link" href = "{{url_for('my_profile')}}">my profile</a>
+      <a lass="nav-link" href = "{{url_for('chatlist')}}">chat rooms</a>
+      <a lass="nav-link" href = "{{url_for('contact_us')}}">contact us</a>
+      <a lass="nav-link" href = "{{url_for('logout')}}">log out</a>
 
   </ul>
 </nav>
 <br>
-  
->>>>>>> a1f96eb79153ae1f1c6ab758b2b7985b360f283f
+<<<<<<< HEAD
+=======
+
+>>>>>>> a5ceb0325bf20dcc7064436b83bb60b736fedee0
+
 
 <h1 class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
-{%if usertype == teacher%}
-<a href = "{{url_for('create_quiz')}}">create a quiz</a>
-<a href = "{{url_for('upload_course')}}">upload a course</a>
-<a href = "{{url_for('feed')}}">advertize yourself</a>
-{%endif%}
 
-
-<!-- ---------------------------------------------------------------------- -->
-{%if usertype == student%}
-<a href = "{{url_for('all_teachers')}}">find your teacher</a>
-<a href = "{{url_for('feed')}}">feed</a>
-<a href = "{{url_for('quizes')}}">find fun quizes</a>
-{%endif%}
-<a href = "{{url_for('my_profile')}}">my profile</a>
-<a href = "{{url_for('chatlist')}}">chat rooms</a>
-<a href = "{{url_for('contact_us')}}">contact us</a>
-<a href = "{{url_for('logout')}}">log out</a>
 </body>
 </html>

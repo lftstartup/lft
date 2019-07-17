@@ -41,7 +41,7 @@ iframe {
   border: none;
 }
 
-<<<<<<< HEAD
+
 .logoimage:
 {
 /*    border-radius: 8px;*/
@@ -50,11 +50,13 @@ iframe {
 }
 
 
-=======
+
 .kvootza{
     background-image: url("s.jpeg");
 }
 <<<<<<< HEAD
+=======
+
 .back5{
 	background-image: url("i.jpeg");
 }
@@ -62,15 +64,19 @@ iframe {
 	background-image: url("eman.jpg");
 }
 .noam{
-	background-image: url("noam.jpeg");
+	background-image: url("l.jpg");
 }
 .sarah{
 	background-image: url("sarah.jpeg");
 }
-=======
->>>>>>> e79b57c6b4631a8b2fa1ae7dd9a6f768e8244bf0
 
->>>>>>> ff0068921d574c6d2bde850dcd0d0c5b1a6bd084
+.navbar .navbar-brand{
+	color: white !important;
+}
+
+#navbardrop{
+	color: white !important;
+}
 
 /*.background{
 	background-image: url("marah.jpg");
