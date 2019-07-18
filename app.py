@@ -28,7 +28,7 @@ app.config.update(dict(
 	MAIL_PORT = 587,
 	MAIL_USE_TLS = True,
 	MAIL_USE_SSL = False,
-	MAIL_USERNAME = 'recycledtrash.meet@gmail.com',
+	MAIL_USERNAME = 'lftstartup@gmail.com',
 	MAIL_PASSWORD = 'xzaq1234',
 ))
 mail = Mail(app)
@@ -191,7 +191,7 @@ def register_student():
 		login_session['username'] = username
 		login_session['usertype'] = "student"
 		msg = Message("thank you for signing up to LFT!",
-				sender='recycledtrash.meet@gmail.com',
+				sender='lftstartup@gmail.com',
 				recipients=[email])
 		msg.body = "hello " + username + ", your signup has been successful.\n best of luck learning a new language,\nLFT team."
 		mail.send(msg)
@@ -270,7 +270,7 @@ def register_teacher():
 		login_session['username'] = username
 		login_session['usertype'] = "teacher"
 		msg = Message("thank you for signing up to LFT!",
-				sender='recycledtrash.meet@gmail.com',
+				sender='lftstartup@gmail.com',
 				recipients=[email])
 		msg.body = "hello " + username + ", your signup has been successful.\n best of luck advertising yourself,\nLFT team."
 		mail.send(msg)
@@ -484,12 +484,12 @@ def purchased(ids):
 				if course.level > int(student.level):
 					student.level = course.level
 				msg = Message(username + " just bought your course " + course.title,
-				sender='recycledtrash.meet@gmail.com',
+				sender='lftstartup@gmail.com',
 				recipients=[email])
 				msg.body = "hello teacher,\n" + username + " has bought a course, email to respond: " + sender_email
 				mail.send(msg)
 				msg = Message(username + ", you just bought the course " + course.title,
-				sender='recycledtrash.meet@gmail.com',
+				sender='lftstartup@gmail.com',
 				recipients=[sender_email])
 				msg.body = "hello " + username + ", you bought the course "+course.title+", by " + teacher.firstname + " " + teacher.lastname + ".\nemail to contact: " + email
 				mail.send(msg)
@@ -531,7 +531,7 @@ def support():
 			user = query_student_username(username)
 			sender_email = user.email
 			msg = Message("Your Student needs help!",
-				sender='recycledtrash.meet@gmail.com',
+				sender='lftstartup@gmail.com',
 				recipients=[email])
 			msg.body = "hello teacher,\n" + username + " has sent you a question:\n" + question + "\nemail to respond: " + sender_email
 			mail.send(msg)
@@ -554,8 +554,8 @@ def contact_us():
 				title = request.form['title']
 				body = request.form['body']
 				msg = Message(username + " has reached out",
-					sender='recycledtrash.meet@gmail.com',
-					recipients=['recycledtrash.meet@gmail.com'])
+					sender='lftstartup@gmail.com',
+					recipients=['lftstartup@gmail.com'])
 				msg.body = username + " has reached out.\n"+ title +"\n" + body + "\n" + email
 				mail.send(msg)
 			return render_template("contact_us.html")
@@ -576,7 +576,7 @@ def forgot_password():
 			if student.email == email:
 				user = query_teacher_email(email)
 				msg = Message("your password recovery",
-		        	sender='recycledtrash.meet@gmail.com',
+		        	sender='lftstartup@gmail.com',
 		        	recipients=[email])
 				msg.body = user.username + ", your password is: "+ user.password
 				mail.send(msg)
@@ -585,7 +585,7 @@ def forgot_password():
 			if teacher.email == email:
 				user = query_teacher_email(email)
 				msg = Message("your password recovery",
-		        	sender='recycledtrash.meet@gmail.com',
+		        	sender='lftstartup@gmail.com',
 		        	recipients=[email])
 				msg.body = user.username + ", your password is: "+ user.password
 				mail.send(msg)
@@ -794,7 +794,7 @@ def notify():
 					all_buyers = find_buyers(username)
 					for buyer in all_buyers:
 						email = query_student_username(buyer).email
-						msg = Message(title, sender='recycledtrash.meet@gmail.com', recipients=[email])
+						msg = Message(title, sender='lftstartup@gmail.com', recipients=[email])
 						msg.body = content
 						mail.send(msg)
 						return redirect(url_for('my_profile'))
@@ -863,11 +863,11 @@ def payment():
 	            "items": [{
 	                "name": "subscription",
 	                "sku": "subscription",
-	                "price": "25.00",
+	                "price": "6.00",
 	                "currency": "USD",
 	                "quantity": 1}]},
 	        "amount": {
-	            "total": "25.00",
+	            "total": "6.00",
 	            "currency": "USD"},
 	        "description": "This is a monthly subscription fee"}]})
 	if payment.create():
@@ -889,6 +889,7 @@ def execute():
 					print("execute success")
 					success = True
 					update_sub(username)
+					return redirect(url_for('all_teachers'))
 				else:
 					print(payment.error)
 				return redirect(url_for('home'))
