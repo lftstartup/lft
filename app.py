@@ -337,20 +337,18 @@ def login():
 		return render_template("student_login.html")
 	else:
 
-		# if user == 'student':
-		if 1==1:
-			username = request.form['username']
-			password = request.form['password']
-			students = query_students()
-			if len(students) == 0:
-				return render_template('student_login.html', msg = "there are no users in our database")
-			student = query_student_username(username)
-			if student.password == password:
-				login_session['username'] = username
-				login_session['usertype'] = 'student'
-				return redirect(url_for('home'))
-			else:
-				return render_template("student_login.html", msg = "password is incorrect")
+		username = request.form['username']
+		password = request.form['password']
+		students = query_students()
+		if len(students) == 0:
+			return render_template('student_login.html', msg = "there are no users in our database")
+		student = query_student_username(username)
+		if student.password == password:
+			login_session['username'] = username
+			login_session['usertype'] = 'student'
+			return redirect(url_for('home'))
+		else:
+			return render_template("student_login.html", msg = "password is incorrect")
 @app.route('/create_quiz', methods = ['GET', 'POST'])
 def create_quiz():
 	if 'username' in login_session:
@@ -710,6 +708,7 @@ def chatroom(name):
 					message = request.form['message']
 					print(message)
 					send_message(name, username, message)
+
 					chat = query_chat(name)
 					messages = get_chat_messages(name)
 					redirect(url_for('chatroom', name = name))
