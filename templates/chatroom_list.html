@@ -2,8 +2,58 @@
 <head>
 	<link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 
+		          <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
 </head>
 <body class="background">
+		<nav class="navbar navbar-expand-sm bg navbar">
+  <a class="navbar-brand" href="#">Logo</a>
+  <ul class="navbar-nav">
+    {%if usertype == teacher%}
+    <li class="nav-item">
+      <a href="{{url_for('create_quiz')}}">create a quiz</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('upload_course')}}">upload a course</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('feed')}}">advertize yourself</a>
+    </li>
+    {%endif%}
+  </ul>
+  <ul class="navbar-nav">
+  {%if usertype == teacher%}
+    <li class="nav-item">
+      <a href = "{{url_for('all_teachers')}}">find your teacher</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('feed')}}">feed</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('quizes')}}">find fun quizes</a>
+    </li>
+    {%endif%}
+    <li class="nav-item">
+      <a href = "{{url_for('my_profile')}}">my profile</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('chatlist')}}">chat rooms</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('contact_us')}}">contact us</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('logout')}}">log out</a>
+    </li>
+  </ul> 
+</nav>
+<br>
 <h1>Chatroom List</h1>
 
 This page will contain a list of the chatrooms that are available in the moment. For example:
