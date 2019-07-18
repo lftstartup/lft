@@ -43,8 +43,8 @@
 <div id="paypal-button"></div>
 <script src = "https://paypalobjects.com/api/checkout.js"></script>
  <script>
-  var CREATE_PAYMENT_URL = 'http://127.0.0.1:5000/payment';
-  var EXECUTE_PAYMENT_URL = 'http://127.0.0.1:5000/execute';
+  var CREATE_PAYMENT_URL = 'https://languagefortwo.herokuapp.com/payment';
+  var EXECUTE_PAYMENT_URL = 'https://languagefortwo.herokuapp.com/execute';
    paypal.Button.render({
      env: 'sandbox', // Or 'sandbox',
 
@@ -73,7 +73,7 @@
           payerID: data.payerID
         }).then(function(res){
           //this payment is complete!
-        window.location.href = "http://127.0.0.1:5000/all_teachers";
+        window.location.href = "https://languagefortwo.herokuapp.com/all_teachers";
 
         })
      },
