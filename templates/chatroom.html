@@ -17,11 +17,39 @@ This is a chatroom page where students will be able to chat with each other.
 	{%endfor%}
 
 <br/><br/>
-<form action="/chatroom/{{name}}" method = "post">
+<form action="/chatroom/{{name}}" method = "post" name = "myform">
 <input type="text" name="message"><br/><br/>
 <input type="submit" value="Send">
 </form>
 <a href = "{{url_for('chatlist')}}">back to chat list</a>
+<meta http-equiv="refresh" content="20; URL=http://127.0.0.1/chatroom/{{name}}">
+<script>
+	setTimeout(function(){
+	   window.location.reload(1);
+	}, 20000);
+</script>
+<script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+</script>
+<script>
+function saveData() {
+
+var formData = document.forms["myform"]["message"].value;
+
+document.cookie = "formdata=" + formData;
+
+}
+
+function retrieveData() {
+
+var formDataCookie = document.cookie;
+
+// formDataCookie needs to be parsed to extract the values required
+
+}
+</script>
 
 </body>
 </html>
