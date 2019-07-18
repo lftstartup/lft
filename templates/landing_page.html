@@ -36,17 +36,17 @@ $(document).ready(function(){
 
 <style>
         #description {
-        	  text-align: left;
+        	  text-align: center;
             position:absolute;
-            top:1000;
+            top:800;
             bottom:0;
             height:-2000px;
-            padding-bottom:-100px;
+            padding-bottom:200px;
             /*padding-right:580px;*/
             font-size: 20px;
             /*padding-left: 20px;*/
             font-weight: 500;
-            color:#fff;
+            color:000;
             /*text-shadow: 2px 2px #4f4a47;*/
             /*padding-bottom: 0px;*/
             margin-bottom:-100px;
@@ -54,8 +54,10 @@ $(document).ready(function(){
            }
 
         .background-wrap{
-            position:fixed;
-            z-index: -2000 !important;
+
+            position:absolute;
+            z-index: -2000;
+
             width:100%;
             height:100%;
             overflow: hidden;
@@ -214,7 +216,7 @@ html {
 </head>
 <body>
 
-  <nav class="navbar navbar-expand-sm bg navbar">
+  <nav class="navbar fixed-top navbar-expand-sm bg navbar">
   <!-- Brand -->
   <a class="navbar-brand" href="#">Logo</a>
 
@@ -257,6 +259,19 @@ html {
         </video>
         </div> <!-- Anna: the background wrap should not include the content; this div was `position: fixed` while content should not be -->
         <div class="content">
+
+<!--            <div class ="background-wrap">
+            <video id="video-bg-elem" preload="auto" autoplay="true" loop="loop" muted="muted">
+            <source src="/static/video2.mp4" type="video/mp4">
+                video not supported
+            </video>
+          </div>
+ -->
+
+
+
+
+
          <div id="text">
           
             <h3 class="home-content">
@@ -275,13 +290,15 @@ html {
     <!-- 	<img src="{{ url_for('static', filename='meetfinal.png') }}" id="logo2"> -->
 
       <div id="description" >      
-    	<h2 id="descriptiontext">
+    	<h4 id="descriptiontext">
+         <bold><h2 id="about"> ABOUT US </h2> </bold>
+
     		Our website offers you heritage in the  <bold> language,</bold>
     		
     		you lack through teachers,institutes and authorities.<br>
         Moreover provides you with enojoyable language skills at any<bold> time </bold> and <bold> place .</bold>
     	
-    	</h2>
+    	</h4>
       </div>
 
         <script src="{{ url_for('static', filename='jquery.js') }}"></script>

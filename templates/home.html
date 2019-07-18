@@ -48,33 +48,46 @@
 <body class="background">
 
 
-
- <nav class="navbar navbar-expand-sm bg navbar">
-   <!-- Brand -->
-  <a class="navbar-brand" href="#"> <!-- <img class="logoimage" src="/static/logo.png"> --></a>
-
-  <!-- Links -->
+<nav class="navbar navbar-expand-sm bg navbar">
+  <a class="navbar-brand" href="#">Logo</a>
   <ul class="navbar-nav">
+    {%if usertype == teacher%}
     <li class="nav-item">
-      {%if usertype == teacher%}
-      <a lass="nav-link" href = "{{url_for('create_quiz')}}">create a quiz</a>
-      <a lass="nav-link" href = "{{url_for('upload_course')}}">upload a course</a>
-      <a lass="nav-link" href = "{{url_for('feed')}}">advertize yourself</a>
-      {%endif%}
-
-
-      <!-- ---------------------------------------------------------------------- -->
-      {%if usertype == student%}
-      <a lass="nav-link" href = "{{url_for('all_teachers')}}">find your teacher</a>
-      <a lass="nav-link" href = "{{url_for('feed')}}">feed</a>
-      <a lass="nav-link" href = "{{url_for('quizes')}}">find fun quizes</a>
-      {%endif%}
-      <a lass="nav-link" href = "{{url_for('my_profile')}}">my profile</a>
-      <a lass="nav-link" href = "{{url_for('chatlist')}}">chat rooms</a>
-      <a lass="nav-link" href = "{{url_for('contact_us')}}">contact us</a>
-      <a lass="nav-link" href = "{{url_for('logout')}}">log out</a>
-
+      <a href="{{url_for('create_quiz')}}">create a quiz</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('upload_course')}}">upload a course</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('feed')}}">advertize yourself</a>
+    </li>
+    {%endif%}
   </ul>
+  <ul class="navbar-nav">
+  {%if usertype == teacher%}
+    <li class="nav-item">
+      <a href = "{{url_for('all_teachers')}}">find your teacher</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('feed')}}">feed</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('quizes')}}">find fun quizes</a>
+    </li>
+    {%endif%}
+    <li class="nav-item">
+      <a href = "{{url_for('my_profile')}}">my profile</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('chatlist')}}">chat rooms</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('contact_us')}}">contact us</a>
+    </li>
+    <li class="nav-item">
+      <a href = "{{url_for('logout')}}">log out</a>
+    </li>
+  </ul> 
 </nav>
 <br>
 
