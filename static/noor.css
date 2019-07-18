@@ -79,10 +79,12 @@ iframe {
 }
 
 .img{
-  width: 40%;
+  width: 10%;
   border-radius: 50%;
   text-align: center;
   margin: 24px 0 12px 0;
+  position: relative;
+  bottom: 50px
 }
 
 /*.background{
