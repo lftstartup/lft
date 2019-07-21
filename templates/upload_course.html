@@ -1,8 +1,8 @@
 <html>
 <head>
-<<<<<<< HEAD
+
     <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
-=======
+
      <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 
           <meta charset="utf-8">
@@ -12,7 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
->>>>>>> 315cde60bb7199b5cfd59b0cf7a9f62e3f6a71ce
+
 </head>
 <style >
 	 body{
@@ -146,51 +146,48 @@
 
 
 <body class="background">
-<<<<<<< HEAD
-=======
     <nav class="navbar navbar-expand-sm bg navbar">
   <a class="navbar-brand" href="#">Logo</a>
   <ul class="navbar-nav">
     {%if usertype == teacher%}
     <li class="nav-item">
-      <a href="{{url_for('create_quiz')}}">create a quiz</a>
+      <a class="h" href="{{url_for('create_quiz')}}">create a quiz</a>
     </li>
     <li class="nav-item">
-      <a href = "{{url_for('upload_course')}}">upload a course</a>
+      <a class="h" href = "{{url_for('upload_course')}}">upload a course</a>
     </li>
     <li class="nav-item">
-      <a href = "{{url_for('feed')}}">advertize yourself</a>
+      <a class="h" href = "{{url_for('feed')}}">advertize yourself</a>
     </li>
     {%endif%}
   </ul>
   <ul class="navbar-nav">
   {%if usertype == teacher%}
     <li class="nav-item">
-      <a href = "{{url_for('all_teachers')}}">find your teacher</a>
+      <a class="h" href = "{{url_for('all_teachers')}}">find your teacher</a>
     </li>
     <li class="nav-item">
-      <a href = "{{url_for('feed')}}">feed</a>
+      <a class="h" href = "{{url_for('feed')}}">feed</a>
     </li>
     <li class="nav-item">
-      <a href = "{{url_for('quizes')}}">find fun quizes</a>
+      <a class="h" href = "{{url_for('quizes')}}">find fun quizes</a>
     </li>
     {%endif%}
     <li class="nav-item">
-      <a href = "{{url_for('my_profile')}}">my profile</a>
+      <a class="h" href = "{{url_for('my_profile')}}">my profile</a>
     </li>
     <li class="nav-item">
-      <a href = "{{url_for('chatlist')}}">chat rooms</a>
+      <a class="h" href = "{{url_for('chatlist')}}">chat rooms</a>
     </li>
     <li class="nav-item">
-      <a href = "{{url_for('contact_us')}}">contact us</a>
+      <a class="h" href = "{{url_for('contact_us')}}">contact us</a>
     </li>
     <li class="nav-item">
-      <a href = "{{url_for('logout')}}">log out</a>
+      <a class="h" href = "{{url_for('logout')}}">log out</a>
     </li>
   </ul> 
 </nav>
 <br>
->>>>>>> 315cde60bb7199b5cfd59b0cf7a9f62e3f6a71ce
 	<h1 id="title"> The course </h1>
 	<br>
 	<br>
