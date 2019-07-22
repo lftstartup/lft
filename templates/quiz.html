@@ -17,8 +17,18 @@
   <style >
     .note{
       background: 
-      url("/static/quiz_note.jpg");
+      url("/static/note3.jpg");
     }
+
+.pic{
+  width: 15%;
+  border-radius: 50%;
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+  bottom: 50px
+}
+
     html{ overflow:auto; }
   </style>
 
@@ -66,10 +76,10 @@
 <br>
 <div class="note" 
   style="background-position: center;
-  background-size: 670px 600px; width: 50%;">
+  background-size: 750px 600px; margin-right: 25%; margin-left: 25%; margin-top: 3%;">
 
   <form style="text-align: center;" action = "/quiz/{{quiz.id}}" method = "post">
-    <img style="bottom: 40%;" src="/static/quiz.jpeg" alt="quiz" class="img">
+    <img style="bottom: 40%;" src="/static/quiz.jpeg" alt="quiz" class="pic">
   
     <h1>{{quiz.language}} quiz!</h1>
     <br>
