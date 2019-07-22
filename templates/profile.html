@@ -1,7 +1,8 @@
 <html>
 <head>
+	<link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 </head>
-<body>
+<body class="background">
 <h1>{{teacher.firstname}} {{teacher.lastname}}'s profile</h1>
 <h2>amount of courses: {{teacher.courses}}</h2>
 <h2>amount of buyers: {{teacher.buyers}}</h2>
