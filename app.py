@@ -145,10 +145,10 @@ def register_student():
 		students = query_students()
 		for teacher in teachers:
 			if teacher.email == email:
-				return render_template("register_student.html", msg = "email is taken")
+				return render_template("register_student.html")
 		for teacher in teachers:
 			if teacher.username == username:
-				return render_template("register_student.html", msg = "username is taken")
+				return render_template("register_student.html")
 		for student in students:
 			if student.email == email:
 				return render_template("register_student.html", msg = "email is taken")
@@ -215,10 +215,11 @@ def register_teacher():
 		students = query_students()
 		for teacher in teachers:
 			if teacher.email == email:
-				return render_template("register_teacher.html", msg = "email is taken")
+				return render_template("register_teacher.html")
+				print("here before")
 		for student in students:
 			if student.email == email:
-				return render_template("register_teacher.html", msg = "email is taken")
+				return render_template("register_teacher.html")
 		for student in students:
 			if student.username == username:
 				return render_template("register_teacher.html", msg = "username is taken")
@@ -266,6 +267,7 @@ def register_teacher():
 				is_com = False
 		else:
 			return render_template("register_teacher.html", msg = "email is too short")
+		print("here")
 		create_teacher(firstname, lastname, username, password, email, language)
 		login_session['username'] = username
 		login_session['usertype'] = "teacher"
@@ -574,8 +576,8 @@ def forgot_password():
 			if student.email == email:
 				user = query_teacher_email(email)
 				msg = Message("your password recovery",
-		        	sender='lftstartup@gmail.com',
-		        	recipients=[email])
+					sender='lftstartup@gmail.com',
+					recipients=[email])
 				msg.body = user.username + ", your password is: "+ user.password
 				mail.send(msg)
 				return render_template("forgot_password.html", msg = "successfully sent an email")
@@ -583,8 +585,8 @@ def forgot_password():
 			if teacher.email == email:
 				user = query_teacher_email(email)
 				msg = Message("your password recovery",
-		        	sender='lftstartup@gmail.com',
-		        	recipients=[email])
+					sender='lftstartup@gmail.com',
+					recipients=[email])
 				msg.body = user.username + ", your password is: "+ user.password
 				mail.send(msg)
 				return render_template("forgot_password.html", msg = "successfully sent an email")
@@ -851,24 +853,24 @@ def quizes():
 @app.route('/payment', methods = ['POST'])
 def payment():
 	payment = paypalrestsdk.Payment({
-	    "intent": "sale",
-	    "payer": {
-	        "payment_method": "paypal"},
-	    "redirect_urls": {
-	        "return_url": "http://localhost:3000/payment/execute",
-	        "cancel_url": "http://localhost:3000/"},
-	    "transactions": [{
-	        "item_list": {
-	            "items": [{
-	                "name": "subscription",
-	                "sku": "subscription",
-	                "price": "6.00",
-	                "currency": "USD",
-	                "quantity": 1}]},
-	        "amount": {
-	            "total": "6.00",
-	            "currency": "USD"},
-	        "description": "This is a monthly subscription fee"}]})
+		"intent": "sale",
+		"payer": {
+			"payment_method": "paypal"},
+		"redirect_urls": {
+			"return_url": "http://localhost:3000/payment/execute",
+			"cancel_url": "http://localhost:3000/"},
+		"transactions": [{
+			"item_list": {
+				"items": [{
+					"name": "subscription",
+					"sku": "subscription",
+					"price": "6.00",
+					"currency": "USD",
+					"quantity": 1}]},
+			"amount": {
+				"total": "6.00",
+				"currency": "USD"},
+			"description": "This is a monthly subscription fee"}]})
 	if payment.create():
 		print("success!")
 	else:
