@@ -14,6 +14,23 @@
 
 </head>
 <body class="background">
+  <style >
+    .note{
+      background: 
+      url("/static/note3.jpg");
+    }
+
+.pic{
+  width: 15%;
+  border-radius: 50%;
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+  bottom: 50px
+}
+
+    html{ overflow:auto; }
+  </style>
 
 <nav class="navbar navbar-expand-sm bg navbar">
   <a class="navbar-brand" href="#">Logo</a>
@@ -57,29 +74,39 @@
   </ul> 
 </nav>
 <br>
-<form action = "/quiz/{{quiz.id}}" method = "post">
+<div class="note" 
+  style="background-position: center;
+  background-size: 750px 600px;
+  padding-bottom: 15px;
+   margin-right: 25%;
+    margin-left: 25%;
+     margin-top: 3%;">
 
-  <h1>{{quiz.language}} quiz!</h1>
-  <br>
-  <span>first question: {{quiz.firstquestion}}</<span>
-  <br>
-  <input type = "text" name = "firstAnswer">
-  <br>
-  <span>second question: {{quiz.secondquestion}}</span>
-  <br>
-  <input type = "text" name = "secondAnswer">
-  <br>
-  <span>third question: {{quiz.thirdquestion}}</span>
-  <br>
-  <input type = "text" name = "thirdAnswer">
-  <br>
-  <input type = "submit" value = "submit">
+  <form style="text-align: center;" action = "/quiz/{{quiz.id}}" method = "post">
+    <img style="bottom: 40%;" src="/static/quiz.jpeg" alt="quiz" class="pic">
+  
+    <h1>{{quiz.language}} quiz!</h1>
+    <br>
+    <span>first question: {{quiz.firstquestion}}</<span>
+    <br>
+    <input type = "text" name = "firstAnswer">
+    <br>
+    <span>second question: {{quiz.secondquestion}}</span>
+    <br>
+    <input type = "text" name = "secondAnswer">
+    <br>
+    <span>third question: {{quiz.thirdquestion}}</span>
+    <br>
+    <input type = "text" name = "thirdAnswer">
+    <br>
+    <input type = "submit" value = "submit">
 
-</form>
-<br>
-<span>{{msg}}</span>
-<br>
-<a href = "{{url_for('home')}}">back home!</a>
+  </form>
+  <br>
+  <span>{{msg}}</span>
+  <br>
+  <a href = "{{url_for('home')}}">back home!</a>
+</div>
 
 
 
