@@ -343,6 +343,8 @@ def login():
 		if len(students) == 0:
 			return render_template('student_login.html', msg = "there are no users in our database")
 		student = query_student_username(username)
+		if student == 0:
+			return render_template('student_login.html', msg = "username is not real")
 		if student.password == password:
 			login_session['username'] = username
 			login_session['usertype'] = 'student'
