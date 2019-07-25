@@ -8,7 +8,25 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+.rooms{
+  position: relative;
+  left: 30px;
+}
+#name{
+  color: black;
+}
 
+#chat{
+  color: white;
+  font-weight:bold;
+}
+#back{
+  align-content: right;
+  right:5%;
+  vertical-align: -100;
+
+</style>
 
 </head>
 <body class="background">
@@ -54,28 +72,30 @@
   </ul> 
 </nav>
 <br>
+<div class="rooms">
 <h1>Chatroom List</h1>
+<br>
 
-This page will contain a list of the chatrooms that are available in the moment. For example:
-
-<h2>Available chatrooms:</h2>
+<h3>Available chatrooms:</h3>
 	{%for chat in chats%}
-  <a href = "{{url_for('chatroom', name = chat.name)}}">{{chat.name}}</a>
+  <a href = "{{url_for('chatroom', name = chat.name)}}" id="chat">{{chat.name}}</a>
 	<br>
   {%endfor%}
 
 <br/><br/>
 
-<h2>Create a chatroom!</h2><br>
+<h3>Create a chatroom!</h3><br>
 
 <form action="/chatlist" method = 'post'>
-  Chatroom name:<br><br>
+  <p id="name"> Chatroom name:</p>
+  
   <input type="text" name="name">
   <br>
   <input type="submit" value="Create">
 </form>
 <br>
-<a href = "{{url_for('home')}}">back home!</a>
+<a href = "{{url_for('home')}}" id="back">back home!</a>
+</div>
 
 </body>
 </html>
