@@ -93,13 +93,13 @@ hr.horiz{
 {%if usertype == teacher%}
 
 	<h1 class="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
-	<h2 class="components" style="position: fixed; bottom: 7%;left:3%;  width:100%;">amount of courses: {{user.courses}}</h2>
-	<h2 class="components" style="position: fixed; bottom: 1%;left:3%; width:100%;">amount of buyers: {{user.buyers}}</h2>
+	<h2 class="components" style="position: fixed; bottom: 14%;left:3%;  width:100%;font-size: 25px;">amount of courses: {{user.courses}}</h2>
+	<h2 class="components" style="position: fixed; bottom: 8%;left:3%; width:100%;font-size: 25px;">amount of buyers: {{user.buyers}}</h2>
   <br>
   <!-- IMPORTANT!!!!!!!!!!!! DONT FORGET TO UNCOMMENT THIS!!!!!!!!!!!!! -->
 <!--   <span><a href = "{{url_for('notify')}}">declare a chatting session!</a></span>
  -->  <br>
-  <h2 class="components" style="position: fixed; left:3%;  width:100%;">Posts:</h2>
+  <h2 class="components" style="position: fixed; left:3%;  width:100%;font-size: 25px; ">Posts:</h2>
 	<br><br><br><Br>
 	<hr class="horiz">
 	{%for post in posts%}
@@ -113,7 +113,7 @@ hr.horiz{
 		</video>
 	{%endfor%}
 	<br>
-	<h2 class="components" style="position: fixed; left:3%;  width:100%;">My courses:</h2>
+	<h2 class="components" style="position: fixed; left:3%;  width:100%;font-size: 25px;">My courses:</h2>
 	<br><Br><br><br><br>
 	<hr class="horiz">
 	{%for course in courses%}
