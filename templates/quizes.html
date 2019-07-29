@@ -59,7 +59,10 @@
 
 {%for quiz in quizes%}
 
-<span><a href = "{{url_for('quiz', id = quiz.id)}}">{{quiz.language}}:</a> {{quiz.subject}} by {{quiz.owner}}, level: {{quiz.level}}</span>
+<span><a href = "{{url_for('quiz', id = quiz.id)}}">{{quiz.language}}:</a> <br>
+Subject: {{quiz.subject}} <br>
+By: {{quiz.owner}} <br>
+Level: {{quiz.level}}</span>
 <br>
 
 {%endfor%}

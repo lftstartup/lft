@@ -907,6 +907,6 @@ def logout():
 	remove_online(login_session['username'])
 	login_session.pop('username', None)
 	login_session.pop('usertype', None)
-	return redirect(url_for('login'))
+	return redirect(url_for('landing_page'))
 if __name__ == '__main__':
 	app.run(debug=True)
