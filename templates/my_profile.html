@@ -25,14 +25,43 @@
 /*    text-align: center;*/
     font-family: sans-serif;
 }
+
+#stop{
+  position: relative;
+  top:-30px;
+  right:430px;
+}
+.w3-center{
+  position: relative;
+  top:-15px;
+  right:23px;
+}
+.w3-container{
+  position: relative;
+  left:20px;
+  height: 400px;
+  top:50px;
+}
 .name{
 	text-align: center;
 	color: white;
-    position: relative;
-    top: 30px;
-    text-shadow:2px 2px  #4e5b59;
-    font-family: sans-serif;
-    font-size: 45px;
+  position: relative;
+  top: -400px;
+  left:450px;
+  text-shadow:2px 2px  #4e5b59;
+  font-family: sans-serif;
+  font-size: 45px;
+}
+.loll{
+  position:relative;
+  top:-10px;
+}
+
+.coursee{
+  text-align: left;
+  position: relative;
+  top:-350px;
+  left:400px;
 }
 .components{
 	color: white;
@@ -44,6 +73,17 @@ hr.horiz{
 	text-decoration: none;
 	font-weight: 600
 
+}
+#hehe{
+  position: relative;
+  right:25px;
+  top:5px;
+}
+
+#hay{
+  position: relative;
+  top:-40px;
+  right:20px;
 }
 </style>
 <body class="background">
@@ -91,6 +131,62 @@ hr.horiz{
 <br>
 
 {%if usertype == teacher%}
+
+
+
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+<body class="w3-theme-l5">
+
+<!-- Navbar -->
+<div class="w3-top">
+
+
+  
+ </div>
+</div>
+
+<!-- Navbar on small screens -->
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center" id="hay">My Profile</h4>
+         <div class="loll">
+         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" ></p>
+         <hr id="hehe">
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+       </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>    
+
+
+
+
+
 
 	<h1 class="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
 	<h2 class="components" style="position: fixed; bottom: 14%;left:3%;  width:100%;font-size: 25px;">amount of courses: {{user.courses}}</h2>
@@ -141,8 +237,114 @@ hr.horiz{
 {%if usertype == student%}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+<body class="w3-theme-l5">
+
+<!-- Navbar -->
+<div class="w3-top">
+
+
+  
+ </div>
+</div>
+
+<!-- Navbar on small screens -->
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center" id="hay">My Profile</h4>
+         <div class="loll">
+         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" ></p>
+         <hr id="hehe">
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+       </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ============================================================================================================================== -->
+<div id="stop">
 	<h1 class="name">{{user.username}}'s profile</h1>
-	<h2>courses I bought</h2>
+</div>
+	<h2 class="coursee">courses I bought :</h2>
 	<hr>
 	{%for course in courses%}
 
@@ -150,14 +352,14 @@ hr.horiz{
 
 	{%endfor%}
 	<br>
-	<h1>teachers who has courses in my level:</h1>
+	<h3 class="coursee">teachers who has courses in my level:</h3>
 	<hr>
 	{%for teacher in leveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>
 	<br>
 	{%endfor%}
 	<br>
-	<h1>teachers who has courses in my next level:</h1>
+	<h3 class="coursee" >teachers who has courses in my next level:</h3>
 	<hr>
 	{%for teacher in upleveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>
@@ -168,7 +370,8 @@ hr.horiz{
 
 {%endif%}
 <br>
-<a id="home" style="position: fixed;bottom:2%;  left:70%;  width:100%;color:red;" href = "{{url_for('home')}}">back home!</a>
+<a id="home" style="position: fixed;bottom:10;left:90%;width:100%;color:red;color:white;" href = "{{url_for('home')}}">back home!</a>
+
 
 <br><br><br>
 

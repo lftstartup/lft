@@ -3,7 +3,8 @@
     linear-gradient(
       rgba(140, 170, 231, 0.88),
       rgba(140, 170, 231, 0.88)
-    )!important;
+    )
+    
 }
 
 .buttonlook {border-radius: 12px;}
