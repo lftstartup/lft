@@ -152,6 +152,18 @@ hr.horiz{
   color:white;
 }
 
+h3{
+  color:white;
+}
+
+h2{
+  color: white;
+}
+
+a{
+  color:white;
+}
+
 </style>
 <body class="background">
 <!-- Navbar (sit on top) -->
@@ -287,10 +299,11 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 
 
 
-
+<div id="stop">
 	<h1 class="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
-	<h2 class="components" style="position: fixed; bottom: 14%;left:3%;  width:100%;font-size: 25px;">amount of courses: {{user.courses}}</h2>
-	<h2 class="components" style="position: fixed; bottom: 8%;left:3%; width:100%;font-size: 25px;">amount of buyers: {{user.buyers}}</h2>
+</div>
+	<h3 class="coursee" style="position: fixed; bottom: 14%;left:3%;  width:100%;font-size: 25px;">Amount of courses: {{user.courses}}</h3>
+	<h3 class="coursee" style="position: fixed; bottom: 8%;left:3%; width:100%;font-size: 25px;">Amount of buyers: {{user.buyers}}</h3>
   <br>
   <!-- IMPORTANT!!!!!!!!!!!! DONT FORGET TO UNCOMMENT THIS!!!!!!!!!!!!! -->
 <!--   <span><a href = "{{url_for('notify')}}">declare a chatting session!</a></span>
@@ -316,7 +329,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 
 
 		<br>
-		<h3><b>title: {{course.title}}</b></h3>
+		<h3 class="coursee"><b>title: {{course.title}}</b></h3>
 		<span>language: {{course.language}}</span>
 		<br>
 		<span>topic: {{course.topic}}</span>
@@ -398,7 +411,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 <div id="stop">
 	<h1 class="name">{{user.username}}'s profile</h1>
 </div>
-	<h2 class="coursee">courses I bought :</h2>
+	<h3 class="coursee">Courses I bought :</h3>
 	<hr>
 	{%for course in courses%}
 
@@ -406,14 +419,14 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 
 	{%endfor%}
 	<br>
-	<h3 class="coursee">teachers who has courses in my level:</h3>
+	<h3 class="coursee">Teachers who has courses in my level:</h3>
 	<hr>
 	{%for teacher in leveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>
 	<br>
 	{%endfor%}
 	<br>
-	<h3 class="coursee" >teachers who has courses in my next level:</h3>
+	<h3 class="coursee" >Teachers who has courses in my next level:</h3>
 	<hr>
 	{%for teacher in upleveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>

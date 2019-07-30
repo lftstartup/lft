@@ -560,7 +560,7 @@ def contact_us():
 					recipients=['lftstartup@gmail.com'])
 				msg.body = username + " has reached out.\n"+ title +"\n" + body + "\n" + email
 				mail.send(msg)
-			return render_template("contact_us.html")
+			return render_template("contact_us.html", usertype=usertype)
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -847,7 +847,7 @@ def quizes():
 			username = login_session['username']
 			usertype = login_session['usertype']
 			quizes = get_quizes()
-			return render_template("quizes.html", quizes = quizes)
+			return render_template("quizes.html", quizes = quizes, usertype=usertype)
 		else:
 			return redirect(url_for('login'))
 	else:

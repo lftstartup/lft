@@ -267,7 +267,7 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 <body class="background">
 
 <!-- Navbar (sit on top) -->
-{%if usertype== teacher%}
+{%if usertype== 'teacher'%}
 
 <div class="w3-top">
   <div class="w3-bar" id="myNavbar">
@@ -286,21 +286,11 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 <!--<i class="fa fa-search"></i>
  --></a>
   </div>
-
-
-  <!-- Navbar on small screens -->
-<!--   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT US</a>
-    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">OUR TEAM</a>
-    <a href = "{{url_for('contact_us')}}" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT US</a> -->
-<!--     <a href="#" class="w3-bar-item w3-button">SEARCH</a> -->
-
-  </div>
 </div>
 {%endif%}
 
 
-{%if usertype== student%}
+{%if usertype== 'student'%}
 
 <div class="w3-top">
   <div class="w3-bar" id="myNavbar">
@@ -320,15 +310,6 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
  --></a>
   </div>
 
-
-  <!-- Navbar on small screens -->
-<!--   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT US</a>
-    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">OUR TEAM</a>
-    <a href = "{{url_for('contact_us')}}" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT US</a> -->
-<!--     <a href="#" class="w3-bar-item w3-button">SEARCH</a> -->
-
-  </div>
 </div>
 {%endif%}
 

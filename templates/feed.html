@@ -359,9 +359,9 @@ input:focus { box-shadow: inset 0 -5px 45px rgba(100,100,100,0.4), 0 1px 1px rgb
 </div>
 {%endif%}
 
-
+<br><br>
 {%if usertype == student%}
-<h1 id="titree">find a suitable teacher</h1>
+<h1 id="titree" style="color:white !important;">find a suitable teacher</h1>
 {%for post in posts%}
 <br>
 <a href = "{{url_for('profile_name', name = post.teacher)}}">{{post.teacher}}</a>
