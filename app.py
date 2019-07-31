@@ -716,7 +716,7 @@ def chatroom(name):
 					chat = query_chat(name)
 					messages = get_chat_messages(name)
 					redirect(url_for('chatroom', name = name))
-					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1])
+					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1], usertype=usertype)
 			else:
 				return redirect(url_for('chatlist'))
 		else:
@@ -767,7 +767,7 @@ def chatlist():
 					create_chat(name, username)
 					chats = all_chats()
 					redirect(url_for('chatlist'))
-					return render_template("chatroom_list.html", chats = chats)
+					return render_template("chatroom_list.html", chats = chats, usertype=usertype)
 
 			chats = all_chats()
 			redirect(url_for('chatlist'))
