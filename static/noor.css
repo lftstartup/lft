@@ -1,3 +1,12 @@
+.lay{
+  background-image: url("dd.jpeg") !important;
+}
+
+#myImg {
+  filter: brightness(150%);
+}
+
+
 .background {
   background: 
     linear-gradient(

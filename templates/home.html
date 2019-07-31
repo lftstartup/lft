@@ -1,6 +1,7 @@
 <html>
 <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+        <link href="https://fonts.googleapis.com/css?family=poppins">
 
           <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +104,7 @@
 
 <body>
 
-<body class="background">
+<body id="myImg" class="lay">
 
 <!-- Navbar (sit on top) -->
 {%if usertype== teacher%}
@@ -217,7 +218,7 @@
 
  -->
 
-<h1 class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
+<h1 style="font-family: lato" class="teacher">hello {{username}}!</h1><h2 class="teacher"> you are a {{usertype}}</h2>
 
 </body>
 </html>
