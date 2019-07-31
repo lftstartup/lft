@@ -1,6 +1,27 @@
 <html>
 <head>
-	<link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+       <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+
+          <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 	          <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,14 +46,43 @@
 /*    text-align: center;*/
     font-family: sans-serif;
 }
+
+#stop{
+  position: relative;
+  top:-30px;
+  right:430px;
+}
+.w3-center{
+  position: relative;
+  top:-15px;
+  right:23px;
+}
+.w3-container{
+  position: relative;
+  left:20px;
+  height: 400px;
+  top:50px;
+}
 .name{
 	text-align: center;
 	color: white;
-    position: relative;
-    top: 30px;
-    text-shadow:2px 2px  #4e5b59;
-    font-family: sans-serif;
-    font-size: 45px;
+  position: relative;
+  top: -400px;
+  left:450px;
+  text-shadow:2px 2px  #4e5b59;
+  font-family: sans-serif;
+  font-size: 45px;
+}
+.loll{
+  position:relative;
+  top:-10px;
+}
+
+.coursee{
+  text-align: left;
+  position: relative;
+  top:-350px;
+  left:400px;
 }
 .components{
 	color: white;
@@ -45,56 +95,215 @@ hr.horiz{
 	font-weight: 600
 
 }
+#hehe{
+  position: relative;
+  right:25px;
+  top:5px;
+}
+
+#hay{
+  position: relative;
+  top:-40px;
+  right:20px;
+}
+
+/* Create a Parallax Effect */
+.bgimg-1, .bgimg-2, .bgimg-3 {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* First image (Logo. Full height) */
+.bgimg-1 {
+  background-image: url('/w3images/parallax1.jpg');
+  height: 100%;
+}
+
+/* Second image (Portfolio) */
+.bgimg-2 {
+  background-image: url("/static/people_talking.jpg");
+  min-height: 400px;
+}
+
+/* Third image (Contact) */
+.bgimg-3 {
+  background-image: url("/static/hh.jpg");
+  min-height: 400px;
+}
+
+.w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: scroll;
+    min-height: 400px;
+  }
+}
+
+.w3-top{
+  color:white;
+}
+
+.hoho{
+  color:white;
+}
+
+h3{
+  color:white;
+}
+
+h2{
+  color: white;
+}
+
+a{
+  color:white;
+}
+
 </style>
 <body class="background">
-	<nav class="navbar navbar-expand-sm bg navbar">
-  <a class="navbar-brand" href="#">Logo</a>
-  <ul class="navbar-nav">
-    {%if usertype == teacher%}
-    <li class="nav-item">
-      <a class="h" href="{{url_for('create_quiz')}}">create a quiz</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('upload_course')}}">upload a course</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('feed')}}">advertize yourself</a>
-    </li>
-    {%endif%}
-  </ul>
-  <ul class="navbar-nav">
-  {%if usertype == teacher%}
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('all_teachers')}}">find your teacher</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('feed')}}">feed</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('quizes')}}">find fun quizes</a>
-    </li>
-    {%endif%}
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('my_profile')}}">my profile</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('chatlist')}}">chat rooms</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('contact_us')}}">contact us</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('logout')}}">log out</a>
-    </li>
-  </ul> 
-</nav>
-<br>
+<!-- Navbar (sit on top) -->
+{%if usertype== teacher%}
+
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="{{url_for('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home"> Home</i></a>
+    <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope-open"></i> Contact Us</a>
+    <a href="{{url_for('my_profile')}}" class="w3-bar-item w3-button"><i class="fa fa-user-circle"> My Profile</i></a>
+    <a href="{{url_for('create_quiz')}}" class="w3-bar-item w3-button"><i class="fa fa-file-word-o"> Create a quize</i></a>
+    <a href = "{{url_for('upload_course')}}" class="w3-bar-item w3-button"><i class="fa fa-upload"> Upload a course</i></a>
+    <a href = "{{url_for('feed')}}" class="w3-bar-item w3-button"><i class="fa fa-navicon">  Feed</i></a>
+    <a href = "{{url_for('feed')}}" class="w3-bar-item w3-button"><i class="fa fa-smile-o"> Advertize yourself</i></a>
+    <a href = "{{url_for('logout')}}" class="w3-bar-item w3-button"><i class="fa fa-power-off">  Log Out</i></a>
+
+<!--<i class="fa fa-search"></i>
+ --></a>
+  </div>
+
+
+  <!-- Navbar on small screens -->
+<!--   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT US</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">OUR TEAM</a>
+    <a href = "{{url_for('contact_us')}}" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT US</a> -->
+<!--     <a href="#" class="w3-bar-item w3-button">SEARCH</a> -->
+
+  </div>
+</div>
+{%endif%}
+
+
+{%if usertype== student%}
+
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="{{url_for('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home"> Home</i></a>
+    <a href="{{url_for('contact_us')}}" class="w3-bar-item w3-button"><i class="fa fa-envelope-open"></i> Contact Us</a>
+    <a href="{{url_for('my_profile')}}" class="w3-bar-item w3-button"><i class="fa fa-user-circle"> My Profile</i></a>
+    <a href="{{url_for('all_teachers')}}" class="w3-bar-item w3-button"><i class="fa fa-vcard-o"> Find your teacher</i></a>
+    <a href = "{{url_for('feed')}}" class="w3-bar-item w3-button"><i class="fa fa-navicon">  Feed</i></a>
+    <a href = "{{url_for('quizes')}}" class="w3-bar-item w3-button"><i class="fa fa-file-word-o"> Fun quizes</i></a>
+    <a href = "{{url_for('chatlist')}}" class="w3-bar-item w3-button"><i class="fa fa-commenting">  Chatrooms</i></a>
+    <a href = "{{url_for('logout')}}" class="w3-bar-item w3-button"><i class="fa fa-power-off">  Log Out</i></a>
+
+<!--<i class="fa fa-search"></i>
+ --></a>
+  </div>
+
+
+  <!-- Navbar on small screens -->
+<!--   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT US</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">OUR TEAM</a>
+    <a href = "{{url_for('contact_us')}}" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT US</a> -->
+<!--     <a href="#" class="w3-bar-item w3-button">SEARCH</a> -->
+
+  </div>
+</div>
+{%endif%}
+
+<!-- END OF NAVBARRRRRRRRRRRRRRRRRRRRRRR -->
+
+
+<br><br>
+
+
+
+
+
 
 {%if usertype == teacher%}
 
+
+
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+<body class="w3-theme-l5">
+<!--TEACHER PAGE-->
+<!-- Navbar -->
+<div class="w3-top">
+
+
+  
+ </div>
+</div>
+
+<!-- Navbar on small screens -->
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center" id="hay">My Profile</h4>
+         <div class="loll">
+         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" ></p>
+         <hr id="hehe">
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+       </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>    
+
+
+
+
+
+<div id="stop">
 	<h1 class="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
-	<h2 class="components" style="position: fixed; bottom: 14%;left:3%;  width:100%;font-size: 25px;">amount of courses: {{user.courses}}</h2>
-	<h2 class="components" style="position: fixed; bottom: 8%;left:3%; width:100%;font-size: 25px;">amount of buyers: {{user.buyers}}</h2>
+</div>
+	<h3 class="coursee" style="position: fixed; bottom: 14%;left:3%;  width:100%;font-size: 25px;">Amount of courses: {{user.courses}}</h3>
+	<h3 class="coursee" style="position: fixed; bottom: 8%;left:3%; width:100%;font-size: 25px;">Amount of buyers: {{user.buyers}}</h3>
   <br>
   <!-- IMPORTANT!!!!!!!!!!!! DONT FORGET TO UNCOMMENT THIS!!!!!!!!!!!!! -->
 <!--   <span><a href = "{{url_for('notify')}}">declare a chatting session!</a></span>
@@ -120,7 +329,7 @@ hr.horiz{
 
 
 		<br>
-		<h3><b>title: {{course.title}}</b></h3>
+		<h3 class="coursee"><b>title: {{course.title}}</b></h3>
 		<span>language: {{course.language}}</span>
 		<br>
 		<span>topic: {{course.topic}}</span>
@@ -138,11 +347,71 @@ hr.horiz{
 
 <!-- --------------------------------------------- -->
 {%endif%}
+
+
+
+
+
+
 {%if usertype == student%}
 
+<!DOCTYPE html>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+<body class="w3-theme-l5">
+<!--STUDENT PAGE-->
+<!-- Navbar -->
+<div class="w3-top">
 
+
+  
+ </div>
+</div>
+
+<!-- Navbar on small screens -->
+
+
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px;margin-top:80px">    
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center" id="hay">My Profile</h4>
+         <div class="loll">
+         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" ></p>
+         <hr id="hehe">
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+       </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>    
+
+
+
+
+<!-- ============================================================================================================================== -->
+<div id="stop">
 	<h1 class="name">{{user.username}}'s profile</h1>
-	<h2>courses I bought</h2>
+</div>
+	<h3 class="coursee">Courses I bought :</h3>
 	<hr>
 	{%for course in courses%}
 
@@ -150,14 +419,14 @@ hr.horiz{
 
 	{%endfor%}
 	<br>
-	<h1>teachers who has courses in my level:</h1>
+	<h3 class="coursee">Teachers who has courses in my level:</h3>
 	<hr>
 	{%for teacher in leveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>
 	<br>
 	{%endfor%}
 	<br>
-	<h1>teachers who has courses in my next level:</h1>
+	<h3 class="coursee" >Teachers who has courses in my next level:</h3>
 	<hr>
 	{%for teacher in upleveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>
@@ -168,7 +437,8 @@ hr.horiz{
 
 {%endif%}
 <br>
-<a id="home" style="position: fixed;bottom:2%;  left:70%;  width:100%;color:red;" href = "{{url_for('home')}}">back home!</a>
+<a id="home" style="position: fixed;bottom:10;left:90%;width:100%;color:red;color:white;" href = "{{url_for('home')}}">back home!</a>
+
 
 <br><br><br>
 

@@ -1,60 +1,100 @@
 <html>
 <head>
-	<link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 
-            <meta charset="utf-8">
+          <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <title>availabe quizes</title>
+
+<style>
+  .w3-wide {letter-spacing: 10px;}
+.w3-hover-opacity {cursor: pointer;}
+
+/* Turn off parallax scrolling for tablets and phones */
+@media only screen and (max-device-width: 1600px) {
+  .bgimg-1, .bgimg-2, .bgimg-3 {
+    background-attachment: scroll;
+    min-height: 400px;
+  }
+}
+
+.w3-top{
+  color:white;
+}
+
+.hoho{
+  color:white;
+}
+
+</style>
 </head>
 <body class="background">
-	<nav class="navbar navbar-expand-sm bg navbar">
-  <a class="navbar-brand" href="#">Logo</a>
-  <ul class="navbar-nav">
-    {%if usertype == teacher%}
-    <li class="nav-item">
-      <a class="h" href="{{url_for('create_quiz')}}">create a quiz</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('upload_course')}}">upload a course</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('feed')}}">advertize yourself</a>
-    </li>
-    {%endif%}
-  </ul>
-  <ul class="navbar-nav">
-  {%if usertype == teacher%}
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('all_teachers')}}">find your teacher</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('feed')}}">feed</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('quizes')}}">find fun quizes</a>
-    </li>
-    {%endif%}
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('my_profile')}}">my profile</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('chatlist')}}">chat rooms</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('contact_us')}}">contact us</a>
-    </li>
-    <li class="nav-item">
-      <a class="h" href = "{{url_for('logout')}}">log out</a>
-    </li>
-  </ul> 
-</nav>
-<br>
-<h1>availabe quizes</h1>
+<!-- Navbar (sit on top) -->
+
+{%if usertype== 'teacher'%}
+
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="{{url_for('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home"> Home</i></a>
+    <a href="#contact" class="w3-bar-item w3-button"><i class="fa fa-envelope-open"></i> Contact Us</a>
+    <a href="{{url_for('my_profile')}}" class="w3-bar-item w3-button"><i class="fa fa-user-circle"> My Profile</i></a>
+    <a href="{{url_for('create_quiz')}}" class="w3-bar-item w3-button"><i class="fa fa-file-word-o"> Create a quize</i></a>
+    <a href = "{{url_for('upload_course')}}" class="w3-bar-item w3-button"><i class="fa fa-upload"> Upload a course</i></a>
+    <a href = "{{url_for('feed')}}" class="w3-bar-item w3-button"><i class="fa fa-navicon">  Feed</i></a>
+    <a href = "{{url_for('feed')}}" class="w3-bar-item w3-button"><i class="fa fa-smile-o"> Advertize yourself</i></a>
+    <a href = "{{url_for('logout')}}" class="w3-bar-item w3-button"><i class="fa fa-power-off">  Log Out</i></a>
+  </div>
+</div>
+{%endif%}
+
+
+{%if usertype== 'student'%}
+
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="{{url_for('home')}}" class="w3-bar-item w3-button"><i class="fa fa-home"> Home</i></a>
+    <a href="{{url_for('contact_us')}}" class="w3-bar-item w3-button"><i class="fa fa-envelope-open"></i> Contact Us</a>
+    <a href="{{url_for('my_profile')}}" class="w3-bar-item w3-button"><i class="fa fa-user-circle"> My Profile</i></a>
+    <a href="{{url_for('all_teachers')}}" class="w3-bar-item w3-button"><i class="fa fa-vcard-o"> Find your teacher</i></a>
+    <a href = "{{url_for('feed')}}" class="w3-bar-item w3-button"><i class="fa fa-navicon">  Feed</i></a>
+    <a href = "{{url_for('quizes')}}" class="w3-bar-item w3-button"><i class="fa fa-file-word-o"> Fun quizes</i></a>
+    <a href = "{{url_for('chatlist')}}" class="w3-bar-item w3-button"><i class="fa fa-commenting">  Chatrooms</i></a>
+    <a href = "{{url_for('logout')}}" class="w3-bar-item w3-button"><i class="fa fa-power-off">  Log Out</i></a>
+  </div>
+</div>
+{%endif%}
+
+
+<br><br><br>
+<h1 style="color:white !important;">availabe quizes</h1>
+
+
+
 <hr>
 
 {%for quiz in quizes%}
@@ -68,7 +108,7 @@ Level: {{quiz.level}}</span>
 {%endfor%}
 
 
-<a href ="{{url_for('home')}}">back home!</a>
+<!-- <a href ="{{url_for('home')}}">back home!</a> -->
 
 
 

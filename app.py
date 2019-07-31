@@ -560,7 +560,7 @@ def contact_us():
 					recipients=['lftstartup@gmail.com'])
 				msg.body = username + " has reached out.\n"+ title +"\n" + body + "\n" + email
 				mail.send(msg)
-			return render_template("contact_us.html")
+			return render_template("contact_us.html", usertype=usertype)
 		else:
 			return redirect(url_for('login'))
 	else:
@@ -716,7 +716,7 @@ def chatroom(name):
 					chat = query_chat(name)
 					messages = get_chat_messages(name)
 					redirect(url_for('chatroom', name = name))
-					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1])
+					return render_template('chatroom.html', name = name, chat = chat, messages = messages[::-1], usertype=usertype)
 			else:
 				return redirect(url_for('chatlist'))
 		else:
@@ -767,7 +767,7 @@ def chatlist():
 					create_chat(name, username)
 					chats = all_chats()
 					redirect(url_for('chatlist'))
-					return render_template("chatroom_list.html", chats = chats)
+					return render_template("chatroom_list.html", chats = chats, usertype=usertype)
 
 			chats = all_chats()
 			redirect(url_for('chatlist'))
@@ -847,7 +847,7 @@ def quizes():
 			username = login_session['username']
 			usertype = login_session['usertype']
 			quizes = get_quizes()
-			return render_template("quizes.html", quizes = quizes)
+			return render_template("quizes.html", quizes = quizes, usertype=usertype)
 		else:
 			return redirect(url_for('login'))
 	else:

@@ -1,11 +1,19 @@
+.lay{
+  background-image: url("dd.jpeg") !important;
+}
+
+#myImg {
+  filter: brightness(150%);
+}
+
+
 .background {
   background: 
     linear-gradient(
       rgba(140, 170, 231, 0.88),
       rgba(140, 170, 231, 0.88)
-    ),
-
-    url("marah.jpg");
+    )
+    
 }
 
 .buttonlook {border-radius: 12px;}
@@ -13,7 +21,7 @@
 
 .background::after {
     content: "";
-    background: rgba(0, 255, 255, 0.3);
+    background: rgba(0, 255, 255, 0.3)!important;
     position: all;
     top: 0;
     left: 0;
@@ -83,6 +91,7 @@ iframe {
   width: 10%;
   border-radius: 50%;
   text-align: center;
+
   margin: 24px 0 12px 0;
   position: relative;
   bottom: 50px
