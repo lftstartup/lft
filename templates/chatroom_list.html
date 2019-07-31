@@ -258,7 +258,7 @@ input {
   <h3 class="w3-center" style="color:white !important;">Available Chatrooms</h3>
     <ul style="position: center;" class="w3-ul w3-card-4 w3-white">
         {%for chat in chats%}
-      <li class="w3-padding-20">
+      <li class="w3-padding-20 w3-hide-medium">
         <span class="w3-xlarge"><a href = "{{url_for('chatroom', name = chat.name)}}" id="chat">{{chat.name}}</a>
 </span><br>
       </li>
@@ -269,16 +269,16 @@ input {
 
 <!-- Container (Portfolio Section) -->
 <div class="w3-content w3-container w3-padding-64" id="portfolio" style="position: center;">
-<a href="#section2" style="color:white !important; font-size:30px;">Create a chatroom!</a><br>
+<a href="#section2" style="color:white !important; font-size:30px;">Create a chatroom!</a><br><br>
 </div>
 
 <div class="main" id="section2">
 <form action="/chatlist" method = 'post' style="padding-left: 370px;">
-  <h3 id="name" style="color:white !important;"> Chatroom name:</h3><br>
+  <h3 id="name" style="color:white !important; font-size: 25px;"> Chatroom name:</h3><br>
   
   <input style="padding-bottom: 10px; margin-bottom: 10px;" type="text" name="name">
   <br>
-  <input class="btn btn-primary btn-block btn-large" style="width:100px !important ; position: relative;bottom: : 160px" type="submit" value="Create">
+  <input class="btn btn-primary btn-block btn-large" style="width:200px !important ; position: relative;bottom: : 160px" type="submit" value="Create">
 </form>
 <br>
 

@@ -2,6 +2,7 @@
 <head>
       <link rel="stylesheet" href="{{ url_for('static', filename='noor.css') }}">
 
+
           <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -106,7 +107,28 @@ input {
   color:white;
 }
 
-body {
+.blabla{
+  position: fixed;
+  padding-left:70%;
+  padding-right:100px;
+  padding-top:100px;
+  padding-bottom:0px;
+
+}
+
+h1{
+  color:white !important;
+}
+h2{
+  color:white !important;
+}
+h3{
+  color:white !important;
+}
+span{
+  color:white !important;
+}
+
   font-family: helvetica;
   display: flex ;
   flex-direction: column;
@@ -114,7 +136,12 @@ body {
 }
 
 .chat {
+  padding-left:10px;
+  margin-right:50px;
+  padding-top:0px;
+  padding-bottom:50px;
   width: 300px;
+  border: solid 1px #EEE;
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -124,6 +151,7 @@ body {
   margin-top: 30px;
   display: flex;
   flex-direction: column;
+  margin-right:48%;
 }
 
 .message {
@@ -176,8 +204,8 @@ body {
   margin-left: 25%;
   background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
   background-attachment: fixed;
-/*  position: relative;
-*/}
+  position: relative;
+}
 
 .mine .message.last:before {
   content: "";
@@ -187,12 +215,12 @@ body {
   right: -8px;
   height: 20px;
   width: 20px;
-  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background: linear-gradient(#0085D1 100%);
   background-attachment: fixed;
   border-bottom-left-radius: 15px;
 }
 
-.mine .message.last:after {
+/*.mine .message.last:after {
   content: "";
   position: absolute;
   z-index: 1;
@@ -203,9 +231,20 @@ body {
   background: white;
   border-bottom-left-radius: 10px;
 }
+*/
+
+div.absolute {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  width: 200px;
+  height: 100px;
+  border: 3px solid #73AD21;
+}
 
 </style></head>
 <body class="background">
+<!-- Navbar (sit on top) -->
 
 
 {%if usertype== student%}
@@ -240,39 +279,35 @@ body {
 </div>
 {%endif%}
 
-<br><br><br>
-<h1 style="margin-left: 15px;">  </h1><br>
-<h1 style="margin-left: 15px;">  </h1><br>
+<br><br>
+<h1 style="margin-left: 150px;">Chatroom Page</h1><br>
 
-
-	{%for m in messages%}
-  <div class="chat">
+<div class="chat">
+  {%for m in messages%}
   <div class="mine messages">
+    {{m.sender}}
     <div class="message last">
-      {{m.message}}
+    {{m.message}}
      </div>
-     <!-- {{m.sender}}, -->{{m.time}}
+     {{m.time}}
   </div>
-  <div class="yours messages">
-    <div class="message">
-      {{m.message}}
-    </div>
-     <!-- {{m.sender}}, -->{{m.time}}
-   </div>
+  {%endfor%}
+</div>
 
-<!-- 	<span style="margin-left: 15px;">{{m.sender}}[{{m.time}}]: {{m.message}}</span>
- -->	
-	{%endfor%}
-
-
+<div class="blabla">
   <form action="/chatroom/{{name}}" method = "post" name = "myform">
-  <input type="text" name="message" style="position: relative;top: 160px"><br/><br/>
-  <input class="btn btn-primary btn-block btn-large" type="submit" value="Send" style="width:100px !important ; position: relative;top: 160px">
+  <input type="text" name="message" style="position: relative;top: 120px"><br/><br/>
+  <input class="btn btn-primary btn-block btn-large" type="submit" value="Send" style="width:100px !important ; position: relative;top: 120px">
   </form>
+<br><br><br>
+
   <a style="position: relative;left: 90%;
    position: relative;top: 110px;
    color: white"
   href = "{{url_for('chatlist')}}">back to chat list</a>
+
+</div>
+
   <meta http-equiv="refresh" content="20; URL=http://127.0.0.1/chatroom/{{name}}">
 <script>
 	setTimeout(function(){
