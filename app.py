@@ -625,12 +625,12 @@ def my_profile():
 					for course in upleveled_courses:
 						teach = query_teacher_username(course.teacher)
 						upleveled_teachers.append(teach)
-				return render_template('my_profile.html', leveled_teachers = leveled_teachers, upleveled_teachers = upleveled_teachers, courses = acourses, user = user, usertype = usertype, student = student, teacher = teacher)
+				return render_template('my_profile.html', leveled_teachers = leveled_teachers, upleveled_teachers = upleveled_teachers, courses = acourses, user = user, usertype = usertype, student = student, teacher = teacher, username=username)
 			else:
 				user = query_teacher_username(username)
 				courses = query_courses_teacher(username)
 				posts = query_posts_teacher(username)
-				return render_template('my_profile.html', posts = posts, courses = courses, user = user, usertype = usertype, student = student, teacher = teacher)
+				return render_template('my_profile.html', posts = posts, courses = courses, user = user, usertype = usertype, student = student, teacher = teacher, username=username)
 		else:
 			return redirect(url_for('login'))
 	else:

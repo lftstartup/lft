@@ -282,10 +282,10 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
         <div class="w3-container">
          <h4 class="w3-center" id="hay">My Profile</h4>
          <div class="loll">
-         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" ></p>
+         <p class="w3-center"><img src="/static/teacher.png" class="w3-circle" style="height:106px;width:106px" ></p>
          <hr id="hehe">
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
-         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+         <p><i class="fa fa-address-book-o fa-fw w3-margin-right w3-text-theme"></i> {{user.username}}</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> {{user.language}}</p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
        </div>
         </div>
@@ -302,15 +302,14 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 <div id="stop">
 	<h1 class="name">{{user.firstname}} {{user.lastname}}'s profile</h1>
 </div>
-	<h3 class="coursee" style="position: fixed; bottom: 14%;left:3%;  width:100%;font-size: 25px;">Amount of courses: {{user.courses}}</h3>
-	<h3 class="coursee" style="position: fixed; bottom: 8%;left:3%; width:100%;font-size: 25px;">Amount of buyers: {{user.buyers}}</h3>
-  <br>
+	<h3 class="coursee">Amount of courses: {{user.courses}}</h3>
+	<h3 class="coursee">Amount of buyers: {{user.buyers}}</h3>
   <!-- IMPORTANT!!!!!!!!!!!! DONT FORGET TO UNCOMMENT THIS!!!!!!!!!!!!! -->
 <!--   <span><a href = "{{url_for('notify')}}">declare a chatting session!</a></span>
- -->  <br>
-  <h2 class="components" style="position: fixed; left:3%;  width:100%;font-size: 25px; ">Posts:</h2>
-	<br><br><br><Br>
-	<hr class="horiz">
+   -->
+  <h3 class="coursee">Posts:</h3>
+	<br>
+	<hr class="coursee">
 	{%for post in posts%}
 		<br>
 		<span>{{post.title}}</span>
@@ -322,9 +321,9 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 		</video>
 	{%endfor%}
 	<br>
-	<h2 class="components" style="position: fixed; left:3%;  width:100%;font-size: 25px;">My courses:</h2>
+	<h2 class="coursee" style="position: fixed; left:3%;  width:100%;font-size: 25px;">My courses:</h2>
 	<br><Br><br><br><br>
-	<hr class="horiz">
+	<hr class="coursee">
 	{%for course in courses%}
 
 
@@ -391,9 +390,9 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
         <div class="w3-container">
          <h4 class="w3-center" id="hay">My Profile</h4>
          <div class="loll">
-         <p class="w3-center"><img src="/w3images/avatar3.png" class="w3-circle" style="height:106px;width:106px" ></p>
+         <p class="w3-center"><img src="/static/s.png" class="w3-circle" style="height:106px;width:106px" ></p>
          <hr id="hehe">
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+         <p><i class="fa fa-address-book-o fa-fw w3-margin-right w3-text-theme"></i> {{user.username}}</p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
        </div>
@@ -412,7 +411,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 	<h1 class="name">{{user.username}}'s profile</h1>
 </div>
 	<h3 class="coursee">Courses I bought :</h3>
-	<hr>
 	{%for course in courses%}
 
 		<h3><a href = "{{url_for('courses', ids = course.id)}}"><b>title: {{course.title}}</b></a></h3>
@@ -420,14 +418,14 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
 	{%endfor%}
 	<br>
 	<h3 class="coursee">Teachers who has courses in my level:</h3>
-	<hr>
+
 	{%for teacher in leveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>
 	<br>
 	{%endfor%}
 	<br>
 	<h3 class="coursee" >Teachers who has courses in my next level:</h3>
-	<hr>
+
 	{%for teacher in upleveled_teachers%}
 	<span><a href = "{{url_for('profile_name', name = teacher.username)}}">{{teacher.firstname}} {{teacher.lastname}}</a></span>
 	<br><br><br>
