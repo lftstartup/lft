@@ -1,3 +1,8 @@
+
+
+
+
+
 .lay{
   background-image: url("dd.jpeg") !important;
 }
@@ -6,7 +11,7 @@
   filter: brightness(150%);
 }
 
-
+/*
 .background {
   background: 
     linear-gradient(
@@ -14,12 +19,13 @@
       rgba(140, 170, 231, 0.88)
     )
     
-}
+}*/
 
 .buttonlook {border-radius: 12px;}
 
 
-.background::after {
+
+/*.background::after {
     content: "";
     background: rgba(0, 255, 255, 0.3)!important;
     position: all;
@@ -29,7 +35,7 @@
     bottom: 0;
     z-index: 1;
 
-}
+}*/
 
 .background > * {
     z-index: 10];
