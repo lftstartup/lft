@@ -3,12 +3,17 @@
 
 
 
-.lay{
+/*.lay{
   background-image: url("dd.jpeg") !important;
 }
-
+*/
 #myImg {
   filter: brightness(150%);
+}
+
+body{
+      background-image: url('/static/grey.jpg');
+
 }
 
 /*
