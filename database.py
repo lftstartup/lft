@@ -89,18 +89,20 @@ def query_posts_teacher(teacher):
 	return posts
 #create a new lecture
 def create_course(teacher, title, language, topic, videos, trailer, level):
-	if len(videos) == 1:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0],video_amount = 1, buyers = 0, purchased = "", trailer = trailer, level = level)
-	elif len(videos) == 2:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video_amount = 2, purchased = "", trailer = trailer, level = level)
-	elif len(videos) == 3:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2],video_amount = 3, purchased = "", trailer = trailer, level = level)
-	elif len(videos) == 4:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2], video4 = videos[3], video_amount = 4, purchased = "", trailer = trailer, level = level)
-	else:
-		course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[-4],  buyers = 0, video3 = videos[-3], video4 = videos[-2], video5 = videos[-1], video_amount = 5, purchased = "", trailer = trailer, level = level)
-	session.add(course)
-	session.commit()
+	if len(videos) > 0:
+		
+		if len(videos) == 1:
+			course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0],video_amount = 1, buyers = 0, purchased = "", trailer = trailer, level = level)
+		elif len(videos) == 2:
+			course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video_amount = 2, purchased = "", trailer = trailer, level = level)
+		elif len(videos) == 3:
+			course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2],video_amount = 3, purchased = "", trailer = trailer, level = level)
+		elif len(videos) == 4:
+			course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[1], buyers = 0, video3 = videos[2], video4 = videos[3], video_amount = 4, purchased = "", trailer = trailer, level = level)
+		else:
+			course = Courses(teacher = teacher, title = title, language = language, topic = topic, video1 = videos[0], video2 = videos[-4],  buyers = 0, video3 = videos[-3], video4 = videos[-2], video5 = videos[-1], video_amount = 5, purchased = "", trailer = trailer, level = level)
+		session.add(course)
+		session.commit()
 #get all courses
 def query_courses():
 	courses = session.query(Courses).all()
