@@ -88,10 +88,11 @@ def upload_course():
 					trailer = url_for('uploaded_file', filename = filename)
 				else:
 					return render_template("upload_course.html")
+				videos = []
 				if video1 and allowed_file(video1.filename):
 					filename = secure_filename(video1.filename)
 					video1.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-					videos = [url_for('uploaded_file', filename = filename)]
+					videos.append(url_for('uploaded_file', filename = filename))
 				if video2.filename:
 					if video2 and allowed_file(video2.filename):
 						filename = secure_filename(video2.filename)
@@ -629,6 +630,8 @@ def my_profile():
 			else:
 				user = query_teacher_username(username)
 				courses = query_courses_teacher(username)
+				print('HELLOOOO')
+				print(courses)
 				posts = query_posts_teacher(username)
 				return render_template('my_profile.html', posts = posts, courses = courses, user = user, usertype = usertype, student = student, teacher = teacher, username=username)
 		else:
